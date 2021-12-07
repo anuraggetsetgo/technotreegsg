@@ -1,0 +1,40 @@
+{
+  "files": {
+    "main.css": "./static/css/main.b8b0afe1.chunk.css",
+    "main.js": "./static/js/main.05d751bf.chunk.js",
+    "main.js.map": "./static/js/main.05d751bf.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.17b2da7a.js",
+    "runtime-main.js.map": "./static/js/runtime-main.17b2da7a.js.map",
+    "static/css/2.ab75b8d7.chunk.css": "./static/css/2.ab75b8d7.chunk.css",
+    "static/js/2.40e36405.chunk.js": "./static/js/2.40e36405.chunk.js",
+    "static/js/2.40e36405.chunk.js.map": "./static/js/2.40e36405.chunk.js.map",
+    "static/js/3.b1fd4032.chunk.js": "./static/js/3.b1fd4032.chunk.js",
+    "static/js/3.b1fd4032.chunk.js.map": "./static/js/3.b1fd4032.chunk.js.map",
+    "index.html": "./index.html",
+    "service-worker.js": "./service-worker.js",
+    "service-worker.js.map": "./service-worker.js.map",
+    "static/css/2.ab75b8d7.chunk.css.map": "./static/css/2.ab75b8d7.chunk.css.map",
+    "static/css/main.b8b0afe1.chunk.css.map": "./static/css/main.b8b0afe1.chunk.css.map",
+    "static/js/2.40e36405.chunk.js.LICENSE.txt": "./static/js/2.40e36405.chunk.js.LICENSE.txt",
+    "static/media/Exo2-Thin.659c22bf.ttf": "./static/media/Exo2-Thin.659c22bf.ttf",
+    "static/media/SplashGSG.6d94aa00.png": "./static/media/SplashGSG.6d94aa00.png",
+    "static/media/WelcomeScreen.6e78d382.png": "./static/media/WelcomeScreen.6e78d382.png",
+    "static/media/Workout1.1ddf62a9.png": "./static/media/Workout1.1ddf62a9.png",
+    "static/media/camera.png": "./static/media/camera.f376a739.png",
+    "static/media/egg.1e81a58d.png": "./static/media/egg.1e81a58d.png",
+    "static/media/exo-2-v7-latin-500.8dd11dff.woff2": "./static/media/exo-2-v7-latin-500.8dd11dff.woff2",
+    "static/media/exo-2-v7-latin-600.c8ad7903.woff2": "./static/media/exo-2-v7-latin-600.c8ad7903.woff2",
+    "static/media/exo-2-v7-latin-regular.bb065816.woff2": "./static/media/exo-2-v7-latin-regular.bb065816.woff2",
+    "static/media/gallery.png": "./static/media/gallery.b9f8cd66.png",
+    "static/media/gym.fa6e40c2.png": "./static/media/gym.fa6e40c2.png",
+    "static/media/meal.c082a416.png": "./static/media/meal.c082a416.png",
+    "static/media/nonveg.a08ac0b4.png": "./static/media/nonveg.a08ac0b4.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.17b2da7a.js",
+    "static/css/2.ab75b8d7.chunk.css",
+    "static/js/2.40e36405.chunk.js",
+    "static/css/main.b8b0afe1.chunk.css",
+    "static/js/main.05d751bf.chunk.js"
+  ]
+}

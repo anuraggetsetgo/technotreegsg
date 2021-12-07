@@ -1,0 +1,34 @@
+{ 
+    "profileUpdateDialog": [
+        { "type":"weigth",
+          "header":"Current Weight", 
+          "Footerline1": "Drag the scale to left or right to",
+          "Footerline2":"choose your weight",
+          "unit1":"lbs",
+          "unit1dialogContentElement":"",
+          "unit1Elementprops":"{min='30' max='200' stepInBetweenEachInterval ='10' distanceBetweenEachStep='10' interval='1' bigStepHeight='70' smallStepHeight='50' boundary={[10,20,10,20]} scaleIsTop={false} valueIsTop={false}}",
+          "unit2":"kgs",
+          "unit2dialogContentElement":"",
+          "unit2Elementprops":"{min='30' max='200' stepInBetweenEachInterval ='10' distanceBetweenEachStep='10' interval='1' bigStepHeight='70' smallStepHeight='50' boundary={[10,20,10,20]} scaleIsTop={false} valueIsTop={false}}"
+
+        },
+        { "header":"Neck", 
+          "Footerline1": "Drag the scale to left or right to",
+          "Footerline2":"choose your weight",
+          "unit1":"in",
+          "unit2":"cm"
+        },
+        { "header":"Wasit Size", 
+          "Footerline1": "Drag the scale to left or right to",
+          "Footerline2":"choose your waist size", 
+          "unit1":"in",
+          "unit2":"cm"
+        },
+        { "header":"Hip Size", 
+          "Footerline1": "Drag the scale to left or right to",
+          "Footerline2":"choose your weight", 
+          "unit1":"in",
+          "unit2":"cm"
+        }
+    ]
+  }

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "45362827212",
+    "project_id": "getsetgo-6767e",
+    "storage_bucket": "getsetgo-6767e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:45362827212:android:3e87ae583ab3b3778e5769",
+        "android_client_info": {
+          "package_name": "io.getsetgo.fitness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "45362827212-g95k49rtp136nfk02k9fblq6hfv526r1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCk33jDfOmCCVVhAhEt1ZmMqqtG-ddLg70"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "45362827212-g95k49rtp136nfk02k9fblq6hfv526r1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "45362827212-r7kmcfe4ldh6i4l0pb8erfer9jh1c6d0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.getsetgo.fitness"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

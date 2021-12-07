@@ -1,0 +1,70 @@
+{
+	"URLs": {
+		"base": {
+			"in": "http://base.getsetgoclients.com/API/v1/",
+			"ae": "http://34.229.214.23/base/API/v1/"
+		},
+		"IPInfo": "https://ipinfo.io?token=22065f6a076bdf",
+		"S3BucketURL": "https://gsg-image-uploads.s3-accelerate.amazonaws.com/webcontent",
+		"coaches": "searchtrainers/0"
+	}, 
+	"firebase": {
+		"credentials": {
+			"email": "gsgfitness@gmail.com",
+			"password": "qweR9876"
+		},
+		"in_region": {
+			"config": {
+				"apiKey": "AIzaSyDteQ-sFC8LQpWsN1x9SrGlI9kO6GWqJ5I",
+				"authDomain": "diet-tool-cbaea.firebaseapp.com",
+				"databaseURL": "https://diet-tool-cbaea.firebaseio.com",
+				"projectId": "diet-tool-cbaea",
+				"storageBucket": "diet-tool-cbaea.appspot.com",
+				"messagingSenderId": "789030174247"
+			}
+		},
+		"ae_region": {
+			"config": {
+				"apiKey": "AIzaSyCRY6MYlZ2DwIm_JIAdSzgeCXr35BYjutY",
+				"authDomain": "gsg-uae-data.firebaseapp.com",
+				"databaseURL": "https://gsg-uae-data.firebaseio.com",
+				"projectId": "gsg-uae-data",
+				"storageBucket": "gsg-uae-data.appspot.com",
+				"messagingSenderId": "68094594602"
+			}
+		},
+		"us_region": {
+			"config": {
+				"apiKey": "AIzaSyDIvxlK7Xz8XOxUQ_KiSTC9lXfbL0tF5nE",
+				"authDomain": "gsg-row-data.firebaseapp.com",
+				"databaseURL": "https://gsg-row-data.firebaseio.com",
+				"projectId": "gsg-row-data",
+				"storageBucket": "gsg-row-data.appspot.com",
+				"messagingSenderId": "306584214549"
+			}
+		}
+	},
+	"messages": {
+		"errors": {
+			"emptyErr": "This field cannot be empty"
+		},
+		"warnings": {},
+		"loading": "Loading. Please wait ..."
+	},
+
+	"localData": {
+        "isAuthenticated": "isAuthenticated",
+        "GSG_client_auth": "GSG_client_auth",
+        "GSG_Client_data": "GSG_Client_data",
+        "client_user_id": "client_user_id",
+        "GSG_Client_Profile_Pic":"GSG_Client_Profile_Pic", 
+		"coach_id": "coach_id",
+        "fat_lost" : "fat_lost",
+        "muscle_gained" : "muscle_gained",
+        "active_calories":"active_calories",
+		"platform":"platform",
+		"notification_renew":"notification_renew",
+		"device_token":"device_token"
+    
+	}
+}
