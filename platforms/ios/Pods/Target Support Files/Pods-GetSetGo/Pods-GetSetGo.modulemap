@@ -1,6 +1,0 @@
-framework module Pods_GetSetGo {
-  umbrella header "Pods-GetSetGo-umbrella.h"
-
-  export *
-  module * { export * }
-}

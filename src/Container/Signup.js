@@ -91,7 +91,7 @@ export const Signup = (props) => {
     console.log(OTPdata);
     //callAPI(getURL("validate_otp"), "post", OTPVerificationSuccessful, OTPUVerificationerror, OTPdata);
     //console.log(OTPdata);
-    OTPVerificationSuccessful({ data: { message: "OTP VERified Success", token: 'b97ff59d6e91e55177c9683afc18ec828fdb1d3a42a6814a8e' } })
+    OTPVerificationSuccessful({ data: { message: "OTP VERified Success", token: '4d004a8e6215f4fa6f9cc6c5f46a988c3868106c14237e1962' } })
 
     function OTPVerificationSuccessful(data) {
       setOTPVerified(data.data.message);
