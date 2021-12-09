@@ -66,7 +66,7 @@ const workoutlastMonth = {
 }
 const workoutPrepared = {
     label1: 'How often in a week are you prepared',
-    label2: "to workout?",
+    label2: " to workout?",
     sub1: "Drag the scale to left or right to choose workout",
     sub2: "days / week",
     workout: { unit: 'workout', max: 7, min: 3, step: 1, interval: 1, defaultValue: 5 },
