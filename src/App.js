@@ -18,6 +18,8 @@ import Notifications from "./Container/Notification";
 import Support from "./Container/Support";
 import Profile from './Container/Profile'
 import Logout from "./Screens/Logout/Logout";
+import SignIn from "./Container/SignIn";
+import Register from "./Container/Register";
 import SpeedDial from './Container/Common/SpeedDial'
 
 
@@ -60,6 +62,8 @@ export default function App() {
           <Route path="/profile" exact component={Profile} />
           <Route path="/progress" exact component={Progress} />
           <Route path="/support" exact component={Support} />
+          <Route path="/login" exact component={SignIn} />
+          <Route path="/register" exact component={Register} />
           <Route path="/logout" exact render={(routeProps) => (<Logout changeLoginStatus={changeLoginStatus}/>)} />
           <Route path="/"  component={loggedIn?SpeedDial:empty}/>
           

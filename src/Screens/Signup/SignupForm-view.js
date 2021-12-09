@@ -83,6 +83,7 @@ const targetShape = {
     sub1: "Drag the scale to left or right to choose your",
     sub2: "target body fat percentage",
 }
+
 export default function SignupForm(props) {
     
     //const userInfo=props.userProfile
