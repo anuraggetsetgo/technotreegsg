@@ -9,13 +9,13 @@ import { useHistory } from 'react-router-dom'
 
 export default function Dashboard() {
   let history=useHistory();
-  
-if(get('device_token')){
-  onMessageTap((url)=>history.replace(url))
-  console.log(get('device_token'))
-}
-  else
-  getFCMToken();
+ //Notification token turned off 
+// if(get('device_token')){
+//   onMessageTap((url)=>history.replace(url))
+//   console.log(get('device_token'))
+// }
+//   else
+//   getFCMToken();
 const [userData, setUserData] = useState(JSON.parse(get("GSG_Client_data")))
 const [startingGoal, setStartingGoal] = useState(null);
 const [currentGoal, setCurrentGoal] = useState(null);
