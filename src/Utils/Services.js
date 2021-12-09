@@ -165,6 +165,9 @@ function kgtolb(w) {
 function fttocm(w) {
   return w * 30.48;
 }
+function inchtoft(w){
+  return w/12;
+}
 function cmtoft(w) {
   return w * 0.0328084;
 }
@@ -194,6 +197,7 @@ export {
   lbtokg,
   kgtolb,
   fttocm,
+  inchtoft,
   cmtoft,
   formatDate
 };

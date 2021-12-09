@@ -1,4 +1,4 @@
-import './App.css';
+
 import React from 'react'
 import Location from './Screens/Location/Location'
 import GetStarted from "./Container/GetStarted";
@@ -19,7 +19,8 @@ import Support from "./Container/Support";
 import Profile from './Container/Profile'
 import Logout from "./Screens/Logout/Logout";
 import SpeedDial from './Container/Common/SpeedDial'
-
+import "nouislider/distribute/nouislider.css";
+import './App.css';
 
 export default function App() {
 
