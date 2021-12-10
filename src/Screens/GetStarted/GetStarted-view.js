@@ -7,7 +7,7 @@ import WelcomeScreen from '../../img/WelcomeScreen.png'
 
 export default function Start(props) {
 
-  const {getStarted}=props;
+  const {getStarted, Login}=props;
   return (
     <Grid container alignItems="center" justify="center" direction="column">
       {/* <Grid style={Style.backImg}></Grid> */}
@@ -17,8 +17,8 @@ export default function Start(props) {
         <Grid item><Typography style={Style.marginTB16} variant="h5" color='secondary' >Nutrition | Workout | Lifestyle</Typography></Grid>
       </Grid>
       <Grid container style={Style.loginContainer} direction='column' justify="flex-end" alignItems='center' alignContent='center' >
-        <Button className="bigButton" style={Style.width100} variant="contained" color="primary" onClick={getStarted}>Get Started</Button>
-
+        <Button className="bigButton" style={Style.width100} variant="contained" color="primary" onClick={Login}>Login</Button>
+        <Button className="bigButton" style={Style.width100} variant="contained" color="primary" onClick={getStarted}>Register</Button>
       </Grid>
     </Grid>
   );

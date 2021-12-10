@@ -56,7 +56,6 @@ const LoginContainer = (props) => {
     //props.setAuth(true); //Till auth
     //history.replace("/");
     proceedToDashboard();
-    
   };
   const errorLoginSuccessful = err => {
     updateCredentials(err);

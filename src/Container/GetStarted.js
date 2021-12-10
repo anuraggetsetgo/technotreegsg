@@ -7,8 +7,10 @@ export default function GetStarted(props) {
   let history=useHistory();
   //const [proceedToSignUp, setproceedToSignUp] = useState(false);
   //const getStarted=()=>{setproceedToSignUp(true);}
-  const getStarted=()=>{history.replace('/signup')}
-  return (<><GetStartedView getStarted={getStarted} {...props}></GetStartedView>
+  const getStarted=()=>{history.push('/register')}
+  const Login=()=>{history.push('/login')}
+
+  return (<><GetStartedView getStarted={getStarted} Login={Login} {...props}></GetStartedView>
     {/* // {!proceedToSignUp &&()}
     // {proceedToSignUp &&(<Signup {...props}></Signup>)} */}
     </>

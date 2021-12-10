@@ -3,6 +3,7 @@ import React,{useState} from 'react'
 import { Button, Grid, Typography, Paper, Card, CardHeader, Avatar, CardMedia, CardContent } from '@material-ui/core';
 import IMG_Meal from '../../img/meal.png';
 //import Styles from './Meal-Style'
+import Styles from '../../app-style'
 import { makeStyles } from '@material-ui/core/styles';
 import MealTable from './Meal-Table'
 
@@ -29,7 +30,7 @@ const useStyles = makeStyles(() => ({
         height: '65%',
         bottom: 0,
         zIndex: 1,
-        background: 'linear-gradient(to top, #000, rgba(0,0,0,0))',
+        background: '#f6f4f6',
       },
     },
     content: {
@@ -59,38 +60,40 @@ export default function MealCard(props) {
             return '';
         return (`${dt.split(" ")[0]}, ${dt.split(" ")[1]} ${dt.split(" ")[2]}`)
     }
-    return (<>
-        <Card  className={styles.card} >
-            <CardHeader avatar={<Avatar aria-label="Recipe" >{diet.meta.name.charAt(0)}</Avatar>}
-                title={diet.meta.name.length > 70 ? diet.meta.name.slice(0, 70) + ' ...' : diet.meta.name}
-                subheader={diet.meta.dateStart_db ? `${getFormattedDate(diet.meta.dateStart_db)} - ${getFormattedDate(diet.meta.dateEnd_db)}` : ''}
-            />
-            <CardMedia  className={styles.media} image={diet.meta.dietPref=="Veg"?eggMealImage:eggMealImage}
-            title={diet.meta.name} ><Paper/></CardMedia>
-            <CardContent style={{paddingBottom:'5px'}} className={styles.content}>
-                <Grid item xs={12}container direction='row' alignItems='center'  >
-                <Grid item xs={8}><Typography variant="body1" color='secondary' >
-                    {diet.meta.description ? (diet.meta.description.length > 90 ? diet.meta.description.slice(0, 90) + " ..." : diet.meta.description) : `Ingredients: ${diet.meta.ingredients}`}
-                </Typography>
+    return (
+        <Grid item style={{marginBottom: '20px'}}>
+            <Paper elevation={0} style={{background: '#f6f4f6', padding: '5%', borderRadius: '10px', overflow: 'hidden'}} onClick={()=>setshowDietModal(true)}>
+                <Grid container direction="column">
+                    <Grid item container direction="row" justify="space-between" style={{marginBottom: '20px'}}>
+                        <Grid item container direction="column" xs={8}>
+                            <Grid item>
+                                <Typography variant="subtitle2">
+                                    {diet.meta.name.length > 70 ? diet.meta.name.slice(0, 70) + ' ...' : diet.meta.name}
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="body2" style={Styles.textGreyO5}>
+                                    {diet.meta.dateStart_db ? `${getFormattedDate(diet.meta.dateStart_db)} - ${getFormattedDate(diet.meta.dateEnd_db)}`: ''}
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                        <Grid item container direction="column" xs={3} alignItems="center">
+                            <Grid item>
+                                <span class="material-icons" style={{...Styles.colorPrimary}}>local_fire_department</span>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="body2" style={Styles.textGreyO5}>{diet.meta.calRange} cals</Typography>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="body2">{diet.meta.description ? (diet.meta.description.length > 90 ? diet.meta.description.slice(0, 90) + " ..." : diet.meta.description) : `Ingredients: ${diet.meta.ingredients}`}</Typography>
+                    </Grid>
                 </Grid>
-                <Grid item xs={4} container justify='flex-end'>
-                <Button className='bigButton' color="primary" variant="contained" aria-label="View diet" onClick={()=>setshowDietModal(true)}>View</Button>
-               </Grid>
-               </Grid>
-            </CardContent>
-            
-            {/* <Collapse in={true} timeout="auto" unmountOnExit>
-            <CardContent>
-            {showDietModal && (<MealTable diet={props.diet.diet}/>)}
-                </CardContent>
-                </Collapse> */}
-            {/* <CardActions disableActionSpacing>
-                
-            </CardActions> */}
-        </Card>
-        {showDietModal && (
+            </Paper>
+            {showDietModal && (
         <MealTable diet={props.diet.diet} mealHeading={diet.meta.name} hide={setshowDietModal}/>)}
-    </>
+        </Grid>
     )
 }
 /*{ <Card >

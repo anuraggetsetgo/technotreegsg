@@ -188,7 +188,7 @@ export const Signup = (props) => {
       otpverified={otpverified}
       otpverification_error={otpverification_error}
       setOTPVerificationError={setOTPVerificationError}
-      showSignUpFrom={proceedToSignUp}
+      showSignUpFrom={true}//{proceedToSignUp}
       resetState={resetState}
       loading={loading}
       userProfile={userProfile}

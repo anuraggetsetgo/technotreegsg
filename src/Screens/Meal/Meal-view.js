@@ -108,15 +108,11 @@ export default function Meal(props) {
                         </Grid>
                     )}
                      { !trainerUploadPending && activeDiet && (
-                        <Grid item container direction='column' alignItems='center' justify='center'>
-                            <Grid item container direction='row' alignItems='center' justify='center'>
-                                {/* <Typography variant='body1' >"show active diet component"</Typography> */}
-                                {activeDiet.map((diets, index) => (
-                                    <>
-                                        <MealCard diet={diets} key={index} />
-                                    </>
-                                ))}
-                            </Grid>
+                        <Grid item container direction='column'>
+                            {/* <Typography variant='body1' >"show active diet component"</Typography> */}
+                            {activeDiet.map((diets, index) => (
+                                <MealCard diet={diets} key={index} />
+                            ))}
                         </Grid>
                     )}
                             { calculateDiet && calories && (
@@ -137,7 +133,7 @@ export default function Meal(props) {
                     </Grid>}
                 { otherDiet && (
                         <Grid item container direction='column' alignItems='center' justify='center'>
-                            <Grid item container direction='row' alignItems='center' justify='center'>
+                            <Grid item container direction='column'>
                                 {/* <Typography variant='body1' >"show archive  diet component"</Typography> */}
                                 {otherDiet.map((diets, index) => (
                                     <>

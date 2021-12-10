@@ -13,7 +13,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import DraggableSlider from '../../Container/Common/Slider/DraggableSlider';
 import ProjectedProgress from '../../Container/ProjectedProgress';
 import { convertNumberToHeightFeetInches } from '../../Container/Common/Slider/unitconfig'
-import { cmtoinch, cmtoft, kgtolb, fttocm, inchtocm, inchtoft } from '../../Utils/Services'
+import { cmtoinch, cmtoft, kgtolb, fttocm, inchtocm, inchtoft,get } from '../../Utils/Services'
 import AlertSnackbar, { ALERT } from '../../Container/Common/AlertSnackbar'
 import { api_profilePost } from '../../Utils/GSGApi';
 import Nouislider from "nouislider-react";
@@ -115,10 +115,12 @@ const targetShape = {
     sub1: "Drag the scale to left or right to choose your",
     sub2: "target body fat percentage",
 }
+
 export default function SignupForm(props) {
 
     //const userInfo=props.userProfile
-    const [userStoredData, setUserDataStored] = useState(props.userProfile)
+    //console.log(props)
+    const [userStoredData, setUserDataStored] = useState(JSON.parse(get("GSG_Client_data")))//props.userProfile)
     const [userData, setUserData] = useState({ firstname: userStoredData.firstname, lastname: userStoredData.lastname, email: userStoredData.email, sex: '', age: ages.defaultValue, height: height.ft.defaultValue, weight: '200', dietPref: '', noWorkouts: workoutlastMonth.workout.defaultValue, willingGym: '1', body_fat: currentShape.shape.defaultValue, fat: targetShape.shape.defaultValue, workout: workoutPrepared.workout.defaultValue })
     const [userData_API, setUserData_API] = useState({})
     const [section, setsection] = useState(props.question);
@@ -357,16 +359,20 @@ export default function SignupForm(props) {
                                     <Grid item container direction='row' alignItems='center' justify='center'>
                                         <Typography variant='body1'>{ages.label}</Typography>
                                     </Grid>
-                                    <Grid container direction="column" alignItems='center' justify='center' style={Styles.questionHeight}>
+                                    <Grid container direction="column" alignItems='center' justify='center' >
+                                        {/* //style={Styles.questionHeight}> */}
                                         <Grid item container direction="column" alignItems='center' justify='center'>
                                             {/* <Chip color="primary" style={Styles.chipStyles} label={userData.age} />
                                             <ArrowDropDownIcon style={Styles.arrowDown} /> */}
                                         </Grid>
-                                        <Grid container item style={{ display: 'block', padding: '20px 20px 40px 20px' }} direction='column' align='center' justify='center'>
+                                        <Grid container item style={{ display: 'block', padding: '20px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='age' type="age" unit='age' initialPosition={ages.defaultValue} min={ages.age.min} max={ages.age.max} stepInBetweenEachInterval={ages.age.step} interval={ages.age.interval}
                                                 distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop}  value={handleInputSlider} isTouched={setEnableNext} /> Technotree commented*/}
 
-                                            <Nouislider connect={[true, false]} range={{ min: parseInt(ages.age.min), max: parseInt(ages.age.max) }}
+                                            <Nouislider connect={[true, false]} 
+                                            orientation='vertical' style={{height:'70vh'}}
+                                            direction='rtl'
+                                            range={{ min: parseInt(ages.age.min), max: parseInt(ages.age.max) }}
                                                 start={ages.defaultValue}
                                                 step={1}
                                                 format=
@@ -421,9 +427,9 @@ export default function SignupForm(props) {
                             {section === 4 &&
                                 (<Grid item container style={Styles.marginTop16} direction='column' alignItems='center' justify='center' spacing={4} >
                                     <Grid item container direction='row' alignItems='center' justify='center'>
-                                        {/* <Typography variant='body1'>{height.label}</Typography> */}
+                                        <Typography variant='body1'>{height.label}</Typography>
                                     </Grid>
-                                    <Grid container direction="column" alignItems='center' justify='center' style={Styles.questionHeight}>
+                                    <Grid container direction="column" alignItems='center' justify='center' >
                                         <Grid item container direction='row' alignItems='center' justify='center'>
                                             <Button className="unitbuttonLeft" variant="contained" color={unit === 0 ? 'primary' : 'secondary'} onClick={() => changeUnit(0)}>{height.ft.unit}</Button>
                                             <Button className="unitbuttonRight" variant="contained" color={unit === 1 ? 'primary' : 'secondary'} onClick={() => changeUnit(1)}>{height.cm.unit}</Button>
@@ -432,11 +438,13 @@ export default function SignupForm(props) {
                                             {/* <Chip color="primary" style={Styles.chipStyles} label={unit === 0 ? (convertNumberToHeightFeetInches(userData.height)) : userData.height} />
                                             <ArrowDropDownIcon style={Styles.arrowDown} /> */}
                                         </Grid>
-                                        {unit === 0 && (<Grid container item style={{ display: 'block', padding: '20px 20px 40px 20px' }} direction='column' align='center' justify='center'>
+                                        {unit === 0 && (<Grid container item style={{ display: 'block', padding: '20px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='height' type="height" unit={height.ft.unit} min={height.ft.min} max={height.ft.max} stepInBetweenEachInterval={height.ft.step} interval={height.ft.interval}
                                                 distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
 
                                             <Nouislider connect={[true, false]}
+                                            orientation='vertical' style={{height:'65vh'}}
+                                            direction='rtl'
                                                 range={{ min: 3 * 12, max: 8 * 12 }} start={60}//value
                                                 step={1}
                                                 format=
@@ -475,10 +483,13 @@ export default function SignupForm(props) {
                                             {/* +  value[0].includes('in')?  parseInt( value[0].split('ft')[1].replace('in', '').trim())/12 :null */}
                                         </Grid>)}
 
-                                        {unit === 1 && (<Grid container item style={{ display: 'block', padding: '20px 20px 40px 20px' }} direction='column' align='center' justify='center'>
+                                        {unit === 1 && (<Grid container item style={{ display: 'block', padding: '20px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='height' type="height" unit={height.ft.unit} min={height.cm.min} max={height.cm.max} stepInBetweenEachInterval={height.cm.step} interval={height.cm.interval}
                                                 distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
-                                            <Nouislider connect={[true, false]} range={{ min: parseInt(height.cm.min), max: parseInt(height.cm.max) }}
+                                            <Nouislider connect={[true, false]} 
+                                            orientation='vertical' style={{height:'65vh'}}
+                                            direction='rtl'
+                                            range={{ min: parseInt(height.cm.min), max: parseInt(height.cm.max) }}
                                                 start={ages.defaultValue}
                                                 step={1}
                                                 format=
@@ -536,7 +547,7 @@ export default function SignupForm(props) {
                                     <Grid item container direction='row' alignItems='center' justify='center'>
                                         <Typography variant='body1'>{weight.label}</Typography>
                                     </Grid>
-                                    <Grid container direction="column" alignItems='center' justify='center' style={Styles.questionHeight}>
+                                    <Grid container direction="column" alignItems='center' justify='center' >
                                         <Grid item container direction='row' alignItems='center' justify='center'>
                                             <Button className="unitbuttonLeft" variant="contained" color={unit === 0 ? 'primary' : 'secondary'} onClick={() => changeUnit(0)}>{weight.lbs.unit}</Button>
                                             <Button className="unitbuttonRight" variant="contained" color={unit === 1 ? 'primary' : 'secondary'} onClick={() => changeUnit(1)}>{weight.kg.unit}</Button>
@@ -545,11 +556,13 @@ export default function SignupForm(props) {
                                             {/* <Chip color="primary" style={Styles.chipStyles} label={userData.weight} />
                                             <ArrowDropDownIcon style={Styles.arrowDown} /> */}
                                         </Grid>
-                                        {unit === 0 && (<Grid container item style={{ display: 'block', padding: '20px 20px 40px 20px' }} direction='column' align='center' justify='center'>
+                                        {unit === 0 && (<Grid container item style={{ display: 'block', padding: '20px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='weight' type="weight" initialPosition={weight.lbs.defaultValue} unit={weight.lbs.unit} min={weight.lbs.min} max={weight.lbs.max} stepInBetweenEachInterval={weight.lbs.step} interval={weight.lbs.interval}
                                                 distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
                                             <Nouislider connect={[true, false]} range={{ min: parseInt(weight.lbs.min), max: parseInt(weight.lbs.max) }}
                                                 start={weight.lbs.defaultValue}
+                                                orientation='vertical' style={{height:'65vh'}}
+                                            direction='rtl'
                                                 step={1}
                                                 format=
                                                 {{
@@ -592,12 +605,14 @@ export default function SignupForm(props) {
                                             />
 
                                         </Grid>)}
-                                        {unit === 1 && (<Grid container item style={{ display: 'block', padding: '20px 20px 40px 20px' }}  direction='column' align='center' justify='center'>
+                                        {unit === 1 && (<Grid container item style={{ display: 'block', padding: '20px' }}  direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='weight' type="weight" initialPosition={weight.kg.defaultValue} unit={weight.kg.unit} min={weight.kg.min} max={weight.kg.max} stepInBetweenEachInterval={weight.kg.step} interval={weight.kg.interval}
                                                 distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
                                             <Nouislider connect={[true, false]} 
                                                 range={{ min: parseInt(weight.kg.min), max: parseInt(weight.kg.max) }}
                                                 start={weight.kg.defaultValue}
+                                                orientation='vertical' style={{height:'65vh'}}
+                                            direction='rtl'
                                                 step={1}
                                                 format=
                                                 {{
@@ -854,17 +869,19 @@ export default function SignupForm(props) {
                                     <Grid item container direction='row' alignItems='center' justify='center'>
                                         <Typography variant='body1'>{currentShape.label}</Typography>
                                     </Grid>
-                                    <Grid container direction="column" alignItems='center' justify='center' style={Styles.questionHeight}>
+                                    <Grid container direction="column" alignItems='center' justify='center' >
                                         <Grid item container direction="column" alignItems='center' justify='center'>
                                             {/* <Chip color="primary" style={Styles.chipStyles} label={userData.body_fat} />
                                             <ArrowDropDownIcon style={Styles.arrowDown} /> */}
                                         </Grid>
-                                        <Grid container item style={{ display: 'block', padding:'20px 20px 40px 20px' }} direction='column' align='center' justify='center'>
+                                        <Grid container item style={{ display: 'block', padding:'20px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='body_fat' type="days" unit="%" min={currentShape.shape.min} max={currentShape.shape.max} initialPosition={currentShape.shape.defaultValue} stepInBetweenEachInterval={currentShape.shape.step} interval={currentShape.shape.interval}
                                                 distanceBetweenEachStep={distance * 2} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
 <Nouislider connect={[true, false]} range={{ min: parseInt(currentShape.shape.min), max: parseInt(currentShape.shape.max ) }}
                                                 onChange={(value) => handleInputSlider({ name: 'body_fat', type: "days", unit: '%', value: value[0].replace(' %', '').trim() })}
                                                 start={parseInt(currentShape.shape.defaultValue)}
+                                                orientation='vertical' style={{height:'65vh'}}
+                                            direction='rtl'
                                                 step={1}
                                                 format=
                                                 {{
@@ -914,7 +931,7 @@ export default function SignupForm(props) {
 
                                         <Grid container direction='column' style={Styles.gutter} alignItems='center' justify='center'>
                                             <Grid item><Typography variant='body2' style={Styles.colorGrey}>{currentShape.sub1}</Typography></Grid>
-                                            <Grid item><Typography variant='body2' style={{ ...Styles.colorGrey, opacity: '1' }}>{currentShape.sub2}</Typography></Grid>
+                                            <Grid item><Typography variant='body2' style={{...Styles.colorGrey }}>{currentShape.sub2}</Typography></Grid>
                                         </Grid>
                                     </Grid>
 
@@ -925,17 +942,19 @@ export default function SignupForm(props) {
                                     <Grid item container direction='row' alignItems='center' justify='center'>
                                         <Typography variant='body1'>{targetShape.label}</Typography>
                                     </Grid>
-                                    <Grid container direction="column" alignItems='center' justify='center' style={Styles.questionHeight}>
+                                    <Grid container direction="column" alignItems='center' justify='center' >
                                         <Grid item container direction="column" alignItems='center' justify='center'>
                                             {/* <Chip color="primary" style={Styles.chipStyles} label={userData.fat} />
                                             <ArrowDropDownIcon style={Styles.arrowDown} /> */}
                                         </Grid>
-                                        <Grid container item style={{ display: 'block', padding: '20px 20px 40px 20px' }} direction='column' align='center' justify='center'>
+                                        <Grid container item style={{ display: 'block', padding: '20px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='fat' type="days" unit="%" initialPosition={targetShape.shape.defaultValue} min={targetShape.shape.min} max={targetShape.shape.max} stepInBetweenEachInterval={targetShape.shape.step} interval={targetShape.shape.interval}
                                                 distanceBetweenEachStep={distance * 2} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
                                             <Nouislider connect={[true, false]} range={{ min: parseInt(targetShape.shape.min), max: parseInt(targetShape.shape.max ) }}
                                                 onChange={(value) => handleInputSlider({ name: 'fat', type: "days", unit: '%', value: value[0].replace(' %', '').trim() })}
                                                 start={parseInt(targetShape.shape.defaultValue)}
+                                                orientation='vertical' style={{height:'65vh'}}
+                                            direction='rtl'
                                                 step={1}
                                                 format=
                                                 {{

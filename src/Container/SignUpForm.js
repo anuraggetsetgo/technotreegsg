@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import SignupFromView from '../Screens/Signup/SignupForm-view'
-import { set} from '../Utils/Services'
+import { get,set} from '../Utils/Services'
 import {api_profileGet,api_profilePost} from '../Utils/GSGApi'
+import { useHistory } from 'react-router'
 
 export default function SignUpForm(props) {
     const [usersignedup, setUserSignedUp] = useState(false)
     const [usersignupError, setUserSignUpError] = useState(false)
     const [projectedProgress, setProjectedProgress] = useState(false)
     const [question,setQuestion] =useState(props.question||1)
-    
+    let history = useHistory();
     //const [question, setsection] = React.useState(props.question||1);
     //const [userData, setUserData] = useState(JSON.parse(get("GSG_Client_data")))
     const questionStart = props.question || 1;
@@ -60,7 +61,7 @@ export default function SignUpForm(props) {
     usersignedup={usersignedup}
     usersignupError={usersignupError}
     setProjectedProgress={setProjectedProgress}
-    
+    //userProfile={userData}
       {...props}
     />
     )

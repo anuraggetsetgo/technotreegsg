@@ -71,6 +71,7 @@
     "react-swipeable-views-core": "*",
     "react-transition-group": "^4.4.1",
     "rimraf": "^3.0.2",
+    "validator": "^13.7.0",
     "web-vitals": "^0.2.4",
     "workbox-background-sync": "^5.1.4",
     "workbox-broadcast-update": "^5.1.4",

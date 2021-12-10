@@ -8,7 +8,7 @@ import { colors } from "./Utils/Services";
 const exo = {
   fontFamily: "Exo",
   fontStyle: "normal",
-  fontWeight: 600,
+  fontWeight: 200,
   src: `local('Exo'),
        local('Exo-Regular') , 
        url(${Exo}) format('woff2');`,
@@ -57,6 +57,9 @@ const theme = createMuiTheme({
 
   typography: {
     fontFamily: 'Exo, Regular',
+    fontWeightBold: 600,
+    fontWeightRegular: 200,
+    fontWeightMedium: 500,
     //fontFamily: "Poppins,Arial",
     spacing: (value) => value ** 8,
     color: colors.secondary, // '#fff',
@@ -98,12 +101,13 @@ const theme = createMuiTheme({
       lineHeight: "1.2em",
     },
     subtitle2: {
-      fontSize: "1.6em",
-      lineHeight: "1.8em",
+      fontSize: "16px",
+      lineHeight: "24px",
+      fontWeight: 'medium'
     },
     body1:{
       fontSize: '16px',
-     
+      fontWeight: 'normal'
     },
     body2:{
       fontSize: '12px',
@@ -118,7 +122,7 @@ const theme = createMuiTheme({
   overrides: {
     MuiCssBaseline: {
       "@global": {
-        "@font-face": [exo],
+        "@font-face": exo
       },
     },
     MuiInputBase:{

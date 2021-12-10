@@ -1,8 +1,9 @@
 import React, { useState,useEffect } from "react";
+import { useHistory } from "react-router";
 import { get,set,removeItem,updateLoc} from "./Services";
 
 const Auth = (props) => {
-  
+  let history= useHistory()
   const [loggedIn, setLoggedIn] = useState(get("isAuthenticated"));
   const [location,setlocation] = useState( get('loc'));
   const [authToken,setAuthToken]=useState(get("GSG_client_auth"));
@@ -36,6 +37,7 @@ const Auth = (props) => {
       //console.log(get("isAuthenticated"));
       //console.log(get("GSG_client_auth"));
       setLoggedIn(currentState);
+      
   //  }//props.changeLoginStatus(currentState);
   }
 },[location,loggedIn,authToken]
@@ -46,7 +48,8 @@ const Auth = (props) => {
     return React.cloneElement(props.location, {...props,updateLocation});
 
     if (!loggedIn || !authToken)
-      return React.cloneElement(props.childrenNoAuth, {...props});
+      {    return React.cloneElement(props.childrenNoAuth, {...props});
+      }
     // else {
     //   callAPI("profile", "in", updateLogin, errLogin, props, "get");
     // }
