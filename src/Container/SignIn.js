@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import SignIn from '../Screens/SignIn/SignIn-view'
 import isLoadingHOC from '../hoc/isLoadingHOC';
 import { api_profileGet } from '../Utils/GSGApi'
-import {callAPI,getURL} from '../Utils/Services'
+import {callAPI, getURL, set} from '../Utils/Services'
 import AlertSnackbar, {ALERT} from "./Common/AlertSnackbar";
 import { useHistory } from "react-router";
 
@@ -34,9 +34,8 @@ export const SignInView = (props) => {
             alertType: ALERT.SUCCESS,
             alertMsg: 'Awesome! Login successful'
         });
-        window.localStorage.setItem('GSG_client_auth',data.token);
-        history.push("/dashboard");
-
+        set('GSG_client_auth',data.token);
+        //setUserProfile(); //to fetch user profile data
     };
     const handleErr = err => {
         const {response: { data: { errormessage }}} = err;
@@ -46,6 +45,18 @@ export const SignInView = (props) => {
             alertMsg: errormessage
         })
     };
+
+    const setUserProfile=()=>{
+        callAPI(
+            getURL("profile"),
+            "get",
+            profileSuccessful,
+            errorprofile
+        );
+    }
+    const profileSuccessful=(data)=>{set("GSG_Client_data",JSON.stringify(data.data));history.push("/dashboard");}
+
+    const errorprofile=(err)=>{set("GSG_Client_data",null)};
 
     return (
         <>
