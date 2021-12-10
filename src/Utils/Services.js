@@ -115,7 +115,7 @@ function setLoc(position) {
 //     return encrypted_string;
 //   }
 function callAPI(url, type, success, error, data, key) {
- const interceptor= Axios.interceptors.request.use(function (config) {
+  const interceptor = Axios.interceptors.request.use(function (config) {
     if (key) {
       config.headers["x-api-key"] = key;
     }
@@ -165,8 +165,8 @@ function kgtolb(w) {
 function fttocm(w) {
   return w * 30.48;
 }
-function inchtoft(w){
-  return w/12;
+function inchtoft(w) {
+  return w / 12;
 }
 function cmtoft(w) {
   return w * 0.0328084;
@@ -179,7 +179,16 @@ function formatDate(dt) {
   let date = dt.getDate() < 10 ? '0' + dt.getDate() : dt.getDate();
   return date ? `${date} ${months[dt.getMonth()]} ${dt.getFullYear()}` : '--'
 }
-
+function storeCompanyName() {
+  let url_string = window.location.href
+  let url = new URL(url_string);
+  let urlSplit = url.hash.split('/');
+  if (!get('company')) 
+  {
+    if (urlSplit.length >= 3 && urlSplit[1] === ('company'))
+      set('company', urlSplit[2])
+  }
+}
 export {
   docHt,
   docWd,
@@ -199,5 +208,6 @@ export {
   fttocm,
   inchtoft,
   cmtoft,
-  formatDate
+  formatDate,
+  storeCompanyName
 };

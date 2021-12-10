@@ -1,10 +1,10 @@
-
+import './App.css';
 import React from 'react'
 import Location from './Screens/Location/Location'
 import GetStarted from "./Container/GetStarted";
 import { HashRouter as Router, Route } from "react-router-dom";
 import Auth from './Utils/Auth';
-import { get } from './Utils/Services';
+import { get ,storeCompanyName} from './Utils/Services';
 import theme from './theme';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -19,12 +19,10 @@ import Support from "./Container/Support";
 import Profile from './Container/Profile'
 import Logout from "./Screens/Logout/Logout";
 import SpeedDial from './Container/Common/SpeedDial'
-import "nouislider/distribute/nouislider.css";
-import './App.css';
-import { useHistory } from 'react-router';
+
+
 export default function App() {
-  let history =useHistory();
-  
+  storeCompanyName();
   const empty = ()=>{return(<></>)}
   const [loggedIn, setloggedIn] = React.useState(get("isAuthenticated") || false);
     const changeLoginStatus=(status, data)=> {
