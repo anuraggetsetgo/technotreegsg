@@ -933,7 +933,7 @@ export default function SignupForm(props) {
                                         <Grid container item style={{ display: 'block', padding: '20px 20px 40px 20px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='fat' type="days" unit="%" initialPosition={targetShape.shape.defaultValue} min={targetShape.shape.min} max={targetShape.shape.max} stepInBetweenEachInterval={targetShape.shape.step} interval={targetShape.shape.interval}
                                                 distanceBetweenEachStep={distance * 2} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
-<Nouislider connect={[true, false]} range={{ min: parseInt(targetShape.shape.min), max: parseInt(targetShape.shape.max ) }}
+                                            <Nouislider connect={[true, false]} range={{ min: parseInt(targetShape.shape.min), max: parseInt(targetShape.shape.max ) }}
                                                 onChange={(value) => handleInputSlider({ name: 'fat', type: "days", unit: '%', value: value[0].replace(' %', '').trim() })}
                                                 start={parseInt(targetShape.shape.defaultValue)}
                                                 step={1}

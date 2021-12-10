@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ImageUpload from '../../Container/Common/ImageUpload'
 import { get, cmtoinch, inchtocm, lbtokg, kgtolb, } from '../../Utils/Services'
 import AlertSnackbar, { ALERT } from '../../Container/Common/AlertSnackbar'
+import Nouislider from "nouislider-react";
 const emptyImage = 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg';
 
 
@@ -43,6 +44,16 @@ export default function ProfileUpdate(props) {
   const [open, setOpenUpdateProgress] = useState(props.show);
   const clientOldProgress = props.userData.clientProgress.length > 0 ? props.userData.clientProgress[0] : null
   const distance = '10', bigStepHeight = '40', smallStepHeight = '20', boundary = [10, 20, 10, 20], scaleIsTop = false, valueIsTop = true
+ 
+  let weightlbsBlock = [];
+  for (var i = 66; i <= 441; i = i + 40) {
+      weightlbsBlock.push(i);
+  }
+  let weightkgBlock = [];
+  for (var i = 30; i <= 200; i = i + 20) {
+      weightkgBlock.push(i);
+  }
+ 
   const weight = {
     lbs: { unit: 'lbs', max: 441, min: 67, step: 10, interval: 10, },
     kg: { unit: 'kg', max: 200, min: 30, step: 10, interval: 1, },
@@ -112,6 +123,7 @@ export default function ProfileUpdate(props) {
       handleClose();
   };
   const handleInputSlider = (obj) => {
+    setEnableNext(true)
     let tempObj = { ...obj };
     console.log(obj, tempObj)
 
@@ -200,20 +212,107 @@ export default function ProfileUpdate(props) {
                     <Button className="unitbuttonRight" variant="contained" color={unit === 1 ? 'primary' : 'secondary'} onClick={() => changeUnit(1)}>{weight.kg.unit}</Button>
                   </Grid>
                   <Grid item container direction="column" alignItems='center' justify='center'>
-                    <Chip color="primary" style={Styles.chipStyles} label={unit === 0 ? parseInt(profiledata.weight) : parseInt(profiledata2.weight)} />
-                    <ArrowDropDownIcon className={classes.arrowDown} />
+                    {/* <Chip color="primary" style={Styles.chipStyles} label={unit === 0 ? parseInt(profiledata.weight) : parseInt(profiledata2.weight)} />
+                    <ArrowDropDownIcon className={classes.arrowDown} /> */}
                   </Grid>
-                  {unit === 0 && (<Grid container item style={{ display: 'block', overflow: 'hidden' }} direction='column' align='center' justify='center'>
-                    <DraggableSlider name='weight' type="weight" initialPosition={weight.defaultValue} unit={weight.lbs.unit} min={weight.lbs.min} max={weight.lbs.max} stepInBetweenEachInterval={weight.lbs.step} interval={weight.lbs.interval}
-                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} />
+                  {unit === 0 && (<Grid container item style={{ display: 'block', padding: '25px 0px'  }} direction='column' align='center' justify='center'>
+                    {/* <DraggableSlider name='weight' type="weight" initialPosition={weight.defaultValue} unit={weight.lbs.unit} min={weight.lbs.min} max={weight.lbs.max} stepInBetweenEachInterval={weight.lbs.step} interval={weight.lbs.interval}
+                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
+                      <Nouislider connect={[true, false]} range={{ min: parseInt(weight.lbs.min), max: parseInt(weight.lbs.max) }}
+                                                start={weight.defaultValue}
+                                                step={1}
+                                                format=
+                                                {{
+                                                    to: function (value) {
+                                                        var totalInches = Math.round(+value);
+                                                        //var feet = Math.floor(totalInches / 12);
+                                                        //var inches = totalInches % 12;
+                                                        //var feetString = (feet == 0 ? "" : feet + "ft ");
+                                                        //var inchString = (inches == 0 ? "" : inches + "in ");
+                                                        //var combinedString = (feetString + inchString).trim();
+                                                        return totalInches + ' lbs';
+                                                    },
+                                                    from: function (value) {
+                                                        return value.replace(' lbs', '');
+                                                    }
+                                                }}
+                                                tooltips={true}
+                                                pips={{
+                                                    mode: 'values',
+                                                    stepped: true,
+                                                    density: 1,
+                                                    values: [...weightlbsBlock],//[36, 48, 60, 72, 84, 96],
+                                                    // mode: 'values',
+                                                    // values: [36, 48, 60, 72, 84, 96],
+                                                    // density: 2,
+                                                    // stepped: true,
+                                                    format: {
+                                                        to: function (value) {
+                                                            var totalInches = Math.round(+value);
+                                                            //var feet = Math.floor(totalInches % 20);
+                                                            //var inches = totalInches % 12;
+                                                            return totalInches ;
+                                                        }
+                                                    }
+                                                }}
+
+                                                onChange={(value) => handleInputSlider({
+                                                    name: 'weight', type: "weight", unit: weight.lbs.unit, value: parseInt(value[0].replace(' lbs', '').trim())
+                                                })}
+                                            />
+
                   </Grid>)}
-                  {unit === 1 && (<Grid container item style={{ display: 'block', overflow: 'hidden' }} direction='column' align='center' justify='center'>
-                    <DraggableSlider name='weight' type="weight" initialPosition={parseInt(lbtokg(weight.defaultValue))} unit={weight.kg.unit} min={weight.kg.min} max={weight.kg.max} stepInBetweenEachInterval={weight.kg.step} interval={weight.kg.interval}
-                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} />
+                  {unit === 1 && (<Grid container item style={{ display: 'block', padding: '25px 0px' }} direction='column' align='center' justify='center'>
+                    {/* <DraggableSlider name='weight' type="weight" initialPosition={parseInt(lbtokg(weight.defaultValue))} unit={weight.kg.unit} min={weight.kg.min} max={weight.kg.max} stepInBetweenEachInterval={weight.kg.step} interval={weight.kg.interval}
+                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
+                  <Nouislider connect={[true, false]} 
+                                                range= {{ min: parseInt(weight.kg.min), max: parseInt(weight.kg.max) }}
+                                                start= {parseInt(lbtokg(weight.defaultValue))}
+                                                step={1}
+                                                format=
+                                                {{
+                                                    to: function (value) {
+                                                        var totalInches = Math.round(+value);
+                                                        //var feet = Math.floor(totalInches / 12);
+                                                        //var inches = totalInches % 12;
+                                                        //var feetString = (feet == 0 ? "" : feet + "ft ");
+                                                        //var inchString = (inches == 0 ? "" : inches + "in ");
+                                                        //var combinedString = (feetString + inchString).trim();
+                                                        return totalInches + ' kgs';
+                                                    },
+                                                    from: function (value) {
+                                                        return value.replace(' kgs', '');
+                                                    }
+                                                }}
+                                                tooltips={true}
+                                                pips={{
+                                                    mode: 'values',
+                                                    stepped: true,
+                                                    density: 1,
+                                                    values: [...weightkgBlock],//[36, 48, 60, 72, 84, 96],
+                                                    // mode: 'values',
+                                                    // values: [36, 48, 60, 72, 84, 96],
+                                                    // density: 2,
+                                                    // stepped: true,
+                                                    format: {
+                                                        to: function (value) {
+                                                            var totalInches = Math.round(+value);
+                                                            //var feet = Math.floor(totalInches % 10==);
+                                                            //var inches = totalInches % 12;
+                                                            return totalInches;
+                                                        }
+                                                    }
+                                                }}
+
+                                                onChange={(value) => handleInputSlider({
+                                                    name: 'weight', type: "weight", unit: weight.kg.unit, value: parseInt(value[0].replace(' kg', '').trim())
+                                                })}
+                                            />
+                  
                   </Grid>)}
                   <Grid container direction='column' alignItems='center' justify='center'>
-                    <Typography variant='body2' style={Styles.textGreyO5}>{weight.sub1}</Typography>
-                    <Typography variant='body2' style={Styles.textGreyO5}>{weight.sub2}</Typography>
+                    <Typography variant='body2' style={{...Styles.textGreyO5,marginTop:'10px'}}>{weight.sub1}</Typography>
+                    <Typography variant='body2' style={{...Styles.textGreyO5,marginTop:'10px'}}>{weight.sub2}</Typography>
                   </Grid>
                 </Grid>
 
@@ -233,16 +332,17 @@ export default function ProfileUpdate(props) {
                     <Button className="unitbuttonRight" variant="contained" color={unit === 1 ? 'primary' : 'secondary'} onClick={() => changeUnit(1)}>{neck.cm.unit}</Button>
                   </Grid>
                   <Grid item container direction="column" alignItems='center' justify='center'>
-                    <Chip color="primary" style={Styles.chipStyles} label={unit === 0 ? profiledata.neck : profiledata2.neck} />
-                    <ArrowDropDownIcon className={classes.arrowDown} />
+                    {/* <Chip color="primary" style={Styles.chipStyles} label={unit === 0 ? profiledata.neck : profiledata2.neck} />
+                    <ArrowDropDownIcon className={classes.arrowDown} /> */}
                   </Grid>
                   {unit === 0 && (<Grid container item style={{ display: 'block', overflow: 'hidden' }} direction='column' align='center' justify='center'>
-                    <DraggableSlider name='neck' type="length" initialPosition={neck.defaultValue} unit={neck.in.unit} min={neck.in.min} max={neck.in.max} stepInBetweenEachInterval={neck.in.step} interval={neck.in.interval}
-                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} />
+                    {/* <DraggableSlider name='neck' type="length" initialPosition={neck.defaultValue} unit={neck.in.unit} min={neck.in.min} max={neck.in.max} stepInBetweenEachInterval={neck.in.step} interval={neck.in.interval}
+                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
+                      
                   </Grid>)}
                   {unit === 1 && (<Grid container item style={{ display: 'block', overflow: 'hidden' }} direction='column' align='center' justify='center'>
-                    <DraggableSlider name='neck' type="neck" initialPosition={parseInt(inchtocm(neck.defaultValue))} unit={neck.cm.unit} min={neck.cm.min} max={neck.cm.max} stepInBetweenEachInterval={neck.cm.step} interval={neck.cm.interval}
-                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} />
+                    {/* <DraggableSlider name='neck' type="neck" initialPosition={parseInt(inchtocm(neck.defaultValue))} unit={neck.cm.unit} min={neck.cm.min} max={neck.cm.max} stepInBetweenEachInterval={neck.cm.step} interval={neck.cm.interval}
+                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
                   </Grid>)}
 
                   <Grid container direction='column' alignItems='center' justify='center'>

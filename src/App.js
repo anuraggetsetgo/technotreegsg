@@ -21,9 +21,10 @@ import Logout from "./Screens/Logout/Logout";
 import SpeedDial from './Container/Common/SpeedDial'
 import "nouislider/distribute/nouislider.css";
 import './App.css';
-
+import { useHistory } from 'react-router';
 export default function App() {
-
+  let history =useHistory();
+  
   const empty = ()=>{return(<></>)}
   const [loggedIn, setloggedIn] = React.useState(get("isAuthenticated") || false);
     const changeLoginStatus=(status, data)=> {
