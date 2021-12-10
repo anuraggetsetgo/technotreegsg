@@ -4,7 +4,7 @@ import Location from './Screens/Location/Location'
 import GetStarted from "./Container/GetStarted";
 import { HashRouter as Router, Route } from "react-router-dom";
 import Auth from './Utils/Auth';
-import { get } from './Utils/Services';
+import { get ,storeCompanyName} from './Utils/Services';
 import theme from './theme';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -22,7 +22,7 @@ import SpeedDial from './Container/Common/SpeedDial'
 
 
 export default function App() {
-
+  storeCompanyName();
   const empty = ()=>{return(<></>)}
   const [loggedIn, setloggedIn] = React.useState(get("isAuthenticated") || false);
     const changeLoginStatus=(status, data)=> {
