@@ -7,7 +7,7 @@ import Styles from '../../app-style'
 import { makeStyles } from '@material-ui/core';
 import ProfileUpdate from '../../Container/ProfileUpdate'
 import { useHistory } from 'react-router-dom';
-import ImageUpload from '../../Container/Common/ImageUpload'
+import ImageUpload from '../../Container/Common/ImageUploadOld'
 import { getCurrentDietCalories } from '../../Container/Meal'
 import ProfilePlaceHolder from '../PlaceHolder/PlaceHolder';
 import { navigateToFAQ } from '../../Utils/CordovaPlugin'

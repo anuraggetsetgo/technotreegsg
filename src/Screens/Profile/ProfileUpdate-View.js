@@ -10,7 +10,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
 import Styles from '../../app-style'
 import { makeStyles } from '@material-ui/core/styles';
 //import Resizer from "react-image-file-resizer";
-import ImageUpload from '../../Container/Common/ImageUpload'
+import ImageUpload from '../../Container/Common/ImageUploadOld'
 import { get, cmtoinch, inchtocm, lbtokg, kgtolb, } from '../../Utils/Services'
 import AlertSnackbar, { ALERT } from '../../Container/Common/AlertSnackbar'
 const emptyImage = 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg';
@@ -196,12 +196,12 @@ export default function ProfileUpdate(props) {
                 </Grid>
                 <Grid container direction="column" alignItems='center' justify='center' >
                   <Grid item container direction='row' alignItems='center' justify='center'>
-                    <Button className="unitbuttonLeft" variant="contained" color={unit === 0 ? 'primary' : 'secondary'} onClick={() => changeUnit(0)}>{weight.lbs.unit}</Button>
-                    <Button className="unitbuttonRight" variant="contained" color={unit === 1 ? 'primary' : 'secondary'} onClick={() => changeUnit(1)}>{weight.kg.unit}</Button>
+                    {/* <Button className="unitbuttonLeft" variant="contained" color={unit === 0 ? 'primary' : 'secondary'} onClick={() => changeUnit(0)}>{weight.lbs.unit}</Button>
+                    <Button className="unitbuttonRight" variant="contained" color={unit === 1 ? 'primary' : 'secondary'} onClick={() => changeUnit(1)}>{weight.kg.unit}</Button> */}
                   </Grid>
                   <Grid item container direction="column" alignItems='center' justify='center'>
-                    <Chip color="primary" style={Styles.chipStyles} label={unit === 0 ? parseInt(profiledata.weight) : parseInt(profiledata2.weight)} />
-                    <ArrowDropDownIcon className={classes.arrowDown} />
+                    {/* <Chip color="primary" style={Styles.chipStyles} label={unit === 0 ? parseInt(profiledata.weight) : parseInt(profiledata2.weight)} />
+                    <ArrowDropDownIcon className={classes.arrowDown} /> */}
                   </Grid>
                   {unit === 0 && (<Grid container item style={{ display: 'block', overflow: 'hidden' }} direction='column' align='center' justify='center'>
                     <DraggableSlider name='weight' type="weight" initialPosition={weight.defaultValue} unit={weight.lbs.unit} min={weight.lbs.min} max={weight.lbs.max} stepInBetweenEachInterval={weight.lbs.step} interval={weight.lbs.interval}
@@ -375,4 +375,3 @@ export default function ProfileUpdate(props) {
       )}
     </Grid>)
 }
-
