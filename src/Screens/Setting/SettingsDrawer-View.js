@@ -123,9 +123,9 @@ export default function Setting(props) {
         <Grid item container onClick={logout} className={classes.labels} direction='row' justify='space-between' alignItems='center'>
           <Typography variant='body1'>Logout</Typography>
         </Grid>
-        <Grid item container onClick={navigateToPayment} className={classes.labels} direction='row' justify='space-between' alignItems='center'>
+        {/* <Grid item container onClick={navigateToPayment} className={classes.labels} direction='row' justify='space-between' alignItems='center'>
           <Typography variant='body1'>Payment</Typography>
-        </Grid>
+        </Grid> */}
       </Drawer>
     </Grid>
   )

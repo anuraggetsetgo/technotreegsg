@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import Register from '../Screens/Signup/Register-view';
-import { set,removeItem} from '../Utils/Services'
+import { get,set,removeItem} from '../Utils/Services'
 import { useHistory } from "react-router";
 import isLoadingHOC from '../hoc/isLoadingHOC';
 import { api_profileGet } from '../Utils/GSGApi'
@@ -39,7 +39,7 @@ export const RegisterView = (props) => {
 
     const registerfn = (payload) => {
          //    apiCall("signin", "in", updateIN, updateIN, props.props, "post", tempObj);
-        payload.company="Tecnotree";
+        payload.company=get('company');
         callAPI(
             getURL("signup"),
             "post",
