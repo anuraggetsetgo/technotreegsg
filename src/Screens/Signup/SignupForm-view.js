@@ -77,7 +77,7 @@ const workoutplace = {
 
 }
 let workoutBlock = [];
-for (var i = 0; i <= 7; i = i + 1) {
+for (var i = 0; i <= 30; i = i + 1) {
     workoutBlock.push(i);
 }
 const workoutlastMonth = {
@@ -721,6 +721,8 @@ export default function SignupForm(props) {
                                                 <Nouislider connect={[true, false]} range={{ min: parseInt(workoutlastMonth.workout.min), max: parseInt(workoutlastMonth.workout.max ) }}
                                                 onChange={(value) => handleInputSlider({ name: 'noWorkouts', type: "days", unit: 'days', value: value[0].replace(' day', '').trim() })}
                                                 start={parseInt(workoutlastMonth.workout.defaultValue)}
+                                                orientation='vertical' style={{height:'65vh'}}
+                                            direction='rtl'
                                                 step={1}
                                                 format=
                                                 {{

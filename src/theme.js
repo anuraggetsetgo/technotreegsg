@@ -165,7 +165,7 @@ const theme = createMuiTheme({
     },
   },
   MuiDialog:{
-    paperWidthSm:{minHeight:'90vh',maxHeight:'92vh',minWidth:'80vw',maxWidth:'80vw'}
+    paperWidthSm:{minHeight:'100vh',maxHeight:'100vh',minWidth:'90vw',maxWidth:'90vw'}
   },
   MuiChip:{colorPrimary:{fontSize:'1rem'}},
   
