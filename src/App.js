@@ -1,4 +1,4 @@
-import './App.css';
+
 import React from 'react'
 import Location from './Screens/Location/Location'
 import GetStarted from "./Container/GetStarted";
@@ -21,7 +21,8 @@ import Logout from "./Screens/Logout/Logout";
 import SignIn from "./Container/SignIn";
 import Register from "./Container/Register";
 import SpeedDial from './Container/Common/SpeedDial'
-
+import "nouislider/distribute/nouislider.css";
+import './App.css';
 
 export default function App() {
   storeCompanyName();
@@ -44,14 +45,12 @@ export default function App() {
         {/* { <SplashGSG/>} */}
           <Route path="/" exact render={(routeProps) => (
               <Auth props={routeProps} location={<Location/>} children = {<UserDashboard />} childrenNoAuth = {<GetStarted />} 
-               changeLoginStatus={changeLoginStatus}
-/>
+               changeLoginStatus={changeLoginStatus}/>
             )}
           />
           <Route path="/signup" exact render={(routeProps) => (
               <Auth props={routeProps} location={<Location/>} children = {<UserDashboard />} childrenNoAuth = {<Signup />} 
-               changeLoginStatus={changeLoginStatus}
-/>
+               changeLoginStatus={changeLoginStatus}/>
             )}
           />
           <Route path="/changegoal" exact component={ChangeGoal} />
@@ -62,7 +61,9 @@ export default function App() {
           <Route path="/profile" exact component={Profile} />
           <Route path="/progress" exact component={Progress} />
           <Route path="/support" exact component={Support} />
+          
           <Route path="/login" exact component={SignIn} />
+
           <Route path="/register" exact component={Register} />
           <Route path="/logout" exact render={(routeProps) => (<Logout changeLoginStatus={changeLoginStatus}/>)} />
           <Route path="/"  component={loggedIn?SpeedDial:empty}/>

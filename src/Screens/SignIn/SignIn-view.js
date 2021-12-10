@@ -33,7 +33,7 @@ export default function SignIn(props) {
     const handleInput = (e) => {
         const { value, name } = e.target;
         setUserData({ ...userData, ...{ [name]: value } });
-        console.log(JSON.stringify(userData,null,2))
+        //console.log(JSON.stringify(userData,null,2))
     }
 
     const validate = (value, regex, type) => {
