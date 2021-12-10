@@ -60,13 +60,30 @@ export default function ProfileUpdate(props) {
     sub2: "choose your weight",
     defaultValue: clientOldProgress ? parseInt(clientOldProgress.weight) : 100  //CP come in LBS
   }
+  let neckInBlock = [];
+  for (var i = 6; i <= 26; i = i + 2) {
+    neckInBlock.push(i);
+  }
+  let neckCMBlock = [];
+  for (var i = 20; i <= 64; i = i + 4) {
+    neckCMBlock.push(i);
+  }
   const neck = {
-    in: { unit: 'in', max: 25, min: 6, step: 10, interval: 1, },
+    in: { unit: 'in', max: 26, min: 6, step: 10, interval: 1, },
     cm: { unit: 'cm', max: 64, min: 20, step: 10, interval: 1, },
     label: 'Neck Size',
     sub1: "Drag the scale to left or right to",
     sub2: "choose your neck size",
-    defaultValue: clientOldProgress ? parseInt(cmtoinch(clientOldProgress.neck)) : 13 //client progress come in cm hencs converting
+    defaultValue: clientOldProgress ? parseInt(cmtoinch(clientOldProgress.neck)) : 22 //client progress come in cm hencs converting
+  }
+
+  let waistInBlock = [];
+  for (var i = 19; i <= 60; i = i + 6) {
+    waistInBlock.push(i);
+  }
+  let waistCMBlock = [];
+  for (var i = 50; i <= 154; i = i + 10) {
+    waistCMBlock.push(i);
   }
   const waist = {
     in: { unit: 'in', max: 60, min: 19, step: 10, interval: 1, },
@@ -75,6 +92,16 @@ export default function ProfileUpdate(props) {
     sub1: "Drag the scale to left or right to",
     sub2: "choose your waist size",
     defaultValue: clientOldProgress ? parseInt(cmtoinch(clientOldProgress.waist)) : 30
+  }
+
+
+  let hipINBlock = [];
+  for (var i = 19; i <= 80; i = i + 5) {
+    hipINBlock.push(i);
+  }
+  let hipCMBlock = [];
+  for (var i = 49; i <= 204; i = i + 10) {
+    hipCMBlock.push(i);
   }
   const hips = {
     in: { unit: 'in', max: '80', min: '19', step: '10', interval: '1', },
@@ -123,7 +150,7 @@ export default function ProfileUpdate(props) {
   const handleInputSlider = (obj) => {
     setEnableNext(true)
     let tempObj = { ...obj };
-    console.log( tempObj)
+    console.log(tempObj)
 
     if (obj.unit == 'kg') {
       setProfiledata2({ ...profiledata2, ...{ [obj.name]: tempObj.value } }); //holds kgs and cm
@@ -200,7 +227,7 @@ export default function ProfileUpdate(props) {
           {/* {console.log(profiledata)} */}
           {(section === 1) && (
             <DialogContent>
-              <Grid item container  direction='column' alignItems='center' justify='center' spacing={1} >
+              <Grid item container direction='column' alignItems='center' justify='center' spacing={1} >
                 <Grid item container direction='row' alignItems='center' justify='center'>
                   <Typography variant='body1'>{weight.label}</Typography>
                 </Grid>
@@ -217,7 +244,7 @@ export default function ProfileUpdate(props) {
                     {/* <DraggableSlider name='weight' type="weight" initialPosition={weight.defaultValue} unit={weight.lbs.unit} min={weight.lbs.min} max={weight.lbs.max} stepInBetweenEachInterval={weight.lbs.step} interval={weight.lbs.interval}
                       distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
                     <Nouislider connect={[true, false]} range={{ min: parseInt(weight.lbs.min), max: parseInt(weight.lbs.max) }}
-                      start={weight.defaultValue}
+                      start={profiledata.weight}
                       orientation='vertical' style={{ height: '60vh' }}
                       direction='rtl'
                       step={1}
@@ -266,7 +293,7 @@ export default function ProfileUpdate(props) {
                       distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
                     <Nouislider connect={[true, false]}
                       range={{ min: parseInt(weight.kg.min), max: parseInt(weight.kg.max) }}
-                      start={weight.defaultValue}
+                      start={profiledata2.weight}
                       orientation='vertical' style={{ height: '65vh' }}
                       direction='rtl'
                       step={0.1}
@@ -339,8 +366,252 @@ export default function ProfileUpdate(props) {
 
                     {/* <DraggableSlider name='neck' type="length" initialPosition={neck.defaultValue} unit={neck.in.unit} min={neck.in.min} max={neck.in.max} stepInBetweenEachInterval={neck.in.step} interval={neck.in.interval}
                       distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
-                      <Nouislider connect={[true, false]} range={{ min: parseInt(neck.in.min), max: parseInt(neck.in.max) }}
-                      start={neck.defaultValue}
+                    <Nouislider connect={[true, false]} range={{ min: parseInt(neck.in.min), max: parseInt(neck.in.max) }}
+                      start={profiledata.neck}
+                      orientation='vertical' style={{ height: '60vh' }}
+                      direction='rtl'
+                      step={0.1}
+                      format=
+                      {{
+                        to: function (value) {
+                          var totalInches = value;
+                          //var feet = Math.floor(totalInches / 12);
+                          //var inches = totalInches % 12;
+                          //var feetString = (feet == 0 ? "" : feet + "ft ");
+                          //var inchString = (inches == 0 ? "" : inches + "in ");
+                          //var combinedString = (feetString + inchString).trim();
+                          return totalInches + ' in';
+                        },
+                        from: function (value) {
+                          return value.replace(' in', '');
+                        }
+                      }}
+                      tooltips={true}
+                      pips={{
+                        mode: 'values',
+                        stepped: true,
+                        density: 2,
+                        values: [...neckInBlock],//[36, 48, 60, 72, 84, 96],
+                        // mode: 'values',
+                        // values: [36, 48, 60, 72, 84, 96],
+                        // density: 2,
+                        // stepped: true,
+                        format: {
+                          to: function (value) {
+                            var totalInches = Math.round(+value);
+                            //var feet = Math.floor(totalInches % 20);
+                            //var inches = totalInches % 12;
+                            return totalInches;
+                          }
+                        }
+                      }}
+
+                      onChange={(value) => handleInputSlider({
+                        name: 'neck', type: "length", unit: neck.in.unit, value: parseInt(value[0].replace(' in', '').trim())
+                      })}
+                    />
+                  </Grid>)}
+                  {unit === 1 && (<Grid container item style={{ display: 'block' }} direction='column' align='center' justify='center'>
+                    {/* <DraggableSlider name='neck' type="neck" initialPosition={parseInt(inchtocm(neck.defaultValue))} unit={neck.cm.unit} min={neck.cm.min} max={neck.cm.max} stepInBetweenEachInterval={neck.cm.step} interval={neck.cm.interval} */}
+                    {/* distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
+                    <Nouislider connect={[true, false]} range={{ min: parseInt(neck.cm.min), max: parseInt(neck.cm.max) }}
+                      start={profiledata2.neck}
+                      orientation='vertical' style={{ height: '60vh' }}
+                      direction='rtl'
+                      step={0.1}
+                      format=
+                      {{
+                        to: function (value) {
+                          var totalInches = value;
+                          //var feet = Math.floor(totalInches / 12);
+                          //var inches = totalInches % 12;
+                          //var feetString = (feet == 0 ? "" : feet + "ft ");
+                          //var inchString = (inches == 0 ? "" : inches + "in ");
+                          //var combinedString = (feetString + inchString).trim();
+                          return totalInches + ' cm';
+                        },
+                        from: function (value) {
+                          return value.replace(' cm', '');
+                        }
+                      }}
+                      tooltips={true}
+                      pips={{
+                        mode: 'values',
+                        stepped: true,
+                        density: 2,
+                        values: [...neckCMBlock],//[36, 48, 60, 72, 84, 96],
+                        // mode: 'values',
+                        // values: [36, 48, 60, 72, 84, 96],
+                        // density: 2,
+                        // stepped: true,
+                        format: {
+                          to: function (value) {
+                            var totalInches = Math.round(+value);
+                            //var feet = Math.floor(totalInches % 20);
+                            //var inches = totalInches % 12;
+                            return totalInches;
+                          }
+                        }
+                      }}
+
+                      onChange={(value) => handleInputSlider({
+                        name: 'neck', type: "length", unit: neck.cm.unit, value: parseInt(value[0].replace(' cm', '').trim())
+                      })} />
+                  </Grid>)}
+
+                  <Grid container direction='column' alignItems='center' justify='center'>
+                    <Typography variant='body2' style={Styles.textGreyO5}>{neck.sub1}</Typography>
+                    <Typography variant='body2' style={Styles.textGreyO5}>{neck.sub2}</Typography>
+                  </Grid>
+                </Grid>
+
+              </Grid>
+            </DialogContent>
+
+          )}
+          {(section === 3) && (
+            <DialogContent>
+              <Grid item container direction='column' alignItems='center' justify='center' spacing={1} >
+                <Grid item container direction='row' alignItems='center' justify='center'>
+                  <Typography variant='body1'>{waist.label}</Typography>
+                </Grid>
+                <Grid container direction="column" alignItems='center' justify='center' >
+                  <Grid item container direction='row' alignItems='center' justify='center'>
+                    <Button className="unitbuttonLeft" variant="contained" color={unit === 0 ? 'primary' : 'secondary'} onClick={() => changeUnit(0)}>{waist.in.unit}</Button>
+                    <Button className="unitbuttonRight" variant="contained" color={unit === 1 ? 'primary' : 'secondary'} onClick={() => changeUnit(1)}>{waist.cm.unit}</Button>
+                  </Grid>
+                  <Grid item container direction="column" alignItems='center' justify='center'>
+                    {/* <Chip color="primary" style={Styles.chipStyles} label={unit === 0 ? profiledata.waist : profiledata2.waist} />
+                    <ArrowDropDownIcon className={classes.arrowDown} /> */}
+                  </Grid>
+                  {unit === 0 && (<Grid container item style={{ display: 'block', padding: '10px' }} direction='column' align='center' justify='center'>
+                    {/* <DraggableSlider name='waist' type="length" initialPosition={waist.defaultValue} unit={waist.in.unit} min={waist.in.min} max={waist.in.max} stepInBetweenEachInterval={waist.in.step} interval={waist.in.interval}
+                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
+                    <Nouislider connect={[true, false]} range={{ min: parseInt(waist.in.min), max: parseInt(waist.in.max) }}
+                      start={profiledata.waist}
+                      orientation='vertical' style={{ height: '62vh' }}
+                      direction='rtl'
+                      step={0.1}
+                      format=
+                      {{
+                        to: function (value) {
+                          var totalInches = value;
+                          //var feet = Math.floor(totalInches / 12);
+                          //var inches = totalInches % 12;
+                          //var feetString = (feet == 0 ? "" : feet + "ft ");
+                          //var inchString = (inches == 0 ? "" : inches + "in ");
+                          //var combinedString = (feetString + inchString).trim();
+                          return totalInches + ' in';
+                        },
+                        from: function (value) {
+                          return value.replace(' in', '');
+                        }
+                      }}
+                      tooltips={true}
+                      pips={{
+                        mode: 'values',
+                        stepped: true,
+                        density: 3,
+                        values: [...waistInBlock],//[36, 48, 60, 72, 84, 96],
+                        // mode: 'values',
+                        // values: [36, 48, 60, 72, 84, 96],
+                        // density: 2,
+                        // stepped: true,
+                        format: {
+                          to: function (value) {
+                            var totalInches = Math.round(+value);
+                            //var feet = Math.floor(totalInches % 20);
+                            //var inches = totalInches % 12;
+                            return totalInches;
+                          }
+                        }
+                      }}
+
+                      onChange={(value) => handleInputSlider({
+                        name: 'waist', type: "length", unit: waist.in.unit, value: parseInt(value[0].replace(' in', '').trim())
+                      })}
+                    />
+                  </Grid>)}
+                  {unit === 1 && (<Grid container item style={{ display: 'block', padding: '5px 0px' }} direction='column' align='center' justify='center'>
+                    {/* <DraggableSlider name='waist' type="length" initialPosition={parseInt(inchtocm(waist.defaultValue))} unit={waist.cm.unit} min={waist.cm.min} max={waist.cm.max} stepInBetweenEachInterval={waist.cm.step} interval={waist.cm.interval}
+                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
+                    <Nouislider connect={[true, false]} range={{ min: parseInt(waist.cm.min), max: parseInt(waist.cm.max) }}
+                      start={profiledata2.waist}
+                      orientation='vertical' style={{ height: '60vh' }}
+                      direction='rtl'
+                      step={0.1}
+                      format=
+                      {{
+                        to: function (value) {
+                          var totalInches = value;
+                          //var feet = Math.floor(totalInches / 12);
+                          //var inches = totalInches % 12;
+                          //var feetString = (feet == 0 ? "" : feet + "ft ");
+                          //var inchString = (inches == 0 ? "" : inches + "in ");
+                          //var combinedString = (feetString + inchString).trim();
+                          return totalInches + ' cm';
+                        },
+                        from: function (value) {
+                          return value.replace(' cm', '');
+                        }
+                      }}
+                      tooltips={true}
+                      pips={{
+                        mode: 'values',
+                        stepped: true,
+                        density: 1,
+                        values: [...waistCMBlock],//[36, 48, 60, 72, 84, 96],
+                        // mode: 'values',
+                        // values: [36, 48, 60, 72, 84, 96],
+                        // density: 2,
+                        // stepped: true,
+                        format: {
+                          to: function (value) {
+                            var totalInches = Math.round(+value);
+                            //var feet = Math.floor(totalInches % 20);
+                            //var inches = totalInches % 12;
+                            return totalInches;
+                          }
+                        }
+                      }}
+
+                      onChange={(value) => handleInputSlider({
+                        name: 'waist', type: "length", unit: waist.cm.unit, value: parseInt(value[0].replace(' cm', '').trim())
+                      })}
+                    />
+                  </Grid>)}
+
+                  <Grid container direction='column' alignItems='center' justify='center'>
+                    <Typography variant='body2' style={Styles.textGreyO5}>{waist.sub1}</Typography>
+                    <Typography variant='body2' style={Styles.textGreyO5}>{waist.sub2}</Typography>
+                  </Grid>
+                </Grid>
+
+              </Grid>
+            </DialogContent>
+
+          )}
+          {(section === 4) && (
+            <DialogContent>
+              <Grid item container direction='column' alignItems='center' justify='center' spacing={1} >
+                <Grid item container direction='row' alignItems='center' justify='center'>
+                  <Typography variant='body1'>{hips.label}</Typography>
+                </Grid>
+                <Grid container direction="column" alignItems='center' justify='center' >
+                  <Grid item container direction='row' alignItems='center' justify='center'>
+                    <Button className="unitbuttonLeft" variant="contained" color={unit === 0 ? 'primary' : 'secondary'} onClick={() => changeUnit(0)}>{hips.in.unit}</Button>
+                    <Button className="unitbuttonRight" variant="contained" color={unit === 1 ? 'primary' : 'secondary'} onClick={() => changeUnit(1)}>{hips.cm.unit}</Button>
+                  </Grid>
+                  <Grid item container direction="column" alignItems='center' justify='center'>
+                    {/* <Chip color="primary" style={Styles.chipStyles} label={unit === 0 ? profiledata.hips : profiledata2.hips} />
+                    <ArrowDropDownIcon className={classes.arrowDown} /> */}
+                  </Grid>
+                  {unit === 0 && (<Grid container item style={{ display: 'block' }} direction='column' align='center' justify='center'>
+                    {/* <DraggableSlider name='hips' type="length" initialPosition={hips.defaultValue} unit={hips.in.unit} min={hips.in.min} max={hips.in.max} stepInBetweenEachInterval={hips.in.step} interval={hips.in.interval}
+                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
+
+                    <Nouislider connect={[true, false]} range={{ min: parseInt(hips.in.min), max: parseInt(hips.in.max) }}
+                      start={profiledata.hips}
                       orientation='vertical' style={{ height: '60vh' }}
                       direction='rtl'
                       step={0.1}
@@ -364,7 +635,7 @@ export default function ProfileUpdate(props) {
                         mode: 'values',
                         stepped: true,
                         density: 1,
-                        values: [...weightlbsBlock],//[36, 48, 60, 72, 84, 96],
+                        values: [...hipINBlock],//[36, 48, 60, 72, 84, 96],
                         // mode: 'values',
                         // values: [36, 48, 60, 72, 84, 96],
                         // density: 2,
@@ -380,81 +651,59 @@ export default function ProfileUpdate(props) {
                       }}
 
                       onChange={(value) => handleInputSlider({
-                        name: 'neck', type: "length", unit: weight.in.unit, value: parseInt(value[0].replace(' lbs', '').trim())
+                        name: 'hips', type: "length", unit: hips.in.unit, value: parseInt(value[0].replace(' in', '').trim())
                       })}
                     />
+
                   </Grid>)}
                   {unit === 1 && (<Grid container item style={{ display: 'block' }} direction='column' align='center' justify='center'>
-                    {/* <DraggableSlider name='neck' type="neck" initialPosition={parseInt(inchtocm(neck.defaultValue))} unit={neck.cm.unit} min={neck.cm.min} max={neck.cm.max} stepInBetweenEachInterval={neck.cm.step} interval={neck.cm.interval} */}
-                      {/* distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
-                  </Grid>)}
+                    {/* <DraggableSlider name='hips' type="length" initialPosition={parseInt(inchtocm(hips.defaultValue))} unit={hips.cm.unit} min={hips.cm.min} max={hips.cm.max} stepInBetweenEachInterval={hips.cm.step} interval={hips.cm.interval}
+                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
 
-                  <Grid container direction='column' alignItems='center' justify='center'>
-                    <Typography variant='body2' style={Styles.textGreyO5}>{neck.sub1}</Typography>
-                    <Typography variant='body2' style={Styles.textGreyO5}>{neck.sub2}</Typography>
-                  </Grid>
-                </Grid>
+                    <Nouislider connect={[true, false]} range={{ min: parseInt(hips.cm.min), max: parseInt(hips.cm.max) }}
+                      start={profiledata2.hips}
+                      orientation='vertical' style={{ height: '60vh' }}
+                      direction='rtl'
+                      step={0.1}
+                      format=
+                      {{
+                        to: function (value) {
+                          var totalInches = value;
+                          //var feet = Math.floor(totalInches / 12);
+                          //var inches = totalInches % 12;
+                          //var feetString = (feet == 0 ? "" : feet + "ft ");
+                          //var inchString = (inches == 0 ? "" : inches + "in ");
+                          //var combinedString = (feetString + inchString).trim();
+                          return totalInches + ' cm';
+                        },
+                        from: function (value) {
+                          return value.replace(' cm', '');
+                        }
+                      }}
+                      tooltips={true}
+                      pips={{
+                        mode: 'values',
+                        stepped: true,
+                        density: 1,
+                        values: [...hipCMBlock],//[36, 48, 60, 72, 84, 96],
+                        // mode: 'values',
+                        // values: [36, 48, 60, 72, 84, 96],
+                        // density: 2,
+                        // stepped: true,
+                        format: {
+                          to: function (value) {
+                            var totalInches = Math.round(+value);
+                            //var feet = Math.floor(totalInches % 20);
+                            //var inches = totalInches % 12;
+                            return totalInches;
+                          }
+                        }
+                      }}
 
-              </Grid>
-            </DialogContent>
-
-          )}
-          {(section === 3) && (
-            <DialogContent>
-              <Grid item container style={Styles.marginTop8} direction='column' alignItems='center' justify='center' spacing={4} >
-                <Grid item container direction='row' alignItems='center' justify='center'>
-                  <Typography variant='body1'>{waist.label}</Typography>
-                </Grid>
-                <Grid container direction="column" alignItems='center' justify='center' >
-                  <Grid item container direction='row' alignItems='center' justify='center'>
-                    <Button className="unitbuttonLeft" variant="contained" color={unit === 0 ? 'primary' : 'secondary'} onClick={() => changeUnit(0)}>{waist.in.unit}</Button>
-                    <Button className="unitbuttonRight" variant="contained" color={unit === 1 ? 'primary' : 'secondary'} onClick={() => changeUnit(1)}>{waist.cm.unit}</Button>
-                  </Grid>
-                  <Grid item container direction="column" alignItems='center' justify='center'>
-                    <Chip color="primary" style={Styles.chipStyles} label={unit === 0 ? profiledata.waist : profiledata2.waist} />
-                    <ArrowDropDownIcon className={classes.arrowDown} />
-                  </Grid>
-                  {unit === 0 && (<Grid container item style={{ display: 'block', overflow: 'hidden' }} direction='column' align='center' justify='center'>
-                    <DraggableSlider name='waist' type="length" initialPosition={waist.defaultValue} unit={waist.in.unit} min={waist.in.min} max={waist.in.max} stepInBetweenEachInterval={waist.in.step} interval={waist.in.interval}
-                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} />
-                  </Grid>)}
-                  {unit === 1 && (<Grid container item style={{ display: 'block', overflow: 'hidden' }} direction='column' align='center' justify='center'>
-                    <DraggableSlider name='waist' type="length" initialPosition={parseInt(inchtocm(waist.defaultValue))} unit={waist.cm.unit} min={waist.cm.min} max={waist.cm.max} stepInBetweenEachInterval={waist.cm.step} interval={waist.cm.interval}
-                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} />
-                  </Grid>)}
-
-                  <Grid container direction='column' alignItems='center' justify='center'>
-                    <Typography variant='body2' style={Styles.textGreyO5}>{waist.sub1}</Typography>
-                    <Typography variant='body2' style={Styles.textGreyO5}>{waist.sub2}</Typography>
-                  </Grid>
-                </Grid>
-
-              </Grid>
-            </DialogContent>
-
-          )}
-          {(section === 4) && (
-            <DialogContent>
-              <Grid item container style={Styles.marginTop8} direction='column' alignItems='center' justify='center' spacing={4} >
-                <Grid item container direction='row' alignItems='center' justify='center'>
-                  <Typography variant='body1'>{hips.label}</Typography>
-                </Grid>
-                <Grid container direction="column" alignItems='center' justify='center' >
-                  <Grid item container direction='row' alignItems='center' justify='center'>
-                    <Button className="unitbuttonLeft" variant="contained" color={unit === 0 ? 'primary' : 'secondary'} onClick={() => changeUnit(0)}>{hips.in.unit}</Button>
-                    <Button className="unitbuttonRight" variant="contained" color={unit === 1 ? 'primary' : 'secondary'} onClick={() => changeUnit(1)}>{hips.cm.unit}</Button>
-                  </Grid>
-                  <Grid item container direction="column" alignItems='center' justify='center'>
-                    <Chip color="primary" style={Styles.chipStyles} label={unit === 0 ? profiledata.hips : profiledata2.hips} />
-                    <ArrowDropDownIcon className={classes.arrowDown} />
-                  </Grid>
-                  {unit === 0 && (<Grid container item style={{ display: 'block', overflow: 'hidden' }} direction='column' align='center' justify='center'>
-                    <DraggableSlider name='hips' type="length" initialPosition={hips.defaultValue} unit={hips.in.unit} min={hips.in.min} max={hips.in.max} stepInBetweenEachInterval={hips.in.step} interval={hips.in.interval}
-                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} />
-                  </Grid>)}
-                  {unit === 1 && (<Grid container item style={{ display: 'block', overflow: 'hidden' }} direction='column' align='center' justify='center'>
-                    <DraggableSlider name='hips' type="length" initialPosition={parseInt(inchtocm(hips.defaultValue))} unit={hips.cm.unit} min={hips.cm.min} max={hips.cm.max} stepInBetweenEachInterval={hips.cm.step} interval={hips.cm.interval}
-                      distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} />
+                      onChange={(value) => handleInputSlider({
+                        name: 'hips', type: "length", unit: hips.cm.unit, value: parseInt(value[0].replace(' cm', '').trim())
+                      })}
+                    />
                   </Grid>)}
 
                   <Grid container direction='column' alignItems='center' justify='center'>

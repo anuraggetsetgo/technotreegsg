@@ -59,14 +59,14 @@ export default function App() {
                changeLoginStatus={changeLoginStatus}/>
             )}
           />
-          <Route path="/changegoal" exact component={ChangeGoal} />
-          <Route path="/dashboard" exact component={UserDashboard} />
-          <Route path="/meal" exact component={Meals} />
-          <Route path="/workout" exact component={Workouts} />
-          <Route path="/notification" exact component={Notifications} />
-          <Route path="/profile" exact component={Profile} />
+          <Route path="/changegoal" exact component={loggedIn?ChangeGoal:SignIn} />
+          <Route path="/dashboard" exact component={loggedIn?UserDashboard:SignIn} />
+          <Route path="/meal" exact component={loggedIn?Meals:SignIn} />
+          <Route path="/workout" exact component={loggedIn?Workouts:SignIn} />
+          <Route path="/notification" exact component={loggedIn?Notifications:SignIn} />
+          <Route path="/profile" exact component={loggedIn?Profile:SignIn} />
           <Route path="/progress" exact component={Progress} />
-          <Route path="/support" exact component={Support} />
+          <Route path="/support" exact component={loggedIn?Support:SignIn} />
           
           {/* <Route path="/login" exact component={SignIn} /> */}
 

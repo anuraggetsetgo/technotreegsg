@@ -13,7 +13,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import DraggableSlider from '../../Container/Common/Slider/DraggableSlider';
 import ProjectedProgress from '../../Container/ProjectedProgress';
 import { convertNumberToHeightFeetInches } from '../../Container/Common/Slider/unitconfig'
-import { cmtoinch, cmtoft, kgtolb, fttocm, inchtocm, inchtoft,get } from '../../Utils/Services'
+import { cmtoinch, cmtoft, kgtolb, fttocm, inchtocm, inchtoft, get, lbtokg } from '../../Utils/Services'
 import AlertSnackbar, { ALERT } from '../../Container/Common/AlertSnackbar'
 import { api_profilePost } from '../../Utils/GSGApi';
 import Nouislider from "nouislider-react";
@@ -31,8 +31,8 @@ for (var i = 16; i <= 100; i = i + 10) {
 const ages = {
     age: { unit: 'age', max: '100', min: '16', step: '10', interval: '1', },
     label: 'How Old are You?',
-    sub1: "Drag the scale to left or right to",
-    sub2: "choose your age in years",
+    sub1: " ",
+    sub2: "Drag the scale to choose your age in years",
     defaultValue: '30',
 
 }
@@ -45,8 +45,8 @@ const height = {
     ft: { unit: 'ft', max: '8', min: '4', step: '12', interval: '1', defaultValue: "5" },
     cm: { unit: 'cm', max: '224', min: '122', step: '10', interval: '1', defaultValue: "154" },
     label: 'How tall are you?',
-    sub1: "Drag the scale to left or right to",
-    sub2: "choose your height",
+    sub1: " ",
+    sub2: "Drag the scale to choose your height",
 
 }
 let weightlbsBlock = [];
@@ -61,8 +61,8 @@ const weight = {
     lbs: { unit: 'lbs', max: 441, min: 66, step: 10, interval: 10, defaultValue: 200 },
     kg: { unit: 'kg', max: 200, min: 30, step: 10, interval: 1, defaultValue: 60 },
     label: 'Current Weight',
-    sub1: "Drag the scale to left or right to",
-    sub2: "choose your weight",
+    sub1: " ",
+    sub2: "Drag the scale to choose your weight",
 }
 const dietPreference = {
     label: 'What kind of diet do you prefer?',
@@ -77,21 +77,21 @@ const workoutplace = {
 
 }
 let workoutBlock = [];
-for (var i = 0; i <= 30; i = i + 1) {
+for (var i = 0; i <= 30; i = i + 5) {
     workoutBlock.push(i);
 }
 const workoutlastMonth = {
-    label1: 'How many days have you worked out',
+    label1: 'How many days have you worked out ',
     label2: ' in the last one month?',
-    sub1: "Drag the scale to left or right to choose number of",
+    sub1: "Drag the scale to choose number of",
     sub2: "workout days in the last one month",
-    workout: { unit: 'workout', max: 7, min: 0, step: 1, interval: 1, defaultValue: 5 },
+    workout: { unit: 'workout', max: 30, min: 0, step: 1, interval: 1, defaultValue: 5 },
 }
 const workoutPrepared = {
     label1: 'How often in a week are you prepared',
     label2: " to workout?",
-    sub1: "Drag the scale to left or right to choose workout",
-    sub2: "days / week",
+    sub1: " ",
+    sub2: "Drag the scale to choose workout days per week",
     workout: { unit: 'workout', max: 7, min: 3, step: 1, interval: 1, defaultValue: 5 },
 }
 
@@ -102,8 +102,8 @@ for (var i = 5; i <= 45; i = i + 5) {
 const currentShape = {
     label: 'What is your current shape?',
     shape: { unit: 'fat', max: 45, min: 5, step: 5, interval: 5, defaultValue: 30 },
-    sub1: "Drag the scale to left or right to estimate your",
-    sub2: "current body fat percentage",
+    sub1: " ",
+    sub2: "Drag the scale to estimate your current body fat %",
 }
 let targetShapeBlock = [];
 for (var i = 5; i <= 25; i = i + 5) {
@@ -112,8 +112,8 @@ for (var i = 5; i <= 25; i = i + 5) {
 const targetShape = {
     label: 'What is your target shape?',
     shape: { unit: 'fat', max: 25, min: 5, step: 5, interval: 5, defaultValue: 6 },
-    sub1: "Drag the scale to left or right to choose your",
-    sub2: "target body fat percentage",
+    sub1: " ",
+    sub2: "Drag the scale to choose your target body fat %",
 }
 
 export default function SignupForm(props) {
@@ -369,11 +369,11 @@ export default function SignupForm(props) {
                                             {/* <DraggableSlider name='age' type="age" unit='age' initialPosition={ages.defaultValue} min={ages.age.min} max={ages.age.max} stepInBetweenEachInterval={ages.age.step} interval={ages.age.interval}
                                                 distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop}  value={handleInputSlider} isTouched={setEnableNext} /> Technotree commented*/}
 
-                                            <Nouislider connect={[true, false]} 
-                                            orientation='vertical' style={{height:'70vh'}}
-                                            direction='rtl'
-                                            range={{ min: parseInt(ages.age.min), max: parseInt(ages.age.max) }}
-                                                start={ages.defaultValue}
+                                            <Nouislider connect={[true, false]}
+                                                orientation='vertical' style={{ height: '70vh' }}
+                                                direction='rtl'
+                                                range={{ min: parseInt(ages.age.min), max: parseInt(ages.age.max) }}
+                                                start={userData.age}
                                                 step={1}
                                                 format=
                                                 {{
@@ -443,9 +443,9 @@ export default function SignupForm(props) {
                                                 distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
 
                                             <Nouislider connect={[true, false]}
-                                            orientation='vertical' style={{height:'65vh'}}
-                                            direction='rtl'
-                                                range={{ min: 3 * 12, max: 8 * 12 }} start={60}//value
+                                                orientation='vertical' style={{ height: '65vh' }}
+                                                direction='rtl'
+                                                range={{ min: 3 * 12, max: 8 * 12 }} start={userData.height_in || 60}//value 60
                                                 step={1}
                                                 format=
                                                 {{
@@ -486,11 +486,11 @@ export default function SignupForm(props) {
                                         {unit === 1 && (<Grid container item style={{ display: 'block', padding: '20px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='height' type="height" unit={height.ft.unit} min={height.cm.min} max={height.cm.max} stepInBetweenEachInterval={height.cm.step} interval={height.cm.interval}
                                                 distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
-                                            <Nouislider connect={[true, false]} 
-                                            orientation='vertical' style={{height:'65vh'}}
-                                            direction='rtl'
-                                            range={{ min: parseInt(height.cm.min), max: parseInt(height.cm.max) }}
-                                                start={ages.defaultValue}
+                                            <Nouislider connect={[true, false]}
+                                                orientation='vertical' style={{ height: '65vh' }}
+                                                direction='rtl'
+                                                range={{ min: parseInt(height.cm.min), max: parseInt(height.cm.max) }}
+                                                start={userData.height || 150}//{ages.defaultValue}
                                                 step={1}
                                                 format=
                                                 {{
@@ -560,9 +560,9 @@ export default function SignupForm(props) {
                                             {/* <DraggableSlider name='weight' type="weight" initialPosition={weight.lbs.defaultValue} unit={weight.lbs.unit} min={weight.lbs.min} max={weight.lbs.max} stepInBetweenEachInterval={weight.lbs.step} interval={weight.lbs.interval}
                                                 distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
                                             <Nouislider connect={[true, false]} range={{ min: parseInt(weight.lbs.min), max: parseInt(weight.lbs.max) }}
-                                                start={weight.lbs.defaultValue}
-                                                orientation='vertical' style={{height:'65vh'}}
-                                            direction='rtl'
+                                                start={userData.weight}
+                                                orientation='vertical' style={{ height: '65vh' }}
+                                                direction='rtl'
                                                 step={1}
                                                 format=
                                                 {{
@@ -594,7 +594,7 @@ export default function SignupForm(props) {
                                                             var totalInches = Math.round(+value);
                                                             //var feet = Math.floor(totalInches % 20);
                                                             //var inches = totalInches % 12;
-                                                            return totalInches ;
+                                                            return totalInches;
                                                         }
                                                     }
                                                 }}
@@ -605,14 +605,14 @@ export default function SignupForm(props) {
                                             />
 
                                         </Grid>)}
-                                        {unit === 1 && (<Grid container item style={{ display: 'block', padding: '20px' }}  direction='column' align='center' justify='center'>
+                                        {unit === 1 && (<Grid container item style={{ display: 'block', padding: '20px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='weight' type="weight" initialPosition={weight.kg.defaultValue} unit={weight.kg.unit} min={weight.kg.min} max={weight.kg.max} stepInBetweenEachInterval={weight.kg.step} interval={weight.kg.interval}
                                                 distanceBetweenEachStep={distance} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
-                                            <Nouislider connect={[true, false]} 
+                                            <Nouislider connect={[true, false]}
                                                 range={{ min: parseInt(weight.kg.min), max: parseInt(weight.kg.max) }}
-                                                start={weight.kg.defaultValue}
-                                                orientation='vertical' style={{height:'65vh'}}
-                                            direction='rtl'
+                                                start={lbtokg(userData.weight)}
+                                                orientation='vertical' style={{ height: '65vh' }}
+                                                direction='rtl'
                                                 step={1}
                                                 format=
                                                 {{
@@ -718,11 +718,12 @@ export default function SignupForm(props) {
                                         <Grid container item style={{ display: 'block', padding: '20px 20px 40px 20px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='noWorkouts' type="days" unit="days" min={workoutlastMonth.workout.min} max={workoutlastMonth.workout.max} initialPosition={workoutlastMonth.workout.defaultValue} stepInBetweenEachInterval={workoutlastMonth.workout.step} interval={workoutlastMonth.workout.interval}
                                                 distanceBetweenEachStep={distance * 4} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
-                                                <Nouislider connect={[true, false]} range={{ min: parseInt(workoutlastMonth.workout.min), max: parseInt(workoutlastMonth.workout.max ) }}
+                                            <Nouislider connect={[true, false]} range={{ min: parseInt(workoutlastMonth.workout.min), max: parseInt(workoutlastMonth.workout.max) }}
                                                 onChange={(value) => handleInputSlider({ name: 'noWorkouts', type: "days", unit: 'days', value: value[0].replace(' day', '').trim() })}
                                                 start={parseInt(workoutlastMonth.workout.defaultValue)}
-                                                orientation='vertical' style={{height:'65vh'}}
-                                            direction='rtl'
+                                                // orientation='vertical'
+                                                // style={{ height: '65vh' }}
+                                                // direction='rtl'
                                                 step={1}
                                                 format=
                                                 {{
@@ -744,7 +745,7 @@ export default function SignupForm(props) {
 
                                                     mode: 'values',
                                                     stepped: true,
-                                                    density: 10,
+                                                    density: 3,
                                                     values: [...workoutBlock],//[36, 48, 60, 72, 84, 96],
                                                     // mode: 'values',
                                                     // values: [36, 48, 60, 72, 84, 96],
@@ -760,7 +761,7 @@ export default function SignupForm(props) {
                                                     }
                                                 }}
 
-                                                
+
                                             />
                                         </Grid>
                                         <Grid container direction='column' style={Styles.gutter} alignItems='center' justify='center'>
@@ -815,9 +816,9 @@ export default function SignupForm(props) {
                                         <Grid container item style={{ display: 'block', padding: '20px 20px 40px 20px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='workout' type="days" unit="days" min={workoutPrepared.workout.min} max={workoutPrepared.workout.max} initialPosition={workoutPrepared.workout.defaultValue} stepInBetweenEachInterval={workoutPrepared.workout.step} interval={workoutPrepared.workout.interval}
                                                 distanceBetweenEachStep={distance * 5} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
- <Nouislider connect={[true, false]} range={{ min: parseInt(workoutPrepared.workout.min), max: parseInt(workoutPrepared.workout.max ) }}
+                                            <Nouislider connect={[true, false]} range={{ min: parseInt(workoutPrepared.workout.min), max: parseInt(workoutPrepared.workout.max) }}
                                                 onChange={(value) => handleInputSlider({ name: 'workout', type: "days", unit: 'days', value: value[0].replace(' day', '').trim() })}
-                                                start={parseInt(workoutPrepared.workout.defaultValue)}
+                                                start={parseInt(userData.workout)}
                                                 step={1}
                                                 format=
                                                 {{
@@ -840,7 +841,7 @@ export default function SignupForm(props) {
                                                     mode: 'values',
                                                     stepped: true,
                                                     density: 20,
-                                                    values: [3,4,5,6,7],//[36, 48, 60, 72, 84, 96],
+                                                    values: [3, 4, 5, 6, 7],//[36, 48, 60, 72, 84, 96],
                                                     // mode: 'values',
                                                     // values: [36, 48, 60, 72, 84, 96],
                                                     // density: 2,
@@ -855,7 +856,7 @@ export default function SignupForm(props) {
                                                     }
                                                 }}
 
-                                    ></Nouislider>
+                                            ></Nouislider>
                                         </Grid>
                                         <Grid container direction='column' style={Styles.gutter} alignItems='center' justify='center'>
                                             <Grid item><Typography variant='body2' style={Styles.colorGrey}>{workoutPrepared.sub1}</Typography></Grid>
@@ -876,14 +877,14 @@ export default function SignupForm(props) {
                                             {/* <Chip color="primary" style={Styles.chipStyles} label={userData.body_fat} />
                                             <ArrowDropDownIcon style={Styles.arrowDown} /> */}
                                         </Grid>
-                                        <Grid container item style={{ display: 'block', padding:'20px' }} direction='column' align='center' justify='center'>
+                                        <Grid container item style={{ display: 'block', padding: '20px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='body_fat' type="days" unit="%" min={currentShape.shape.min} max={currentShape.shape.max} initialPosition={currentShape.shape.defaultValue} stepInBetweenEachInterval={currentShape.shape.step} interval={currentShape.shape.interval}
                                                 distanceBetweenEachStep={distance * 2} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
-<Nouislider connect={[true, false]} range={{ min: parseInt(currentShape.shape.min), max: parseInt(currentShape.shape.max ) }}
+                                            <Nouislider connect={[true, false]} range={{ min: parseInt(currentShape.shape.min), max: parseInt(currentShape.shape.max) }}
                                                 onChange={(value) => handleInputSlider({ name: 'body_fat', type: "days", unit: '%', value: value[0].replace(' %', '').trim() })}
                                                 start={parseInt(currentShape.shape.defaultValue)}
-                                                orientation='vertical' style={{height:'65vh'}}
-                                            direction='rtl'
+                                                orientation='vertical' style={{ height: '65vh' }}
+                                                direction='rtl'
                                                 step={1}
                                                 format=
                                                 {{
@@ -916,12 +917,12 @@ export default function SignupForm(props) {
                                                             var totalInches = Math.round(+value);
                                                             //var feet = Math.floor(totalInches % 10==);
                                                             //var inches = totalInches % 12;
-                                                            return totalInches ;
+                                                            return totalInches;
                                                         }
                                                     }
                                                 }}
 
-                                    ></Nouislider>
+                                            ></Nouislider>
 
                                         </Grid>
                                         {/* 
@@ -933,7 +934,7 @@ export default function SignupForm(props) {
 
                                         <Grid container direction='column' style={Styles.gutter} alignItems='center' justify='center'>
                                             <Grid item><Typography variant='body2' style={Styles.colorGrey}>{currentShape.sub1}</Typography></Grid>
-                                            <Grid item><Typography variant='body2' style={{...Styles.colorGrey }}>{currentShape.sub2}</Typography></Grid>
+                                            <Grid item><Typography variant='body2' style={{ ...Styles.colorGrey }}>{currentShape.sub2}</Typography></Grid>
                                         </Grid>
                                     </Grid>
 
@@ -952,11 +953,11 @@ export default function SignupForm(props) {
                                         <Grid container item style={{ display: 'block', padding: '20px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='fat' type="days" unit="%" initialPosition={targetShape.shape.defaultValue} min={targetShape.shape.min} max={targetShape.shape.max} stepInBetweenEachInterval={targetShape.shape.step} interval={targetShape.shape.interval}
                                                 distanceBetweenEachStep={distance * 2} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
-                                            <Nouislider connect={[true, false]} range={{ min: parseInt(targetShape.shape.min), max: parseInt(targetShape.shape.max ) }}
+                                            <Nouislider connect={[true, false]} range={{ min: parseInt(targetShape.shape.min), max: parseInt(targetShape.shape.max) }}
                                                 onChange={(value) => handleInputSlider({ name: 'fat', type: "days", unit: '%', value: value[0].replace(' %', '').trim() })}
                                                 start={parseInt(targetShape.shape.defaultValue)}
-                                                orientation='vertical' style={{height:'65vh'}}
-                                            direction='rtl'
+                                                orientation='vertical' style={{ height: '65vh' }}
+                                                direction='rtl'
                                                 step={1}
                                                 format=
                                                 {{
@@ -979,7 +980,7 @@ export default function SignupForm(props) {
                                                     mode: 'values',
                                                     stepped: true,
                                                     density: 2.5,
-                                                    values: [5,10,15,20,25],//[36, 48, 60, 72, 84, 96],
+                                                    values: [5, 10, 15, 20, 25],//[36, 48, 60, 72, 84, 96],
                                                     // mode: 'values',
                                                     // values: [36, 48, 60, 72, 84, 96],
                                                     // density: 2,
@@ -989,12 +990,12 @@ export default function SignupForm(props) {
                                                             var totalInches = Math.round(+value);
                                                             //var feet = Math.floor(totalInches % 10==);
                                                             //var inches = totalInches % 12;
-                                                            return totalInches ;
+                                                            return totalInches;
                                                         }
                                                     }
                                                 }}
 
-                                    ></Nouislider>
+                                            ></Nouislider>
 
 
 
