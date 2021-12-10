@@ -4,6 +4,7 @@ let colors = {
   primary: "#4595A4",
   secondary: "#fff",
   transparent: "#ffffff00",
+  blue: '#1c3941',
   disableButtonColor: "#ffffff85",
   err: "red",
   grey: "#1a1a1a",

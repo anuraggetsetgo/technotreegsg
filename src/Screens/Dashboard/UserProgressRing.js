@@ -57,19 +57,15 @@ export default function UserProgressRing(props) {
     ];
     return (
         <>
-            <Grid item >
-                <Grid item xs={3} className={classes.elements} container direction='column' justify='center' alignItems='center'>
-                    {activityData.map((ringData) => (<>
-                        <Typography variant='body2' style={{ color: ringData.color }}> {ringData.ringValue * 100 + '%'}</Typography>
-                        <Typography variant='body2' style={{ color: ringData.color }}>{ringData.label}</Typography>
-                    </>))}
+            {activityData.map((ringData) => (<Grid xs={6} item container direction="column" alignItems="center">
+                <Grid item>
+                    <Typography variant='h3' style={{ color: ringData.color }}> {(ringData.ringValue * 100).toFixed(0) + '%'}</Typography>
                 </Grid>
-            </Grid>
-            <Grid item xs={4}>
-                <Grid item className={classes.activityRing} container direction='column' alignItems='center'>
-                    <ActivityRings data={activityData} config={activityConfig} />
+                <Grid item>
+                    <Typography variant='body2' style={{ color: ringData.color }}>{ringData.label}</Typography>
                 </Grid>
-            </Grid>
+            </Grid>))}
+                
         </>
     )
 }

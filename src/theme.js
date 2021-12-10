@@ -78,8 +78,8 @@ const theme = createMuiTheme({
       marginBottom: "16px",
     },
     h3: {
-      fontSize: "1.4em",
-      lineHeight: "1.8em",
+      fontSize: "30px",
+      lineHeight: "38px",
     },
     h4: {
       fontSize: "1.6em",

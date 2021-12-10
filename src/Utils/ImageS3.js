@@ -4,7 +4,7 @@ import { getSignedUrl } from './FetchImgs';
 //import PreloadImage from './Preloadimg';
 
 const emptyImage = ["https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg",
-    'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg']
+    'https://icon-library.com/images/no-user-image-icon/no-user-image-icon-27.jpg']
 class ImageS3 extends Component {
     constructor(props) {
         super(props);

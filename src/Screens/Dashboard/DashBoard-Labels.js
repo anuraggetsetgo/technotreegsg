@@ -1,12 +1,13 @@
 import { React, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, Paper, Icon } from '@material-ui/core';
 import { useHistory } from 'react-router';
 import Styles from '../../app-style'
 import ProgressUpdate from '../../Container/ProfileUpdate'
 import UserProgressRing from './UserProgressRing'
 import {getCurrentDietCalories} from '../../Container/Meal'
+import { colors } from '../../Utils/Services';
 
 const images = [
   {
@@ -125,7 +126,8 @@ export default function DashBoardLabels(props) {
   const [showProgressUpdate, setshowProgressUpdate] = useState(false);
   const [currentCal,setCurrentCals]=useState(parseInt(getCurrentDietCalories(weight, workout,body_fat,userGoals.fat)));
   let history = useHistory();
-  const handleClickOnUpdateProgress = () => { setshowProgressUpdate(true); }
+  // const handleClickOnUpdateProgress = () => { setshowProgressUpdate(true); }
+  const handleClickOnUpdateProgress = () => { history.push('/progress') }
   const handleClickOnViewWorkout = () => { history.push('/workout') }
   const handleClickOnChangeGoal = () => { history.push('/changegoal') }
   const handleClickViewOnDiet = () => { history.push('/meal') }
@@ -135,52 +137,113 @@ export default function DashBoardLabels(props) {
     <>
       {showProgressUpdate && <ProgressUpdate show={showProgressUpdate}  handleClose={setshowProgressUpdate} />}
 
-      <Grid item container direction='row' justify="center" alignItems='center' className={classes.image} style={{ width: images[0].width, height: '22vh' }}>
-        <span className={classes.imageSrc} style={{ backgroundImage: `url(${images[0].url})`, }} />
-        <span className={classes.imageBackdrop} />
-        {!props.errorGoal&& props.startingGoal&& props.currentGoal&&<UserProgressRing {...props}/>}
-        <Grid item xs={5}>
-          <Grid item container direction='column' alignItems='flex-end'>
-            <Button onClick={handleClickOnUpdateProgress} variant='contained' color="primary" className={classes.imageTitle + ' bigButton'}>
-              {images[0].title}
-            </Button>
+      {/* <Grid item container direction='row' justify="sretch" alignItems='center' style={{ height: '15vh', marginBottom: '50px', borderBottomRightRadius: '60px', borderBottomLeftRadius: '60px', background: '#f6f4f6'}}>
+        <Paper elevation={0} style={{width: '100%', height: '100%',borderBottomRightRadius: '60px', borderBottomLeftRadius: '60px',  background: '#f6f4f6'}} onClick={handleClickOnUpdateProgress}>
+          <Grid container direction="column" alignItems="stretch" justify="flex-start" style={{height: '100vh'}}>
+            <Grid item container justify="center" alignItems="center" style={{height: '15vh'}}>
+              {!props.errorGoal&& props.startingGoal&& props.currentGoal&&<UserProgressRing {...props}/>}
+            </Grid>
           </Grid>
+        </Paper>
+      </Grid> */}
+      <Grid container direction='row'  alignItems='center' justify='space-around' className={classes.image} style={{ height: '20vh', marginBottom: '50px', padding: '0 4%'}}>
+        <Paper elevation={0} style={{width: '100%', height: '100%', borderRadius: '10px', overflow:'hidden', background: '#f6f4f6'}} onClick={handleClickOnChangeGoal}>
+          <Grid container direction="column" alignItems="stretch" justify="flex-start" >
+            <Grid item container spacing={1} justify="flex-start" alignItems="center" style={{padding: '5px 0 0 10px', background: colors.black}}>
+              <Grid item>
+                  <span class="material-icons" style={{...Styles.colorWhite}}>flag</span>
+                </Grid>
+                <Grid item ><Typography variant="body1" style={{paddingBottom: '5px', ...Styles.colorWhite}}>Goal</Typography></Grid>
+              </Grid>
+              <Grid item container justify="center" alignItems="center" style={{height: '15vh'}}>
+                <Grid item xs={6}>
+                  <Grid item container className={classes.elements} direction='column' justify='center' alignItems='center'>
+                    <Typography variant='h3' style={Styles.textGreyO5}>{(userGoals.fat).toFixed(2)}</Typography>
+                    <Typography variant='body2' style={Styles.textGreyO5}>Fat(%)</Typography>
+                  </Grid>
+                </Grid>
+                <Grid item xs={6}>
+                  <Grid item container direction='column' alignItems='center'>
+                    <Typography variant='h3' style={Styles.textGreyO5}> {parseInt(userGoals.weight)}</Typography>
+                    <Typography variant='body2' style={Styles.textGreyO5}>weight (lbs)</Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+          </Grid>
+        </Paper>
+      </Grid>
+      <Grid container direction='row' alignItems='center' justify='space-between' className={classes.image} style={{ height: '20vh', padding: '0 4%'}} spacing={2}>
+        <Grid item xs={6}>
+          <Paper elevation={0} style={{width: '100%', height: '100%', background: '#f6f4f6', borderRadius: '10px', overflow: 'hidden'}} onClick={handleClickViewOnDiet}>
+            <Grid container direction="column" alignItems="stretch" justify="flex-start" >
+              <Grid item container justify="flex-start" alignItems="center" spacing={1} style={{padding: '5px 0 0 10px', background: colors.grey}}>
+                  {/* <Grid item>
+                    <span class="material-icons" style={{...Styles.colorWhite}}>note_alt</span>
+                  </Grid> */}
+                  <Grid item style={{margin: '0 auto', paddingBottom: '5px'}}><Typography variant="body1" style={{ ...Styles.colorWhite}}>Diet</Typography></Grid>
+                  {/* <Grid item>
+                    <Button onClick={handleClickOnChangeGoal} variant="text" color="secondary">
+                      <span class="material-icons" style={{...Styles.blackColor}}>launch</span>
+                    </Button>
+                    </Grid> */}
+              </Grid>
+              <Grid item container justify="center" alignItems="center" style={{height: '15vh'}}>
+                  <Grid item>
+                    <Grid item container className={classes.elements} direction='column' justify='center' alignItems='center'>
+                      <Typography variant='h4' style={Styles.textGreyO5}>{(currentCal).toFixed(2)}</Typography>
+                      <Typography variant='body2' style={Styles.textGreyO5}>Calories</Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+            </Grid>
+          </Paper>
         </Grid>
-
+        <Grid item xs={6}>
+          <Paper elevation={0} style={{width: '100%', height: '100%', background: '#f6f4f6', borderRadius: '10px', overflow: 'hidden'}} onClick={handleClickOnViewWorkout}>
+            <Grid container direction="column" alignItems="stretch" justify="flex-start">
+              <Grid item container justify="flex-start" alignItems="center" spacing={1} style={{padding: '5px 0 0 10px', background: colors.grey}}>
+                  {/* <Grid item>
+                    <span class="material-icons" style={{...Styles.colorWhite}}>note_alt</span>
+                  </Grid> */}
+                  <Grid item style={{margin: '0 auto', paddingBottom: '5px'}}><Typography variant="body1" style={{...Styles.colorWhite}}>Workout</Typography></Grid>
+                  {/* <Grid item>
+                    <Button onClick={handleClickOnChangeGoal} variant="text" color="secondary">
+                      <span class="material-icons" style={{...Styles.blackColor}}>launch</span>
+                    </Button>
+                    </Grid> */}
+              </Grid>
+              <Grid item container justify="center" alignItems="center" style={{height: '15vh'}}>
+                  <Grid item>
+                    <Grid item container className={classes.elements} direction='column' justify='center' alignItems='center'>
+                    <Typography variant='h4' style={Styles.textGreyO5}>{willingGym == 1 ? 'Gym' : 'Home'} workout</Typography>
+                      <Typography variant='body2' style={Styles.textGreyO5}>{noWorkouts} days/week</Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+            </Grid>
+          </Paper>
+        </Grid>
       </Grid>
 
-      <Grid container direction='row'  alignItems='center' justify='space-around' className={classes.image} style={{ width: images[1].width, height: '22vh' }}>
-        <span className={classes.imageSrc} style={{ backgroundImage: `url(${images[1].url})`, }} />
-        <span className={classes.imageBackdrop} />
-        <Grid item container xs={12} direction='row'>
-
-          <Grid item xs={3}>
-            <Grid item container className={classes.elements} direction='column' justify='center' alignItems='center'>
-              <Typography variant='body2' style={Styles.textGreyO5}>{userGoals.fat}</Typography>
-              <Typography variant='body2' style={Styles.textGreyO5}>Fat(%)</Typography>
+      {/* <Grid container direction='row'  alignItems='center' justify='space-around' className={classes.image} style={{ height: '20vh',  padding: '0 4%'}}>
+        <Paper elevation={0} style={{width: '100%', height: '100%'}} onClick={handleClickOnViewWorkout}>
+          <Grid container direction="column" alignItems="stretch" justify="flex-start" style={{height: '100vh'}}>
+              <Grid item container justify="flex-start" alignItems="center" spacing={1} style={{padding: '5px 0 0 10px', borderRadius: '10px', background: colors.primary}}>
+                  <Grid item>
+                    <span class="material-icons" style={{...Styles.colorWhite}}>fitness_center</span>
+                  </Grid>
+                  <Grid item ><Typography variant="body1" style={{paddingBottom: '5px', ...Styles.colorWhite}}>Workout</Typography></Grid>
+              </Grid>
+              <Grid item container justify="center" alignItems="center" style={{height: '15vh'}}>
+                  <Grid item>
+                    <Grid item container className={classes.elements} direction='column' justify='center' alignItems='center'>
+                      <Typography variant='h3' style={Styles.textGreyO5}>{willingGym == 1 ? 'Gym' : 'Home'} workout</Typography>
+                      <Typography variant='body2' style={Styles.textGreyO5}>{noWorkouts} days/week</Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
             </Grid>
-          </Grid>
-
-          <Grid item xs={4}>
-            <Grid item container direction='column' alignItems='center'>
-              <Typography variant='body2' style={Styles.textGreyO5}> {parseInt(userGoals.weight)}</Typography>
-              <Typography variant='body2' style={Styles.textGreyO5}>weight (lbs)</Typography>
-            </Grid>
-          </Grid>
-
-          <Grid item xs={5}>
-            <Grid item container direction='column' alignItems='center' justify='flex-end'>
-              <Button onClick={handleClickOnChangeGoal} variant='contained' color="primary" className={classes.imageTitle + ' bigButton'}>
-                {images[1].title}
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-
-      <Grid container direction='row' alignItems='center' justify='space-around' className={classes.image} style={{ width: images[2].width, height: '22vh' }}>
-        <span className={classes.imageSrc} style={{ backgroundImage: `url(${images[2].url})`, }} />
-        <span className={classes.imageBackdrop} />
+        </Paper> */}
 
         {/* <Grid item >
           <Grid item container direction='column' justify='center' alignItems='center'>
@@ -189,36 +252,7 @@ export default function DashBoardLabels(props) {
             </Grid>
             </Grid>
            */}
-        <Grid item container xs={12} direction='row'>
-          <Grid item xs={7}>
-            <Grid item container direction='column' alignItems='center'>
-              <Typography variant='body2' style={Styles.textGreyO5}>{currentCal} </Typography>
-              <Typography variant='body2' style={Styles.textGreyO5}>calories</Typography>
-            </Grid>
-          </Grid>
-
-          <Grid item xs={5}>
-            <Grid item container direction='column' alignItems='center' justify='flex-end'>
-              <Button onClick={handleClickViewOnDiet} variant='contained' color="primary" className={classes.imageTitle + ' bigButton'}>
-                {images[2].title}
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
-
-      <Grid container direction='row'  alignItems='center' justify='space-around' className={classes.image} style={{ width: images[3].width, height: '22vh' }}>
-        <span className={classes.imageSrc} style={{ backgroundImage: `url(${images[3].url})`, }} />
-        <span className={classes.imageBackdrop} />
-
-        {/* <Grid item >
-          <Grid item container direction='column' justify='center' alignItems='center'>
-            <Typography variant='body2' style={Styles.textGreyO5}> 8%</Typography>
-              <Typography variant='body2' style={Styles.textGreyO5}>Fat(%)</Typography>
-            </Grid>
-            </Grid>
-           */}
-        <Grid item container xs={12} direction='row'>
+        {/* <Grid item container xs={12} direction='row'>
           <Grid item xs={7} >
             <Grid item container direction='column' alignItems='center' justify='center'>
               {noWorkouts > 0 && (<>
@@ -239,10 +273,9 @@ export default function DashBoardLabels(props) {
               </Button>
             </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-
-
+        </Grid> */}
+      {/* </Grid> */}
+      
 
     </>
   );

@@ -98,8 +98,8 @@ headerHeight:{
 },
 displayViewContainer:{
   overflow:'scroll',
-  marginTop: '46px', //close to header as header Height
-  marginBottom: '20vh',
+  marginTop: '6vh', //close to header as header Height
+  height: `94vh`
 },
 textGrey:{
   color:colors.grey,
