@@ -53,6 +53,12 @@ export default function App() {
                changeLoginStatus={changeLoginStatus}/>
             )}
           />
+
+    <Route path="/login" exact render={(routeProps) => (
+              <Auth props={routeProps} location={<Location/>} children = {<UserDashboard />} childrenNoAuth = {<SignIn />} 
+               changeLoginStatus={changeLoginStatus}/>
+            )}
+          />
           <Route path="/changegoal" exact component={ChangeGoal} />
           <Route path="/dashboard" exact component={UserDashboard} />
           <Route path="/meal" exact component={Meals} />
@@ -62,7 +68,7 @@ export default function App() {
           <Route path="/progress" exact component={Progress} />
           <Route path="/support" exact component={Support} />
           
-          <Route path="/login" exact component={SignIn} />
+          {/* <Route path="/login" exact component={SignIn} /> */}
 
           <Route path="/register" exact component={Register} />
           <Route path="/logout" exact render={(routeProps) => (<Logout changeLoginStatus={changeLoginStatus}/>)} />

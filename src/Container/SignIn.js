@@ -48,6 +48,7 @@ export const SignInView = (props) => {
         });
         set('GSG_client_auth',data.token);
         //setUserProfile(); //to fetch user profile data
+        console.log('User Logged in')
         getUserProfile();
     };
     const handleErr = err => {
@@ -79,7 +80,7 @@ export const SignInView = (props) => {
       const proceedToDashBoard_F = () => {
         set("isAuthenticated", true);
         props.changeLoginStatus(true);
-        history.replace('/');//Proceed to Dashboard
+        history.replace('/dashboard');//Proceed to Dashboard
     
       }
   const getUserProfile = () => {
