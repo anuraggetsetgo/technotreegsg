@@ -75,14 +75,14 @@ export default function SignIn(props) {
     //const classes = useStyles();
     return (
         <>
-            <Grid style={{ ...Styles.displayView, marginTop: '25em' }}>
-                <Grid container direction='column' style={Styles.gutter} alignItems='center' justifyContent='center'>
-                    <Grid item>
+            <Grid style={{height: '100vh'}}>
+                <Grid container direction='column' style={{height: '100vh', padding: '0 20px'}} alignItems='stretch' justify='center'>
+                    <Grid item style={{marginBottom: '20px'}}>
                         <TextField
                             autoComplete='off'
                             name="user_email"
                             value={userData.user_email}
-                            label="Enter Email Address"
+                            label="Company Email"
                             required={true}
                             onBlur={validateEmail}
                             onChange={handleInput}
@@ -90,7 +90,8 @@ export default function SignIn(props) {
                         </TextField>
                     </Grid>
                     <Grid item>
-                        <InputLabel htmlFor="standard-adornment-password">Enter Password</InputLabel>
+                        <TextField
+                        type="password"></TextField>
                         <Input
                             id="standard-adornment-password"
                             autoComplete="off"
@@ -99,6 +100,7 @@ export default function SignIn(props) {
                             type={showPassword ? 'text' : 'password'}
                             value={userData.user_password}
                             onChange={handleInput}
+                            placeholder="Password"
                             //onBlur={validatePassword}
                             endAdornment={
                                 <InputAdornment position="end">

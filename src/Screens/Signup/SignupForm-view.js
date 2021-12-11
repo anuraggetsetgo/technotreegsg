@@ -4,7 +4,6 @@ import { Grid, Paper, TextField, Typography, Icon, LinearProgress, Chip, Button 
 import Styles from '../Signup/Signup-Style';
 import MaleImg from '../../img/male.png';
 import FemaleImg from '../../img/female.png';
-import CarrotImage from '../../img/carrot.png';
 import EggImage from '../../img/egg.png';
 import NonVegImage from '../../img/nonveg.png';
 import HomeImage from '../../img/Signup/home.png';
@@ -18,6 +17,42 @@ import AlertSnackbar, { ALERT } from '../../Container/Common/AlertSnackbar'
 import { api_profilePost } from '../../Utils/GSGApi';
 import Nouislider from "nouislider-react";
 
+const foodSprite = 'https://gsg-image-uploads.s3-accelerate.amazonaws.com/webcontent/img/foodTypeSprite.png';
+const workoutSprite = 'https://gsg-image-uploads.s3-accelerate.amazonaws.com/webcontent/img/workoutPrefSprite.png';
+const bodySprite = 'https://gsg-image-uploads.s3-accelerate.amazonaws.com/webcontent/img/bodyShapesSprite.jpg';
+const styles = {
+    foodType:{
+        background: `url(${foodSprite})`,
+        width: '60px',
+        height: '60px'
+    },
+    veg: {
+        backgroundPosition: '-145px 0px'
+    },
+    nonVeg: {
+        backgroundPosition: '-7px 0px'
+    },
+    egg:{
+        backgroundPosition: '-76px 0px'
+    },
+    workoutType: {
+        background: `url(${workoutSprite})`,
+        width: '60px',
+        height: '60px'
+    },
+    home: {
+        backgroundPosition: '2px 10px'
+    },
+    gym: {
+        backgroundPosition: '-52px 5px',
+        backgroundSize: '180%'
+    },
+    bodyType:{
+        background: `url(${bodySprite})`,
+        height: '257px',
+        width: '145px'
+    }
+}
 const errMsgs = {
     requried: "Uh oh! It's a required field",
     name: "Wait, that doesn't sound like a valid name",
@@ -96,7 +131,7 @@ const workoutPrepared = {
 }
 
 let currentShapeBlock = [];
-for (var i = 5; i <= 45; i = i + 5) {
+for (var i = 5; i <= 40; i = i + 5) {
     currentShapeBlock.push(i);
 }
 const currentShape = {
@@ -107,7 +142,7 @@ const currentShape = {
 }
 let targetShapeBlock = [];
 for (var i = 5; i <= 25; i = i + 5) {
-    currentShapeBlock.push(i);
+    targetShapeBlock.push(i);
 }
 const targetShape = {
     label: 'What is your target shape?',
@@ -146,7 +181,38 @@ export default function SignupForm(props) {
             //setQuestion(1);
         }
     }
-
+    const getBodyType = (fat)=>{
+        console.log("userData >>>",userData);
+        let gender = userData.sex || JSON.parse(get('GSG_Client_data')).sex;
+        let xVal = 0;
+        let yVal = gender === 'male'?0:'-280px';
+        switch (parseInt(fat)){
+            case 5: 
+                xVal = '-864px'
+                break;
+            case 10: 
+                xVal = '-720px'
+                break;
+            case 15:
+                xVal = '-576px';
+                break;
+            case 20:
+                xVal = "-432px";
+                break
+            case 25:
+                xVal = "-288px";
+                break;
+            case 30:
+                xVal = '-144px';
+                break;
+            case 35:
+                xVal = '0';
+                break;
+            default:
+                xVal = '0'
+        }
+        return {backgroundPosition: `${xVal} ${yVal}`}
+    }
     const validate = (value, regex, type) => {
         let error;
         if (!value) {
@@ -667,35 +733,37 @@ export default function SignupForm(props) {
                             {section === 6 &&
                                 (<Grid item container style={Styles.marginTop16} direction='column' alignItems='flex-start' justify='center' spacing={4} >
                                     <Grid item container direction='row' alignItems='center' justify='center'> <Typography variant='body1'>{dietPreference.label}</Typography></Grid>
-                                    <Grid item container style={Styles.questionHeight} direction='row' alignItems='center' justify='center'>
-                                        <Grid xs={8} item style={Styles.paperItems}>
+                                    <Grid item container style={Styles.questionHeight} direction='column' alignItems='center' justify='center'>
+                                        <Grid item style={Styles.paperItems}>
                                             <input readOnly hidden id={dietPreference.veg.value} name="dietPref" value={dietPreference.veg.value} onClick={(e) => { handleInput(e); handleNextOnSignUpForm(); }} />
                                             <label htmlFor={dietPreference.veg.value}>
                                                 <Paper id='paperhover' variant="outlined" style={Styles.dietPaper} >
                                                     <Grid container direction='row' alignItems='center' justify='space-evenly'>
-                                                        <Grid item><Icon><img alt='Veg' src={CarrotImage} style={{ height: '80px', width: '80px', padding: '5px' }} /></Icon>
+                                                        <Grid item>
+                                                            <Icon style={{...styles.foodType, ...styles.veg}}></Icon>
                                                         </Grid>
-                                                        <Grid item > <Typography variant='body1'>Vegetarian</Typography></Grid></Grid>
+                                                        <Grid item><Typography variant='body1'>Vegetarian</Typography></Grid>
+                                                    </Grid>
                                                 </Paper>
                                             </label>
                                         </Grid>
-                                        <Grid xs={8} item style={Styles.paperItems}>
+                                        <Grid item style={Styles.paperItems}>
                                             <input readOnly hidden id={dietPreference.egg.value} name="dietPref" value={dietPreference.egg.value} onClick={(e) => { handleInput(e); handleNextOnSignUpForm(); }} />
                                             <label htmlFor={dietPreference.egg.value}>
                                                 <Paper id='paperhover' variant="outlined" style={Styles.dietPaper} >
                                                     <Grid container direction='row' alignItems='center' justify='space-evenly'>
-                                                        <Grid item><Icon><img alt='Egg' src={EggImage} style={{ height: '80px', width: '80px', padding: '5px' }} /></Icon>
+                                                        <Grid item><Icon style={{...styles.foodType, ...styles.nonVeg}}></Icon>
                                                         </Grid>
                                                         <Grid item > <Typography variant='body1'>{dietPreference.egg.label}</Typography></Grid></Grid>
                                                 </Paper>
                                             </label>
                                         </Grid>
-                                        <Grid xs={8} item style={Styles.paperItems}>
+                                        <Grid item style={Styles.paperItems}>
                                             <input readOnly hidden id={dietPreference.nonveg.value} name="dietPref" value={dietPreference.nonveg.value} onClick={(e) => { handleInput(e); handleNextOnSignUpForm(); }} />
                                             <label htmlFor={dietPreference.nonveg.value} >
                                                 <Paper id='paperhover' variant="outlined" style={Styles.dietPaper} >
                                                     <Grid container direction='row' alignItems='center' justify='space-evenly'>
-                                                        <Grid item><Icon><img alt='Non Veg' src={NonVegImage} style={{ height: '80px', width: '80px', padding: '5px' }} /></Icon>
+                                                        <Grid item><Icon style={{...styles.foodType, ...styles.egg}}></Icon>
                                                         </Grid>
                                                         <Grid item > <Typography variant='body1'>{dietPreference.nonveg.label} </Typography></Grid></Grid>
                                                 </Paper>
@@ -778,23 +846,23 @@ export default function SignupForm(props) {
                                     <Grid item container direction='row' alignItems='center' justify='center'>
                                         <Typography variant='body1'>{workoutplace.label}</Typography></Grid>
                                     <Grid item container style={Styles.questionHeight} direction='row' alignItems='center' justify='center'>
-                                        <Grid item style={Styles.paperItems}>
+                                        <Grid item>
                                             <input readOnly hidden id={workoutplace.home.label} name="willingGym" value={workoutplace.home.value} onClick={(e) => { handleInput(e); handleNextOnSignUpForm(); }} />
                                             <label htmlFor={workoutplace.home.label}>
                                                 <Paper id='paperhover' variant="outlined" style={Styles.genderPaper} >
-                                                    <Grid container direction='column' alignItems='center' justify='space-evenly'>
-                                                        <Grid item><Icon><img alt='Home' src={HomeImage} style={{ height: '80px', width: '80px', padding: '5px' }} /></Icon>
+                                                    <Grid container direction='column' alignItems='center' justify='center'>
+                                                        <Grid item><Icon style={{...styles.workoutType, ...styles.home}}></Icon>
                                                         </Grid>
                                                         <Grid item > <Typography variant='body1'>{workoutplace.home.label}</Typography></Grid></Grid>
                                                 </Paper>
                                             </label>
                                         </Grid>
-                                        <Grid item style={Styles.paperItems}>
+                                        <Grid item>
                                             <input readOnly hidden id={workoutplace.gym.label} name="willingGym" value={workoutplace.gym.value} onClick={(e) => { handleInput(e); handleNextOnSignUpForm(); }} />
                                             <label htmlFor={workoutplace.gym.label}>
                                                 <Paper id='paperhover' variant="outlined" style={Styles.genderPaper} >
                                                     <Grid container direction='column' alignItems='center' justify='space-evenly'>
-                                                        <Grid item><Icon><img alt='Gym' src={GymImage} style={{ height: '80px', width: '80px', padding: '5px' }} /></Icon>
+                                                        <Grid item><Icon style={{...styles.workoutType, ...styles.gym}}></Icon>
                                                         </Grid>
                                                         <Grid item > <Typography variant='body1'>{workoutplace.gym.label}</Typography></Grid></Grid>
                                                 </Paper>
@@ -873,19 +941,18 @@ export default function SignupForm(props) {
                                         <Typography variant='body1'>{currentShape.label}</Typography>
                                     </Grid>
                                     <Grid container direction="column" alignItems='center' justify='center' >
-                                        <Grid item container direction="column" alignItems='center' justify='center'>
-                                            {/* <Chip color="primary" style={Styles.chipStyles} label={userData.body_fat} />
-                                            <ArrowDropDownIcon style={Styles.arrowDown} /> */}
+                                        <Grid item container direction="column" alignItems='center' justify='center' style={{...styles.bodyType, ...getBodyType(userData.body_fat)}}>
+                                            &nbsp;
                                         </Grid>
-                                        <Grid container item style={{ display: 'block', padding: '20px' }} direction='column' align='center' justify='center'>
+                                        <Grid container item style={{ display: 'block', padding: '20px', marginTop: '50px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='body_fat' type="days" unit="%" min={currentShape.shape.min} max={currentShape.shape.max} initialPosition={currentShape.shape.defaultValue} stepInBetweenEachInterval={currentShape.shape.step} interval={currentShape.shape.interval}
                                                 distanceBetweenEachStep={distance * 2} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
                                             <Nouislider connect={[true, false]} range={{ min: parseInt(currentShape.shape.min), max: parseInt(currentShape.shape.max) }}
                                                 onChange={(value) => handleInputSlider({ name: 'body_fat', type: "days", unit: '%', value: value[0].replace(' %', '').trim() })}
                                                 start={parseInt(currentShape.shape.defaultValue)}
-                                                orientation='vertical' style={{ height: '65vh' }}
+                                                orientation='horizontal' style={{ width: '80%' }}
                                                 direction='rtl'
-                                                step={1}
+                                                step={5}
                                                 format=
                                                 {{
                                                     to: function (value) {
@@ -903,14 +970,12 @@ export default function SignupForm(props) {
                                                 }}
                                                 tooltips={true}
                                                 pips={{
-
                                                     mode: 'values',
                                                     stepped: true,
-                                                    density: 2.5,
                                                     values: [...currentShapeBlock],//[36, 48, 60, 72, 84, 96],
                                                     // mode: 'values',
                                                     // values: [36, 48, 60, 72, 84, 96],
-                                                    // density: 2,
+                                                    density: 5,
                                                     // stepped: true,
                                                     format: {
                                                         to: function (value) {
@@ -932,8 +997,8 @@ export default function SignupForm(props) {
                                         
                                          */}
 
-                                        <Grid container direction='column' style={Styles.gutter} alignItems='center' justify='center'>
-                                            <Grid item><Typography variant='body2' style={Styles.colorGrey}>{currentShape.sub1}</Typography></Grid>
+                                        <Grid container direction='column' style={{...Styles.gutter, marginTop: '20px'}} alignItems='center' justify='center'>
+                                            {/* <Grid item><Typography variant='body2' style={Styles.colorGrey}>{currentShape.sub1}</Typography></Grid> */}
                                             <Grid item><Typography variant='body2' style={{ ...Styles.colorGrey }}>{currentShape.sub2}</Typography></Grid>
                                         </Grid>
                                     </Grid>
@@ -946,19 +1011,20 @@ export default function SignupForm(props) {
                                         <Typography variant='body1'>{targetShape.label}</Typography>
                                     </Grid>
                                     <Grid container direction="column" alignItems='center' justify='center' >
-                                        <Grid item container direction="column" alignItems='center' justify='center'>
+                                        <Grid item container direction="column" alignItems='center' justify='center' style={{...styles.bodyType, ...getBodyType(userData.fat)}}>
+                                            &nbsp;
                                             {/* <Chip color="primary" style={Styles.chipStyles} label={userData.fat} />
                                             <ArrowDropDownIcon style={Styles.arrowDown} /> */}
                                         </Grid>
-                                        <Grid container item style={{ display: 'block', padding: '20px' }} direction='column' align='center' justify='center'>
+                                        <Grid container item style={{ display: 'block', padding: '20px', marginTop: '50px' }} direction='column' align='center' justify='center'>
                                             {/* <DraggableSlider name='fat' type="days" unit="%" initialPosition={targetShape.shape.defaultValue} min={targetShape.shape.min} max={targetShape.shape.max} stepInBetweenEachInterval={targetShape.shape.step} interval={targetShape.shape.interval}
                                                 distanceBetweenEachStep={distance * 2} bigStepHeight={bigStepHeight} smallStepHeight={smallStepHeight} boundary={boundary} scaleIsTop={scaleIsTop} valueIsTop={valueIsTop} value={handleInputSlider} isTouched={setEnableNext} /> */}
                                             <Nouislider connect={[true, false]} range={{ min: parseInt(targetShape.shape.min), max: parseInt(targetShape.shape.max) }}
                                                 onChange={(value) => handleInputSlider({ name: 'fat', type: "days", unit: '%', value: value[0].replace(' %', '').trim() })}
                                                 start={parseInt(targetShape.shape.defaultValue)}
-                                                orientation='vertical' style={{ height: '65vh' }}
+                                                orientation='horizontal' style={{ width: '80%' }}
                                                 direction='rtl'
-                                                step={1}
+                                                step={5}
                                                 format=
                                                 {{
                                                     to: function (value) {
@@ -979,8 +1045,8 @@ export default function SignupForm(props) {
 
                                                     mode: 'values',
                                                     stepped: true,
-                                                    density: 2.5,
-                                                    values: [5, 10, 15, 20, 25],//[36, 48, 60, 72, 84, 96],
+                                                    density: 20,
+                                                    values: [...targetShapeBlock],//[36, 48, 60, 72, 84, 96],
                                                     // mode: 'values',
                                                     // values: [36, 48, 60, 72, 84, 96],
                                                     // density: 2,
@@ -1000,7 +1066,7 @@ export default function SignupForm(props) {
 
 
                                         </Grid>
-                                        <Grid container direction='column' style={Styles.gutter} alignItems='center' justify='center'>
+                                        <Grid container direction='column' style={{...Styles.gutter, marginTop: '20px'}} alignItems='center' justify='center'>
                                             <Grid item><Typography variant='body2' style={Styles.colorGrey}>{targetShape.sub1}</Typography></Grid>
                                             <Grid item><Typography variant='body2' style={{ ...Styles.colorGrey, opacity: '1' }}>{targetShape.sub2}</Typography></Grid>
                                         </Grid>

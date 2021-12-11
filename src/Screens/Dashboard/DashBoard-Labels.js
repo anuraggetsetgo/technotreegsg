@@ -158,7 +158,7 @@ export default function DashBoardLabels(props) {
               <Grid item container justify="center" alignItems="center" style={{height: '15vh'}}>
                 <Grid item xs={6}>
                   <Grid item container className={classes.elements} direction='column' justify='center' alignItems='center'>
-                    <Typography variant='h3' style={Styles.textGreyO5}>{(userGoals.fat).toFixed(2)}</Typography>
+                    <Typography variant='h3' style={Styles.textGreyO5}>{parseInt(userGoals.fat).toFixed(2)}</Typography>
                     <Typography variant='body2' style={Styles.textGreyO5}>Fat(%)</Typography>
                   </Grid>
                 </Grid>

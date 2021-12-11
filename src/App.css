@@ -1,3 +1,9 @@
+
+body{
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
 small{font-size: .7rem}
 
 .app {

@@ -5,15 +5,66 @@ import Styles from './Signup-Style';
 import AlertSnackbar, { ALERT } from '../../Container/Common/AlertSnackbar'
 
 export default function ProjectedProgress(props) {
-
-    const { projectedProgressData, updateProfile,errorupdateProfile } = props
-    console.log(projectedProgressData)
+    const bodySprite = 'https://gsg-image-uploads.s3-accelerate.amazonaws.com/webcontent/img/bodyShapesSprite.jpg';
+    const styles = {
+        bodyType:{
+            background: `url(${bodySprite})`,
+            height: '257px',
+            width: '145px'
+        }
+    }
+    const { projectedProgressData, updateProfile,errorupdateProfile, body_fat, fat, sex } = props
+    const getBodyType = (fat)=>{
+        let gender = sex;
+        let xVal = 0;
+        let yVal = gender === 'male'?0:-'280px';
+        switch (parseInt(fat)){
+            case 5: 
+                xVal = '-864px'
+                break;
+            case 10: 
+                xVal = '-720px'
+                break;
+            case 15:
+                xVal = '-576px';
+                break;
+            case 20:
+                xVal = "-432px";
+                break
+            case 25:
+                xVal = "-288px";
+                break;
+            case 30:
+                xVal = '-144px';
+                break;
+            case 35:
+                xVal = '0';
+                break;
+            default:
+                xVal = '0'
+        }
+        return {backgroundPosition: `${xVal} ${yVal}`}
+    }
     return (<>
         <HeaderBar headerName={"Your projected progress"} isVisible leftElement='Back' leftEnable={true} leftCB={props.restart} rightElement=' ' />
         <Grid container direction='column' style={Styles.displayView} alignItems='center' justify='center'>
             <Grid item container direction='row' alignItems='center' justify='center'>
-                <Grid item > <Paper elevation={2} square style={{ width: '50vw', height: '50vw', ...Styles.colorGrey }}>Current Shape</Paper></Grid>
-                <Grid item ><Paper elevation={2} square style={{ width: '50vw', height: '50vw', ...Styles.colorGrey }}>Target Shape</Paper></Grid>
+                <Grid item container direction="column" xs={6} alignItems="center">
+                    <Grid item container direction="column" alignItems='center' justify='center' style={{...styles.bodyType, ...getBodyType(body_fat)}}>
+                        &nbsp;
+                        {/* <Chip color="primary" style={Styles.chipStyles} label={userData.fat} />
+                        <ArrowDropDownIcon style={Styles.arrowDown} /> */}
+                    </Grid>
+                    <Grid item>Current Shape: {body_fat}%</Grid>
+                </Grid>
+                <Grid item container direction="column" xs={6} alignItems="center">
+                    <Grid item container direction="column" alignItems='center' justify='center' style={{...styles.bodyType, ...getBodyType(fat)}}>
+                        &nbsp;
+                        {/* <Chip color="primary" style={Styles.chipStyles} label={userData.fat} />
+                        <ArrowDropDownIcon style={Styles.arrowDown} /> */}
+                    </Grid>
+                    <Grid item>Target Shape: {fat}%</Grid>
+                </Grid>
             </Grid>
             <Grid container direction='column' style={{...Styles.gutter, ...Styles.marginTop16}} alignItems='center' alignContent='center' justify='center'>
                 <Grid item container style={{...Styles.marginTop16, ...Styles.gutter}} direction='column' alignItems='center' justify='center'>
@@ -21,12 +72,12 @@ export default function ProjectedProgress(props) {
                     <Grid item>
                         <Typography variant='body1' style={Styles.colorGreyNO}> You need to {projectedProgressData.muscleGain > 0 ? 'gain ' : 'loose '}
                             <span className="emphasis" style={{ ...Styles.colorGreyOpacityOne }}>{(projectedProgressData.muscleGain).toFixed(2)} </span>
-                    lbs of muscle </Typography>
+                     lbs of muscle </Typography>
                     </Grid>
                     <Grid item> <Typography variant='body1' style={Styles.colorGreyNO}>and {projectedProgressData.fatLoss > 0 ? 'loose ' : 'gain '}
-                        <span className="emphasis">{(projectedProgressData.fatLoss).toFixed(2)}</span>lbs of fat....</Typography></Grid>
+                        <span className="emphasis">{(projectedProgressData.fatLoss).toFixed(2)}</span> lbs of fat....</Typography></Grid>
                 </Grid>
-                <Grid container style={Styles.marginTop16} direction='column' alignItems='center' justify='center'>
+                {/* <Grid container style={Styles.marginTop16} direction='column' alignItems='center' justify='center'>
                     <Grid item container direction='row' alignItems='center' justify='space-evenly'>
                         <Grid item style={Styles.paperItems}>
                             <input readOnly hidden id="slow" name="speed" value="speed" onClick={(e) => { console.log('clicked') }} />
@@ -72,7 +123,7 @@ export default function ProjectedProgress(props) {
                             </label>
                         </Grid>
                     </Grid>
-                </Grid>
+                </Grid> */}
             </Grid>
             <Grid item container direction='column' style={Styles.gutter} alignItems='center' justify='center'>
                 <Grid item>

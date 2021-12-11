@@ -58,6 +58,9 @@ export default function ProjectedProgress(props) {
   }, [userData])
   return (
     projectedProgressData && <ProjectedProgressView
+      fat={userData.fat}
+      body_fat={userData.body_fat}
+      sex={userData.sex}
       restart={props.restart}
       projectedProgressData={projectedProgressData}
       setProjectedProgressData={setProjectedProgressData}
