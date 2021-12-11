@@ -86,11 +86,12 @@ export default function SignIn(props) {
                             required={true}
                             onBlur={validateEmail}
                             onChange={handleInput}
-                            style={{width: '85%'}}
+                            style={{width: '100%'}}
                         >
                         </TextField>
                     </Grid>
                     <Grid item>
+                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
                             id="standard-adornment-password"
                             autoComplete="off"
@@ -99,8 +100,7 @@ export default function SignIn(props) {
                             type={showPassword ? 'text' : 'password'}
                             value={userData.user_password}
                             onChange={handleInput}
-                            placeholder="Password"
-                            style={{width: '85%'}}
+                            style={{width: '100%'}}
                             //onBlur={validatePassword}
                             endAdornment={
                                 <InputAdornment position="end">

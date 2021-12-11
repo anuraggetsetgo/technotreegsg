@@ -126,8 +126,8 @@ export default function DashBoardLabels(props) {
   const [showProgressUpdate, setshowProgressUpdate] = useState(false);
   const [currentCal,setCurrentCals]=useState(parseInt(getCurrentDietCalories(weight, workout,body_fat,userGoals.fat)));
   let history = useHistory();
-  // const handleClickOnUpdateProgress = () => { setshowProgressUpdate(true); }
-  const handleClickOnUpdateProgress = () => { history.push('/progress') }
+  const handleClickOnUpdateProgress = () => { setshowProgressUpdate(true); }
+  // const handleClickOnUpdateProgress = () => { history.push('/progress') }
   const handleClickOnViewWorkout = () => { history.push('/workout') }
   const handleClickOnChangeGoal = () => { history.push('/changegoal') }
   const handleClickViewOnDiet = () => { history.push('/meal') }
@@ -137,15 +137,11 @@ export default function DashBoardLabels(props) {
     <>
       {showProgressUpdate && <ProgressUpdate show={showProgressUpdate}  handleClose={setshowProgressUpdate} />}
 
-      {/* <Grid item container direction='row' justify="sretch" alignItems='center' style={{ height: '15vh', marginBottom: '50px', borderBottomRightRadius: '60px', borderBottomLeftRadius: '60px', background: '#f6f4f6'}}>
-        <Paper elevation={0} style={{width: '100%', height: '100%',borderBottomRightRadius: '60px', borderBottomLeftRadius: '60px',  background: '#f6f4f6'}} onClick={handleClickOnUpdateProgress}>
-          <Grid container direction="column" alignItems="stretch" justify="flex-start" style={{height: '100vh'}}>
-            <Grid item container justify="center" alignItems="center" style={{height: '15vh'}}>
-              {!props.errorGoal&& props.startingGoal&& props.currentGoal&&<UserProgressRing {...props}/>}
-            </Grid>
-          </Grid>
-        </Paper>
-      </Grid> */}
+      <Grid item container direction='column' alignItems='center' justify='space-around' style={{paddingBottom: '30px'}}>
+        <Button onClick={handleClickOnUpdateProgress} variant='contained' style={{color:'white', backgroundColor:'black', width:'80%'}} color="blackColor" className={classes.imageTitle + ' bigButton'}>
+          Progress Update
+        </Button>
+      </Grid>
       <Grid container direction='row'  alignItems='center' justify='space-around' className={classes.image} style={{ height: '20vh', marginBottom: '50px', padding: '0 4%'}}>
         <Paper elevation={0} style={{width: '100%', height: '100%', borderRadius: '10px', overflow:'hidden', background: '#f6f4f6'}} onClick={handleClickOnChangeGoal}>
           <Grid container direction="column" alignItems="stretch" justify="flex-start" >

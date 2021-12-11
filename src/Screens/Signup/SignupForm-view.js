@@ -313,7 +313,7 @@ export default function SignupForm(props) {
 
     const handleInputSlider = (obj) => {
         setEnableNext(true);
-        console.log(obj.value)
+        console.log(obj)
         switch (obj.type) {
             case 'height':
                 if (obj.unit === 'ft') {
@@ -327,7 +327,7 @@ export default function SignupForm(props) {
                 break;
             case 'weight':
                 if (obj.unit === 'kg') {
-                    setUserData({ ...userData, [obj.name]: (obj.value) });
+                    setUserData({ ...userData, [obj.name]: kgtolb(obj.value) });
                     setUserData_API({ ...userData_API, [obj.name]: kgtolb(obj.value) })//passing in lbs
                 }
                 if (obj.unit === 'lbs') {

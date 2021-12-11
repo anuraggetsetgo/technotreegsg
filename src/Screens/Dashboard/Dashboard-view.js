@@ -56,7 +56,7 @@ export default function Dashboard(props) {
                         {Quotes.length>1?"Kudos! You're doing great":"Looking forward to an update from you :)"}
                     </Typography>
                 </Grid>
-                <Grid item container style={{padding: '0 4% 60px 4%'}}>
+                <Grid item container style={{padding: '0 4% 30px 4%'}}>
                     <Paper elevation={0} onClick={handleClickOnUpdateProgress} >
                         <Grid item container alignItems="flex-end" spacing={2}>
                             <Grid item container direction="column" alignItems="center" xs={6}>

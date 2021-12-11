@@ -113,14 +113,14 @@ export default function Register(props) {
 
     return (
         <>
-            <Grid style={{ ...Styles.displayView, marginTop: '25em' }}>
+            <Grid style={{ ...Styles.displayView, marginTop: '18em' }}>
                 <Grid container direction='column' style={Styles.gutter} alignItems='center' justifyContent='center'>
-                    <Grid item>
-                        <TextField autoComplete='off' name="email" value={userData.email} label="Email Address" onBlur={validateEmail} onChange={handleInput}></TextField>
+                    <Grid item style={{width:'100%'}}>
+                        <TextField style={{width:'100%'}} autoComplete='off' name="email" value={userData.email} label="Email Address" onBlur={validateEmail} onChange={handleInput}></TextField>
                         {<Typography variant="body2" style={{ ...Styles.err, margin: '2px 0px' }}> {errorForm.email}</Typography>}
                     </Grid>
-                    <Grid item style={{marginBottom:0}}>
-                        <MuiPhoneNumber name="mobile" label="Phone Number" disableAreaCodes={true} defaultCountry={'in'} excludeCountries={['pk', 'af', 'tj']} onChange={handleMobInput} onBlur={validateMobilePhone} autoFormat={true} />
+                    <Grid item style={{marginBottom:0, width:'100%'}}>
+                        <MuiPhoneNumber style={{width:'100%'}} name="mobile" label="Phone Number" disableAreaCodes={true} defaultCountry={'in'} excludeCountries={['pk', 'af', 'tj']} onChange={handleMobInput} onBlur={validateMobilePhone} autoFormat={true} />
                         {<Typography variant="body2" style={{ ...Styles.err, margin: '2px 0px' }}>{errorForm.mobile}</Typography>}
                     </Grid>
                     <Grid item>
