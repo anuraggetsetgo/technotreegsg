@@ -16,6 +16,7 @@ export default function Logout(props) {
         removeItem("client_user_id");
         removeItem("GSG_Client_Profile_Pic");
         removeItem("device_token");
+        removeItem("company");
         removeItem("device_type");
     }
     const handleClose = () => {
