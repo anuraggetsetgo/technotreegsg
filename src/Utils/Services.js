@@ -184,15 +184,18 @@ function storeCompanyName() {
   let url_string = window.location.href
   let url = new URL(url_string);
   let urlSplit = url.hash.split('/');
-  if (!get('company')) 
-  {
+  // if (!get('company')) 
+  // {
+  //   if (urlSplit.length >= 3 && urlSplit[1] === ('company'))
+  //   {set('company', urlSplit[2])
+     
+  //   }
+  
+  //   }
     if (urlSplit.length >= 3 && urlSplit[1] === ('company'))
-      {set('company', urlSplit[2])
-      window.location.replace('/');
+    {set('company', urlSplit[2])
+      window.location.replace('/');  
     }
-  
-    }
-  
 }
 export {
   docHt,
