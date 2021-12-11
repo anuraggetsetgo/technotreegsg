@@ -2,7 +2,7 @@
 import React from 'react'
 import Location from './Screens/Location/Location'
 import GetStarted from "./Container/GetStarted";
-import { HashRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import Auth from './Utils/Auth';
 import { get ,storeCompanyName} from './Utils/Services';
 import theme from './theme';
