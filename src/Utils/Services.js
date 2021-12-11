@@ -187,8 +187,12 @@ function storeCompanyName() {
   if (!get('company')) 
   {
     if (urlSplit.length >= 3 && urlSplit[1] === ('company'))
-      set('company', urlSplit[2])
-  }
+      {set('company', urlSplit[2])
+      window.location.replace('/');
+    }
+  
+    }
+  
 }
 export {
   docHt,
