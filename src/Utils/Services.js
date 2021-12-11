@@ -194,7 +194,7 @@ function storeCompanyName() {
   //   }
     if (urlSplit.length >= 3 && urlSplit[1] === ('company'))
     {set('company', urlSplit[2])
-      window.location.replace('/');  
+      window.location.replace(urlSplit[0]);  
     }
 }
 export {
