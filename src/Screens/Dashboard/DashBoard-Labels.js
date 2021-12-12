@@ -138,7 +138,7 @@ export default function DashBoardLabels(props) {
       {showProgressUpdate && <ProgressUpdate show={showProgressUpdate}  handleClose={setshowProgressUpdate} />}
 
       <Grid item container direction='column' alignItems='center' justify='space-around' style={{paddingBottom: '30px'}}>
-        <Button onClick={handleClickOnUpdateProgress} variant='contained' style={{color:'white', backgroundColor:'black', width:'80%'}} color="blackColor" className={classes.imageTitle + ' bigButton'}>
+        <Button onClick={handleClickOnUpdateProgress} variant='contained' style={{color:colors.black, backgroundColor: colors.yellow, width:'80%'}} color="blackColor" className={classes.imageTitle + ' bigButton'}>
           Progress Update
         </Button>
       </Grid>

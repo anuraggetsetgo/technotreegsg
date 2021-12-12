@@ -23,6 +23,7 @@ import Register from "./Container/Register";
 import SpeedDial from './Container/Common/SpeedDial'
 import "nouislider/distribute/nouislider.css";
 import './App.css';
+import { Infosheet } from './Container/Infosheet';
 
 export default function App() {
   storeCompanyName();
@@ -67,6 +68,7 @@ export default function App() {
           <Route path="/profile" exact component={loggedIn?Profile:SignIn} />
           <Route path="/progress" exact component={Progress} />
           <Route path="/support" exact component={loggedIn?Support:SignIn} />
+          <Route path="/infosheet" exact component={loggedIn?Infosheet:SignIn} />
           
           {/* <Route path="/login" exact component={SignIn} /> */}
 

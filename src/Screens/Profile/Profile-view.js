@@ -38,6 +38,9 @@ export default function Profile(props) {
   const viewProgress = () => {
     history.push('/progress')
   }
+  const updateInfo = () => {
+    history.push('/infosheet')
+  }
   const uploadImg = (img) => {
     setuserImage(img.image);
   }
@@ -75,6 +78,12 @@ export default function Profile(props) {
               <Button className="bigButton" variant="contained" color="primary" onClick={viewProgress}>View your progress</Button>
             </Grid>
 
+            <Grid container direction="column" justify="center" alignItems='center'>
+              {/* <Button  className="bigButton"variant="contained" color="primary">Modify your goal</Button>
+                      <Button className="bigButton" variant="contained" color="primary" onClick={()=>setOpenUpdateProgressModule(true)}>Update progress</Button> */}
+              <Button className="bigButton" variant="contained" color="primary" onClick={updateInfo}>Update your info sheet</Button>
+            </Grid>
+
             <Grid container style={{ ...Styles.translucentContainer, ...Styles.gutter16 }} direction="column" justify="flex-start">
               <Typography className={classes.subheading} style={Styles.textGreyO5} variant="body2">Your target values</Typography>
             </Grid>
@@ -90,10 +99,10 @@ export default function Profile(props) {
               </Grid>
             </Grid>
 
-            <Grid container style={{ display:'none',...Styles.translucentContainer, ...Styles.gutter16 }} direction="column" justify="flex-start">
+            {/*<Grid container style={{ display:'none',...Styles.translucentContainer, ...Styles.gutter16 }} direction="column" justify="flex-start">
               <Typography className={classes.subheading} style={Styles.textGreyO5} variant="body2">Learn more</Typography>
             </Grid>
-            <Grid container style={{display:'none'}}  direction="column" justify="flex-start">
+             <Grid container style={{display:'none'}}  direction="column" justify="flex-start">
               <Accordion>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
                   <Typography variant='body1'>Fitness Guides</Typography>
@@ -115,7 +124,7 @@ export default function Profile(props) {
                     sit amet blandit leo lobortis eget.
                   </Typography>
                 </AccordionDetails>
-              </Accordion>
+              </Accordion> */}
               {/* <Accordion>
               <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
                 <Typography variant='body1'>FAQs</Typography>
@@ -127,8 +136,8 @@ export default function Profile(props) {
           </Typography>
               </AccordionDetails>
             </Accordion> */}
-              <Typography variant='body1' onClick={navigateToFAQ}>FAQs</Typography>
-            </Grid>
+              {/* <Typography variant='body1' onClick={navigateToFAQ}>FAQs</Typography>
+            </Grid> */}
 
             {openUpdateProgress && <ProfileUpdate show={openUpdateProgress} handleClose={setOpenUpdateProgressModule} />}
 

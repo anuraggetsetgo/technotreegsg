@@ -34,7 +34,6 @@ export default function Dashboard(props) {
     const randomNo = parseInt(Math.random()*quotesTotal);
     const lastProgressImg = userData.clientProgress[0].pic_1;
     const firstProgressImg = userData.clientProgress[userData.clientProgress.length-1].pic_1;
-    console.log("QUOTES >>>>",firstProgressImg, lastProgressImg);
     return (<>
         {/* <HeaderBar headerName=' ' isVisible leftElement=' ' settings={setting} /> */}
         <Grid style={{...Styles.displayViewContainer, marginTop: 0, height: '100vh', paddingBottom:'50px', background: '#fff'}}>
@@ -51,9 +50,9 @@ export default function Dashboard(props) {
                         <Grid item><Typography variant="body1" style={Styles.colorWhite}>- {Quotes[randomNo].author}</Typography></Grid>
                     </Grid>
                 </Grid>
-                <Grid item style={{textAlign: 'center', marginBottom: '30px'}}>
+                <Grid item style={{textAlign: 'center', marginBottom: '30px', padding: '0 40px'}}>
                     <Typography variant="h4">
-                        {Quotes.length>1?"Kudos! You're doing great":"Looking forward to an update from you :)"}
+                        {Quotes.length>1?"Here's a snapshot of your progress:":"Looking forward to an update from you :)"}
                     </Typography>
                 </Grid>
                 <Grid item container style={{padding: '0 4% 30px 4%'}}>
@@ -61,11 +60,11 @@ export default function Dashboard(props) {
                         <Grid item container alignItems="flex-end" spacing={2}>
                             <Grid item container direction="column" alignItems="center" xs={6}>
                                 <Grid item style={{borderRadius: '10px', padding: '10px', minHeight: '150px', width: '100%', overflow: 'hidden', background: '#f6f4f6'}}><ImageS3 imgSrc ={firstProgressImg} folder="progress_picture"/></Grid>
-                                <Grid item style={{background: colors.yellow, marginTop: '10px', padding: '5px 10px', borderRadius: '10px'}}><Typography variant="body1">How it started</Typography></Grid>
+                                <Grid item style={{marginTop: '10px', padding: '5px 10px', borderRadius: '10px'}}><Typography variant="body1">How it started</Typography></Grid>
                             </Grid>
                             <Grid item container direction="column" alignItems="center" xs={6}>
                                 <Grid item style={{borderRadius: '10px', padding: '10px', minHeight: '150px', width: '100%', overflow: 'hidden', background: '#f6f4f6', marginBottom: '10px'}}><ImageS3 imgSrc ={lastProgressImg} folder="progress_picture"/></Grid>
-                                <Grid item><Typography variant="body1" style={{background: colors.yellow, padding: '5px 10px', borderRadius: '10px'}}>How's it going</Typography></Grid>
+                                <Grid item><Typography variant="body1" style={{padding: '5px 10px', borderRadius: '10px'}}>How's it going</Typography></Grid>
                             </Grid>
                         </Grid>
                     </Paper>

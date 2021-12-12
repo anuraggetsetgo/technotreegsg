@@ -5,7 +5,7 @@ body{
   overflow: auto;
 }
 small{font-size: .7rem}
-
+textarea{min-height: 20px;}
 .app {
   background-color: #fff;
 }

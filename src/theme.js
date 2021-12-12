@@ -132,7 +132,8 @@ const theme = createMuiTheme({
       },
       input:{
         padding:'12px 0px 4px',
-        fontSize:'24px'
+        fontSize:'20px',
+        lineHeight: '24px'
       },
     },
     MuiButton: {
