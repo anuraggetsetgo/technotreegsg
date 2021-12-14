@@ -9,6 +9,10 @@ export function calculateIdealWeight(weight, height, gender, currentShape, targe
 export function api_profileGet(successCallback, errCallback) {
     callAPI(getURL("profile"), "get", successCallback, errCallback);
 }
+
+export function api_companyLogoGet(companyName,successCallback, errCallback) {
+    callAPI("https://api.getsetgo.fitness/base_ind/API/v1/get-corporate-branding?company="+companyName, "get", successCallback, errCallback);
+}
 export function api_profilePost(data, successCallback, errCallback) {
     callAPI(getURL("profile"), "post", successCallback, errCallback, data);
 }
