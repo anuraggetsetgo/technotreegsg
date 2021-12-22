@@ -214,9 +214,9 @@ export default function ProfileUpdate(props) {
   }, [img])
 
   return (
-    <Grid>
+    <Grid style={{position: 'absolute', top: '0', left: '0', right: '0'}}>
       {!progressUpdateSuccess && (
-        <Dialog open={open} onClose={handleClose} >
+        <Dialog open={open} onClose={handleClose}>
           <DialogTitle className={classes.dialogTitle}>
             <Grid container direction='row' alignItems='center' justify='space-between'>
               <Typography>Update Progress </Typography>
@@ -727,7 +727,7 @@ export default function ProfileUpdate(props) {
               <Grid container item direction='row' alignContent="center" alignItems='center' justify='center'>
                 {imageInputArray.map((element, index) => (
                   <Paper elevation={2} square className={classes.paperImageContainer} key={index} style={{ margin: '8px', width: '25vw', height: '15vh', maxWidth: '25vw', maxHeight: '15vh', ...Styles.translucentContainer }}>
-                    {img[element] && (<img src={img[element] || emptyImage} alt=' ' style={{ width: '100%', height: '100%', }} />)}
+                    {img[element] && (<img src={img[element] || emptyImage} alt=' ' style={{ width: '100%', height: '100%', objectFit: 'contain'}} />)}
                     <Grid container direction='column' alignItems='center' justify='center'>
                       <Grid item>
                         <ImageUpload imageUploadError={setImageUploadError}

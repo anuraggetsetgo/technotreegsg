@@ -4,6 +4,7 @@ import Logo from "../../img/logo.png";
 import Style from "./GetStarted-style";
 import PreloadImage from '../../Utils/Preloadimg'
 import WelcomeScreen from '../../img/WelcomeScreen.png'
+import WelcomeScreen1 from '../../img/WelcomeScreen1.png'
 //import CompanyLogo from "../../img/logo.png";
 export default function Start(props) {
 

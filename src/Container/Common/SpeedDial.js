@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         {
             backgroundColor: 'red',
         },
-        position: 'fixed',
+        position: 'absolute',
         //background:'#FFDD33',
         '&.MuiSpeedDial-directionLeft': {
             bottom: theme.spacing(2),

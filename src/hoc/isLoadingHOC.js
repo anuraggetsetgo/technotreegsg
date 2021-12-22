@@ -4,7 +4,7 @@ import Loader from "react-loader-spinner";
 import Styles from '../app-style'
 import { Grid, Typography } from '@material-ui/core';
 //Signup
-const LoaderStyle = { container: { position: 'absolute', height: '100vh', zIndex: Styles.highestZ.zIndex , background: Styles.colorWhite.color }, };
+const LoaderStyle = { container: { position: 'fixed', height: '100vh', left: '0', zIndex: Styles.highestZ.zIndex , background: Styles.colorWhite.color }, };
 
 export default function isLoadingHOC(WrappedComponent, loadingMessage) {
     function Loading(props) {

@@ -1,9 +1,23 @@
+* {
+  scrollbar-width: thin;
+}
 
 body{
   height: 100%;
   width: 100%;
   overflow: auto;
+  scrollbar-color: grey;
 }
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: grey;
+  border-radius: 20px;
+}
+
 small{font-size: .7rem}
 textarea{min-height: 20px;}
 .app {

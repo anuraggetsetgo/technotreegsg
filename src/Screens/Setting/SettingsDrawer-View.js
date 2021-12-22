@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   drawer: {
-    width: '100vw',
+    width: '100%',
     flexShrink: 0,
   },
-  drawerPaper: { width: '100vw', },
+  drawerPaper: { maxWidth: '550px', position:  'absolute', left: '0'},
   drawerHeader: {
     display: 'grid',
     alignItems: 'center',

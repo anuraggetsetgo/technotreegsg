@@ -26,7 +26,7 @@ export default function AlertSnackbar(props) {
     }
   };
   return (
-    <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+    <Snackbar style={{position: `${!open && 'absolute'}`}} open={open} autoHideDuration={2000} onClose={handleClose}>
       <Alert onClose={handleClose} severity={type}
         type={props.type}
       >{props.message}

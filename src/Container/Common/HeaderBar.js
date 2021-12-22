@@ -32,7 +32,7 @@ export default function HeaderBar(props) {
   let history = useHistory();
   return (
     isVisible && (
-      <AppBar className={classes.toolbar} style={Styles.header} position="fixed" size="medium" color='secondary'>
+      <AppBar className={classes.toolbar} style={Styles.header} position="absolute" size="medium" color='secondary'>
         <Toolbar className={classes.toolbar} >
           <Grid item xs={12} container direction='row' alignItems="center" justify="center">
             {leftElement!=='back' && !leftEnable && (
