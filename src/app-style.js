@@ -91,7 +91,7 @@ marginBottom20:{marginBottom:'20px'},
 
 header:{
   zIndex: 5,
-  left: '0'
+  left: '0',
 },
 
 headerHeight:{
@@ -102,7 +102,7 @@ displayViewContainer:{
   overflowY: 'scroll',
   scrollbarWidth: 'thin',
   marginTop: '6vh', //close to header as header Height
-  height: `94vh`
+  // height: `100%`
 },
 textGrey:{
   color:colors.grey,

@@ -37,6 +37,7 @@ export default {
   },
 width100:{
   width:'100%',
+  marginLeft: '0'
 },
 marginTB16:{margin:'8px 0px'}
  

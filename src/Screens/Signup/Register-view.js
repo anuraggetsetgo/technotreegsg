@@ -11,6 +11,7 @@ import MuiPhoneNumber from 'material-ui-phone-number';
 import Timer from '../../Container/Common/Timer'
 import AlertSnackbar, { ALERT } from '../../Container/Common/AlertSnackbar'
 import Style from "../GetStarted/GetStarted-style";
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 const errMsgs = {
     required: "Uh oh! It's a required field",
@@ -113,7 +114,13 @@ export default function Register(props) {
 
     return (
         <>
-            <Grid style={{ ...Styles.displayView, marginTop: '18em' }}>
+            <Grid container direction='column' justify='flex-start' alignItems='center'>
+            <Grid item container justify='flex-start' alignItems='flex-start'>
+                <IconButton onClick={() => history.goBack()}> <ChevronLeftIcon />
+                </IconButton>
+            </Grid>
+            </Grid>
+            <Grid style={{ ...Styles.displayView, marginTop: '12em' }}>
                 <Grid container direction='column' style={Styles.gutter} alignItems='center' justifyContent='center'>
                     <Grid item style={{width:'100%'}}>
                         <TextField style={{width:'100%'}} autoComplete='off' name="email" value={userData.email} label="Email Address" onBlur={validateEmail} onChange={handleInput}></TextField>
@@ -123,7 +130,7 @@ export default function Register(props) {
                         <MuiPhoneNumber style={{width:'100%'}} name="mobile" label="Phone Number" disableAreaCodes={true} defaultCountry={'in'} excludeCountries={['pk', 'af', 'tj']} onChange={handleMobInput} onBlur={validateMobilePhone} autoFormat={true} />
                         {<Typography variant="body2" style={{ ...Styles.err, margin: '2px 0px' }}>{errorForm.mobile}</Typography>}
                     </Grid>
-                    <Grid item>
+                    <Grid item style={{width: '100%'}}>
                         <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                         <Input
                             id="standard-adornment-password"
@@ -133,6 +140,7 @@ export default function Register(props) {
                             value={userData.password}
                             onChange={handleInput}
                             onBlur={validatePassword}
+                            style={{width: '100%'}}
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -148,7 +156,7 @@ export default function Register(props) {
                         {<Typography variant="body2" style={{ ...Styles.err, margin: '2px 0px' }}> {errorForm.password}</Typography>}
                     </Grid>
                     <Grid item>
-                        <Button className="bigButton" disabled={submitBtn} style={Style.width100} variant="contained" color="primary" onClick={handleRegister}>Register</Button>
+                        <Button className="bigButton" disabled={submitBtn} style={{width: '96%', position: 'absolute', left: 0, }} variant="contained" color="primary" onClick={handleRegister}>Register</Button>
                     </Grid>
                 </Grid>
             </Grid>

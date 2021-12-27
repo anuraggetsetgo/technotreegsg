@@ -48,7 +48,6 @@ export const RegisterView = (props) => {
             payload
         );
     };
-
     const handleSuccess = data => {
         setAlert(true);
         setAlertData({
@@ -66,13 +65,13 @@ export const RegisterView = (props) => {
         })
     };
 
+
     return (
         <div>
             {hideForm && <ConformationScreen/>}
             { !hideForm && <Register {...props} registerfn={registerfn}/> }
 
-            {/*<AlertSnackbar open={alert} message={alertData.alertMsg} type={alertData.alertType}>*/}
-            {/*</AlertSnackbar>*/}
+            {alert && <AlertSnackbar open={true} message={alertData.alertMsg} type={alertData.alertType} />}
         </div>
     );
 }

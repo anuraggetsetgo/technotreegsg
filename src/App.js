@@ -27,6 +27,9 @@ import { Infosheet } from './Container/Infosheet';
 import { Grid } from '@material-ui/core';
 import SplitBanner from './Screens/SplitBanner/SplitBanner';
 import { useMediaQuery } from '@material-ui/core';
+import ForgotPassword from './Screens/ForgotPassword/ForgotPassword';
+import SetNewPassword from './Screens/SetNewPassword/SetNewPassword';
+import ChangeOldPassword from './Screens/ChangeOldPassword/ChangeOldPassword';
 
 export default function App() {
   storeCompanyName();
@@ -84,6 +87,9 @@ export default function App() {
           <Route path="/register" exact component={Register} />
           <Route path="/logout" exact render={(routeProps) => (<Logout changeLoginStatus={changeLoginStatus}/>)} />
           <Route path="/"  component={loggedIn?SpeedDial:empty}/>
+          <Route exact path="/forgotpassword"  component={ForgotPassword}/>
+          <Route exact path="/setpassword/:id"  component={SetNewPassword}/>
+          <Route exact path="/changeoldpassword"  component={ChangeOldPassword}/>
         </Grid>
 
           <SplitBanner/>

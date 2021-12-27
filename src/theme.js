@@ -154,7 +154,7 @@ const theme = createMuiTheme({
       contained: {
         padding: "8px 20px",
         borderRadius:'25px',
-        maxWidth: '200px',
+        width: 'fit-content',
         margin: '10px'
       },
       containedPrimary: {

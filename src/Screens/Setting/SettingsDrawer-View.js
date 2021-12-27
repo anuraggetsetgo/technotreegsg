@@ -60,6 +60,7 @@ export default function Setting(props) {
   const logout = () => { setOpenDrawer(false);history.push('/logout'); }
   const profile = () => {setOpenDrawer(false); history.push('/profile'); }
   const support = () => {setOpenDrawer(false); history.push('/support');}
+  const changePassword = () => {setOpenDrawer(false); history.push('./changeoldpassword');}
   return (
     <Grid item xs={2} container alignItems="center" justify="flex-end">
       <IconButton size='small' aria-label="Settings" onClick={toggleDrawer(true)}>
@@ -71,7 +72,7 @@ export default function Setting(props) {
             <IconButton onClick={toggleDrawer(false)}> <ChevronLeftIcon />
             </IconButton>
           </Grid>
-        </Grid >
+        </Grid>
 
         <Grid item style={{ ...Styles.translucentContainer }} container direction='row' alignItems='center' justify='space-between'>
           <Typography className={classes.subheading} style={Styles.textGreyO5} variant='body2'>Profile</Typography>
@@ -119,6 +120,9 @@ export default function Setting(props) {
         </Grid>
         <Grid item container onClick={support} className={classes.labels} direction='row' justify='space-between' alignItems='center'>
           <Typography variant='body1'>Support/Help</Typography>
+        </Grid>
+        <Grid item container onClick={changePassword} className={classes.labels} direction='row' justify='space-between' alignItems='center'>
+          <Typography variant='body1'>Change Password</Typography>
         </Grid>
         <Grid item container onClick={logout} className={classes.labels} direction='row' justify='space-between' alignItems='center'>
           <Typography variant='body1'>Logout</Typography>
