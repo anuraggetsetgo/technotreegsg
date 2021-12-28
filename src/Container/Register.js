@@ -39,6 +39,12 @@ export const RegisterView = (props) => {
 
     const registerfn = (payload) => {
          //    apiCall("signin", "in", updateIN, updateIN, props.props, "post", tempObj);
+
+        setAlertData({
+            alertType: '',
+            alertMsg: ''
+        })
+        setAlert(false);
         payload.company=get('company');
         callAPI(
             getURL("signup"),
@@ -49,20 +55,22 @@ export const RegisterView = (props) => {
         );
     };
     const handleSuccess = data => {
-        setAlert(true);
+        
         setAlertData({
             alertType: ALERT.SUCCESS,
             alertMsg: 'Registered successfully !!!'
         })
+        setAlert(true);
         setHideForm(true);
     };
     const handleErr = err => {
         const {response: { data: { errormessage }}} = err;
-        setAlert(true);
+        
         setAlertData({
             alertType: ALERT.ERROR,
             alertMsg: errormessage
         })
+        setAlert(true);
     };
 
 
