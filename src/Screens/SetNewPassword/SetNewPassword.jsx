@@ -6,9 +6,8 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Style from "../GetStarted/GetStarted-style";
-import axios from "axios";
 import AlertSnackbar, { ALERT } from "../../Container/Common/AlertSnackbar";
 import validator from "validator";
 import { Link } from "react-router-dom";
@@ -32,16 +31,43 @@ const SetNewPassword = (props) => {
   });
   const [alert, setAlert] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // const [responseErr, setResponseErr] = useState("");
   const [success, setSuccess] = useState(false);
   const [alertData, setAlertData] = useState({
     alertMsg: "",
     alertType: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [validation, setValidation] = useState(false);
+  const [validationMsg, setValidationMsg] = useState(true);
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
+
+  useEffect(() => {
+    const isTokenIdValid = () => {
+      callAPI(
+        getURL("validate_pw_reset_token"),
+        "post",
+        (res) => {
+          console.log("response", res);
+          setValidationMsg(false);
+          setValidation(true);
+        },
+        (err) => {
+          console.log(err);
+          setAlert(true);
+          setAlertData({
+            alertType: ALERT.ERROR,
+            alertMsg: "Token invalid!",
+          });
+          setValidation(false);
+          setValidationMsg(false);
+        },
+        { token: props.match.params.id }
+      );
+    };
+    isTokenIdValid();
+  }, [props.match.params.id]);
 
   const validatePassword = (e) => {
     const { value, name } = e.target;
@@ -134,10 +160,131 @@ const SetNewPassword = (props) => {
     }
   };
 
-  return isLoading ? (
-    <Typography style={{ textAlign: "center", marginTop: "18rem" }}>
-      Please wait while we set your new password...
-    </Typography>
+  return validation ? (
+    isLoading ? (
+      <Typography style={{ textAlign: "center", marginTop: "18rem" }}>
+        {}Please wait while we set your new password...
+      </Typography>
+    ) : (
+      <Grid
+        container
+        direction='column'
+        style={{ height: "100vh", padding: "0 20px" }}
+        alignItems='stretch'
+        justify='center'
+      >
+        {success ? (
+          <Grid>
+            <Typography
+              variant='h4'
+              style={{
+                textAlign: "center",
+                marginBottom: "1rem",
+              }}
+            >
+              Password has been updated successfully!
+            </Typography>
+            <Button
+              className='bigButton'
+              disabled={false}
+              style={Style.width100}
+              variant='contained'
+              color='primary'
+            >
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to={"/login"}
+              >
+                Go back to login
+              </Link>
+            </Button>
+          </Grid>
+        ) : (
+          <>
+            <Grid item style={{ marginBottom: "20px" }}>
+              <h2>Set Your New Password</h2>
+              <TextField
+                autoComplete='off'
+                name='password'
+                type={showPassword ? "text" : "password"}
+                value={userData.password}
+                label='New Password'
+                required={true}
+                error={errorForm["password"] !== ""}
+                onBlur={validatePassword}
+                onChange={handleInput}
+                style={{ width: "100%" }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <IconButton
+                        aria-label='toggle password visibility'
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              ></TextField>
+              <TextField
+                autoComplete='off'
+                name='confirmPassword'
+                type={showPassword ? "text" : "password"}
+                value={userData.confirmPassword}
+                label='Confirm Password'
+                required={true}
+                error={errorForm["confirmPassword"] !== ""}
+                onBlur={validatePassword}
+                onChange={handleInput}
+                style={{ width: "100%" }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <IconButton
+                        aria-label='toggle password visibility'
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              ></TextField>
+            </Grid>
+            <Grid item>
+              <Button
+                className='bigButton'
+                disabled={false}
+                style={Style.width100}
+                variant='contained'
+                color='primary'
+                onClick={handleSubmit}
+              >
+                Submit
+              </Button>
+            </Grid>
+          </>
+        )}
+        {alert && (
+          <AlertSnackbar
+            open={alert}
+            message={alertData.alertMsg}
+            type='error'
+            onClose={() => setAlert(false)}
+          />
+        )}
+        {success && (
+          <AlertSnackbar
+            open={alertData}
+            message='Password reset successful!'
+            type='success'
+          />
+        )}
+      </Grid>
+    )
   ) : (
     <Grid
       container
@@ -146,17 +293,17 @@ const SetNewPassword = (props) => {
       alignItems='stretch'
       justify='center'
     >
-      {success ? (
-        <Grid>
-          <Typography
-            variant='h4'
-            style={{
-              textAlign: "center",
-              marginBottom: "1rem",
-            }}
-          >
-            Password has been updated successfully!
-          </Typography>
+      <Grid>
+        <Typography
+          variant='h4'
+          style={{
+            textAlign: "center",
+            marginBottom: "1rem",
+          }}
+        >
+          {validationMsg ? "checking validation..." : "Email link expired!"}
+        </Typography>
+        {!validationMsg && (
           <Button
             className='bigButton'
             disabled={false}
@@ -166,96 +313,13 @@ const SetNewPassword = (props) => {
           >
             <Link
               style={{ textDecoration: "none", color: "white" }}
-              to={"/login"}
+              to={"/forgotpassword"}
             >
-              Go back to login
+              Reset your password again
             </Link>
           </Button>
-        </Grid>
-      ) : (
-        <>
-          <Grid item style={{ marginBottom: "20px" }}>
-            <h2>Set Your New Password</h2>
-            <TextField
-              autoComplete='off'
-              name='password'
-              type={showPassword ? "text" : "password"}
-              value={userData.password}
-              label='New Password'
-              required={true}
-              error={errorForm["password"] !== ""}
-              onBlur={validatePassword}
-              onChange={handleInput}
-              style={{ width: "100%" }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            ></TextField>
-            <TextField
-              autoComplete='off'
-              name='confirmPassword'
-              type={showPassword ? "text" : "password"}
-              value={userData.confirmPassword}
-              label='Confirm Password'
-              required={true}
-              error={errorForm["confirmPassword"] !== ""}
-              onBlur={validatePassword}
-              onChange={handleInput}
-              style={{ width: "100%" }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position='end'>
-                    <IconButton
-                      aria-label='toggle password visibility'
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-            ></TextField>
-          </Grid>
-          <Grid item>
-            <Button
-              className='bigButton'
-              disabled={false}
-              style={Style.width100}
-              variant='contained'
-              color='primary'
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button>
-          </Grid>
-        </>
-      )}
-      {alert && (
-        <AlertSnackbar
-          open={alert}
-          message={alertData.alertMsg}
-          type='error'
-          onClose={() => setAlert(false)}
-        />
-      )}
-      {success && (
-        <AlertSnackbar
-          open={alertData}
-          message='Password reset successful!'
-          type='success'
-        />
-      )}
+        )}
+      </Grid>
     </Grid>
   );
 };

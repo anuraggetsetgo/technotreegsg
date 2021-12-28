@@ -116,7 +116,7 @@ const ForgotPassword = () => {
                 marginBottom: "1rem",
               }}
             >
-              Please check ur email and proceed to the link to change your
+              Please check your email and proceed to the link to change your
               password!
             </Typography>
             <Button

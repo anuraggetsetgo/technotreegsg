@@ -89,7 +89,7 @@ export default function App() {
           <Route path="/"  component={loggedIn?SpeedDial:empty}/>
           <Route exact path="/forgotpassword"  component={ForgotPassword}/>
           <Route exact path="/setpassword/:id"  component={SetNewPassword}/>
-          <Route exact path="/changeoldpassword"  component={ChangeOldPassword}/>
+          <Route exact path="/changeoldpassword"  component={loggedIn ? ChangeOldPassword : SignIn}/>
         </Grid>
 
           <SplitBanner/>
