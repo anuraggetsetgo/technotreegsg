@@ -29,7 +29,12 @@ export const SignInView = (props) => {
 
     const loginfn = (payload) => {
         //    apiCall("signin", "in", updateIN, updateIN, props.props, "post", tempObj);
+        setAlertData({
+          alertType: '',
+          alertMsg: ''
+      });
         setAlert(false);
+        
         payload.user_type="client";
         callAPI(
             getURL("sign-in"),
@@ -41,11 +46,11 @@ export const SignInView = (props) => {
     };
 
     const handleSuccess = ({data}) => {
-        setAlert(true);
         setAlertData({
             alertType: ALERT.SUCCESS,
             alertMsg: 'Awesome! Login successful'
         });
+        setAlert(true);
         set('GSG_client_auth',data.token);
         //setUserProfile(); //to fetch user profile data
         console.log('User Logged in')
@@ -53,11 +58,11 @@ export const SignInView = (props) => {
     };
     const handleErr = err => {
         const {response: { data: { errormessage }}} = err;
-        setAlert(true);
         setAlertData({
             alertType: ALERT.ERROR,
             alertMsg: "Incorrect username or password"
         })
+        setAlert(true);
     };
 
     const setUserProfile=()=>{
