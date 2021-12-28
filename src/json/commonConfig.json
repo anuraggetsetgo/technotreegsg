@@ -1,4 +1,10 @@
 {
+	"api": {
+		"base": "https://api.getsetgo.fitness/",
+		"in": "base_ind",
+		"me": "base",
+		"row": "base_usa"
+	  },
 	"URLs": {
 		"base": {
 			"in": "http://base.getsetgoclients.com/API/v1/",
