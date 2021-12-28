@@ -8,10 +8,9 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import Style from "../GetStarted/GetStarted-style";
-import axios from "axios";
 import AlertSnackbar, { ALERT } from "../../Container/Common/AlertSnackbar";
 import validator from "validator";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import { callAPI, getURL } from "../../Utils/Services";
 import Visibility from "@material-ui/icons/Visibility";
@@ -45,7 +44,6 @@ const ChangeOldPassword = (props) => {
 
   const validatePassword = (e) => {
     const { value, name } = e.target;
-    // console.log
 
     if (
       validator.isStrongPassword(value, {
@@ -59,7 +57,6 @@ const ChangeOldPassword = (props) => {
       setErrorForm({ ...errorForm, ...{ [name]: "" } });
       setAlert(false);
     } else if (name === "newPassword") {
-      // console.log("newPassword")
       setErrorForm({ ...errorForm, ...{ [name]: errMsgs["password"] } });
       setAlert(true);
       setAlertData({
@@ -67,7 +64,6 @@ const ChangeOldPassword = (props) => {
         alertMsg: errMsgs.password,
       });
     } else if (name === "oldPassword") {
-      // console.log("oldPassword")
     }
   };
 
@@ -115,6 +111,10 @@ const ChangeOldPassword = (props) => {
               setIsLoading(false);
               handleSuccess(res);
               setSuccess(true);
+              setUserData({
+                oldPassword: "",
+                newPassword: "",
+              });
             },
             (err) => {
               console.log("error", err);
@@ -157,101 +157,71 @@ const ChangeOldPassword = (props) => {
         alignItems='stretch'
         justify='center'
       >
-        {success ? (
-          <Grid>
-            <Typography
-              variant='h4'
-              style={{
-                textAlign: "center",
-                marginBottom: "1rem",
-              }}
-            >
-              Password has been changed successfully!
-            </Typography>
-            <Button
-              className='bigButton'
-              disabled={false}
-              style={Style.width100}
-              variant='contained'
-              color='primary'
-            >
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to={"/login"}
-              >
-                Go back to login
-              </Link>
-            </Button>
-          </Grid>
-        ) : (
-          <>
-            <Grid item style={{ marginBottom: "20px" }}>
-              <h2>Change Password</h2>
-              <TextField
-                autoComplete='off'
-                name='oldPassword'
-                type={showPassword ? "text" : "password"}
-                value={userData.oldPassword}
-                label='Old Password'
-                required={true}
-                error={errorForm["oldPassword"] !== ""}
-                onBlur={validatePassword}
-                onChange={handleInput}
-                style={{ width: "100%" }}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position='end'>
-                      <IconButton
-                        aria-label='toggle password visibility'
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                      >
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              ></TextField>
-              <TextField
-                autoComplete='off'
-                name='newPassword'
-                type={showPassword ? "text" : "password"}
-                value={userData.newPassword}
-                label='New Password'
-                required={true}
-                error={errorForm["newPassword"] !== ""}
-                onBlur={validatePassword}
-                onChange={handleInput}
-                style={{ width: "100%" }}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position='end'>
-                      <IconButton
-                        aria-label='toggle password visibility'
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                      >
-                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              ></TextField>
-            </Grid>
-            <Grid item>
-              <Button
-                className='bigButton'
-                disabled={false}
-                style={Style.width100}
-                variant='contained'
-                color='primary'
-                onClick={handleSubmit}
-              >
-                Submit
-              </Button>
-            </Grid>
-          </>
-        )}
+        <Grid item style={{ marginBottom: "20px" }}>
+          <h2>Change Password</h2>
+          <TextField
+            autoComplete='off'
+            name='oldPassword'
+            type={showPassword ? "text" : "password"}
+            value={userData.oldPassword}
+            label='Old Password'
+            required={true}
+            error={errorForm["oldPassword"] !== ""}
+            onBlur={validatePassword}
+            onChange={handleInput}
+            style={{ width: "100%" }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton
+                    aria-label='toggle password visibility'
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          ></TextField>
+          <TextField
+            autoComplete='off'
+            name='newPassword'
+            type={showPassword ? "text" : "password"}
+            value={userData.newPassword}
+            label='New Password'
+            required={true}
+            error={errorForm["newPassword"] !== ""}
+            onBlur={validatePassword}
+            onChange={handleInput}
+            style={{ width: "100%" }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton
+                    aria-label='toggle password visibility'
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          ></TextField>
+        </Grid>
+        <Grid item>
+          <Button
+            className='bigButton'
+            disabled={false}
+            style={Style.width100}
+            variant='contained'
+            color='primary'
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
+        </Grid>
         {alert && (
           <AlertSnackbar
             open={alert}
@@ -265,7 +235,6 @@ const ChangeOldPassword = (props) => {
             open={success}
             message={alertData.alertMsg}
             type='success'
-            // onClose={() => setAlert(false)}
           />
         )}
       </Grid>

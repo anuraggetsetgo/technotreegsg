@@ -3,18 +3,14 @@ import {
   Button,
   Grid,
   IconButton,
-  Input,
-  InputAdornment,
-  InputLabel,
   TextField,
   Typography,
 } from "@material-ui/core";
 import { useHistory } from "react-router";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import Style from "../GetStarted/GetStarted-style";
-import Axios from "axios";
 import AlertSnackbar from "../../Container/Common/AlertSnackbar";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { callAPI, getURL } from "../../Utils/Services";
 
 const errMsgs = {
@@ -66,27 +62,6 @@ const ForgotPassword = () => {
     if (errorMail === false) {
       if (userEmail.email !== "") {
         setIsLoading(true);
-        // Axios.post(
-        //   "https://api.getsetgo.fitness/base_ind/API/v1/generate_pw_reset_token",
-        //   { email: userEmail }
-        // )
-        //   .then((res) => {
-        //     setToken(res.data.token ? true : false);
-        //     console.log(res);
-        //     setIsLoading(false);
-        //   })
-        //   .catch((error) => {
-        //     const {
-        //       response: {
-        //         data: { errormessage },
-        //       },
-        //     } = error;
-        //     setErrorResponse(errormessage);
-        //     console.log(errormessage);
-        //     setErrorMail(true);
-        //     setIsLoading(false);
-        //     setUserEmail({ email: "" });
-        //   });
         const data = { email: userEmail };
         callAPI(
           getURL("generate_pw_reset_token"),
@@ -106,7 +81,6 @@ const ForgotPassword = () => {
             setErrorResponse(errormessage);
             setErrorMail(true);
             setIsLoading(false);
-            // setUserEmail({ email: "" });
           },
           data
         );

@@ -103,57 +103,26 @@ const SetNewPassword = (props) => {
             password: userData.password,
             confirmPassword: userData.confirmPassword,
           };
-          axios
-            .post(
-              "https://api.getsetgo.fitness/base_ind/API/v1/reset_password",
-              data
-            )
-            .then((res) => {
+          callAPI(
+            getURL("reset_password"),
+            "post",
+            (res) => {
               console.log("response", res);
               setIsLoading(false);
-              // setUserData({
-              //   password: "",
-              //   confirmPassword: "",
-              // });
               handleSuccess(res);
               setSuccess(true);
-            })
-            .catch((err) => {
-              const {
-                response: {
-                  data: { errormessage },
-                },
-              } = err;
-              console.log("error", errormessage);
-              // setResponseErr(errormessage);
-              // setIsLoading(false);
+            },
+            (err) => {
+              console.log("error", err);
               handleErr(err);
               setIsLoading(false);
               setUserData({
                 password: "",
                 confirmPassword: "",
               });
-            });
-          // callAPI(
-          //   getURL("reset_password"),
-          //   "post",
-          //   (res) => {
-          //     console.log("response", res);
-          //     setIsLoading(false);
-          //     handleSuccess(res);
-          //     setSuccess(true);
-          //   },
-          //   (err) => {
-          //     console.log("error", err);
-          //     handleErr(err);
-          //     setIsLoading(false);
-          //     setUserData({
-          //       oldPassword: "",
-          //       newPassword: "",
-          //     });
-          //   },
-          //   data
-          // );
+            },
+            data
+          );
         }
       }
     } else if (userData.password !== userData.confirmPassword) {
@@ -210,7 +179,7 @@ const SetNewPassword = (props) => {
             <TextField
               autoComplete='off'
               name='password'
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               value={userData.password}
               label='New Password'
               required={true}
@@ -235,7 +204,7 @@ const SetNewPassword = (props) => {
             <TextField
               autoComplete='off'
               name='confirmPassword'
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               value={userData.confirmPassword}
               label='Confirm Password'
               required={true}
@@ -285,7 +254,6 @@ const SetNewPassword = (props) => {
           open={alertData}
           message='Password reset successful!'
           type='success'
-          // onClose={() => setSuccess(false)}
         />
       )}
     </Grid>
