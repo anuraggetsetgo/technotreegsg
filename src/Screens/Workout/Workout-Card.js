@@ -45,7 +45,10 @@ const useStyles = makeStyles((theme) => ({
         //bottom: 0,
         width: '100%',
         height: '100%',
-        display: 'inline-flex'
+        display: 'inline-flex',
+        backgroundSize:'cover',
+        backgroundPosition: "bottom"
+
     },
     workoutName: {
         fontSize: 'xx-large',
