@@ -87,9 +87,9 @@ export default function App() {
           <Route path="/register" exact component={Register} />
           <Route path="/logout" exact render={(routeProps) => (<Logout changeLoginStatus={changeLoginStatus}/>)} />
           <Route path="/"  component={loggedIn?SpeedDial:empty}/>
-          <Route exact path="/forgotpassword"  component={ForgotPassword}/>
+          <Route exact path="/forgotpassword"  component={loggedIn ? empty : ForgotPassword}/>
           <Route exact path="/setpassword/:id"  component={SetNewPassword}/>
-          <Route exact path="/changeoldpassword"  component={loggedIn ? ChangeOldPassword : SignIn}/>
+          <Route exact path="/changeoldpassword"  component={loggedIn ? ChangeOldPassword : empty}/>
         </Grid>
 
           <SplitBanner/>

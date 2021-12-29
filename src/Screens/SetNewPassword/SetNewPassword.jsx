@@ -254,6 +254,25 @@ const SetNewPassword = (props) => {
                 }}
               ></TextField>
             </Grid>
+            {errorForm.password !== "" && (
+              <Grid item style={{ width: "100%" }}>
+                <Typography
+                  variant='h5'
+                  style={{ fontWeight: "bold", marginTop: "10px" }}
+                >
+                  Hints for a strong password:
+                </Typography>
+                <ul style={{ marginLeft: "-15px" }}>
+                  <li>Must contain atleast 8 characters</li>
+                  <li>Must contain both UPPERCASE and lowercase alphabets</li>
+                  <li>Must contain numbers</li>
+                  <li>
+                    Must contain special characters ! @ # $ % ^ & * ( ) _ - + =
+                    . , ; :
+                  </li>
+                </ul>
+              </Grid>
+            )}
             <Grid item>
               <Button
                 className='bigButton'

@@ -71,13 +71,28 @@ export default function SignIn(props) {
     const { value, name } = e.target;
     let err = validate(
       value,
-      /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+      /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,8}$/i,
       "email"
     );
     err = err === null ? "" : err;
     setErrorForm({ ...errorForm, ...{ [name]: err } });
     setError(Boolean(err));
   }
+
+  const validatePassword = (e) => {
+    const { value, name } = e.target
+
+    if (validator.isStrongPassword(value, {
+        minLength: 8, minLowercase: 1,
+        minUppercase: 1, minNumbers: 1, minSymbols: 1
+    })) {
+        setErrorForm({ ...errorForm, ...{ [name]: '' } });
+        setError(false);
+    } else {
+        setErrorForm({ ...errorForm, ...{ [name]: errMsgs['password'] } });
+        setError(true);
+    }
+}
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -88,7 +103,15 @@ export default function SignIn(props) {
   };
 
   const handleLogin = () => {
-    props.loginfn(userData);
+    if(errorForm.user_email === "") {
+      if(errorForm.user_password === "") {
+          if(userData.user_email !== "") {
+              if(userData.user_password !== "") {
+                  props.loginfn(userData);
+              }
+          }
+      }
+  }
   };
   //const classes = useStyles();
   return (
@@ -114,36 +137,41 @@ export default function SignIn(props) {
               value={userData.user_email}
               label='Company Email'
               required={true}
+              error={error}
               onBlur={validateEmail}
               onChange={handleInput}
               style={{ width: "100%" }}
             ></TextField>
           </Grid>
           <Grid item>
-            <InputLabel htmlFor='standard-adornment-password'>
+            {/* <InputLabel htmlFor='standard-adornment-password'>
               Password
-            </InputLabel>
-            <Input
-              id='standard-adornment-password'
+            </InputLabel> */}
+            <TextField
+              // id='standard-adornment-password'
               autoComplete='off'
               required={true}
+              label="Password"
               name='user_password'
+              error={error}
               type={showPassword ? "text" : "password"}
               value={userData.user_password}
               onChange={handleInput}
               style={{ width: "100%" }}
-              //onBlur={validatePassword}
-              endAdornment={
-                <InputAdornment position='end'>
-                  <IconButton
-                    aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                  >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
-                  </IconButton>
-                </InputAdornment>
-              }
+              onBlur={validatePassword}
+              InputProps={{
+                  endAdornment: (
+                    <InputAdornment position='end'>
+                      <IconButton
+                        aria-label='toggle password visibility'
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
             />
           </Grid>
           <Grid
@@ -160,7 +188,7 @@ export default function SignIn(props) {
           <Grid item>
             <Button
               className='bigButton'
-              disabled={false}
+              disabled={userData.user_email === ""}
               style={Style.width100}
               variant='contained'
               color='primary'
@@ -170,6 +198,18 @@ export default function SignIn(props) {
             </Button>
           </Grid>
         </Grid>
+        {errorForm.user_email !== "" && 
+          <AlertSnackbar
+            open={true}
+            message={errMsgs.email}
+            type="error"
+          />}
+        {errorForm.user_password !== "" && 
+          <AlertSnackbar
+            open={true}
+            message="Please enter correct password"
+            type="error"
+          />}
       </Grid>
     </>
   );

@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { colors } from '../../Utils/Services';
-import { Grid, Input, TextField, Typography, Icon, LinearProgress, Chip, Button, InputLabel, InputAdornment, IconButton } from '@material-ui/core'
+import { Grid, Input, TextField, Typography, Icon, LinearProgress, Chip, Button, InputLabel, InputAdornment, IconButton, List, ListItem } from '@material-ui/core'
 import Styles from '../Signup/Signup-Style';
 import validator from 'validator';
 import MuiPhoneNumber from 'material-ui-phone-number';
@@ -41,7 +41,7 @@ export default function Register(props) {
     const validate = (value, regex, type) => {
         let err;
         if (!value) {
-            err = errMsgs.requried
+            err = errMsgs.required
         } else if (!regex.test(value)) {
             err = errMsgs[type];
         } else {
@@ -64,7 +64,7 @@ export default function Register(props) {
         const { value, name } = e.target
         let err = validate(
             value,
-            /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+            /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,8}$/i,
             "email"
         );
         err = (err === null) ? '' : err;
@@ -107,10 +107,16 @@ export default function Register(props) {
     };
 
     const handleRegister = () => {
-        if(!error){
-            props.registerfn(userData);
+            if(errorForm.email === "") {
+                if(errorForm.password === "") {
+                    if(userData.email !== "") {
+                        if(userData.password !== "") {
+                            props.registerfn(userData);
+                        }
+                    }
+                }
+            }
         }
-    }
 
     return (
         <>
@@ -155,8 +161,20 @@ export default function Register(props) {
                         />
                         {<Typography variant="body2" style={{ ...Styles.err, margin: '2px 0px' }}> {errorForm.password}</Typography>}
                     </Grid>
+                    {errorForm.password !== "" && (
+                    <Grid item style={{width: '100%'}}>
+                        <Typography variant="h5" style={{fontWeight: 'bold', marginTop: '10px'}}>Hints for a strong password:</Typography>
+                        <ul style={{marginLeft: '-15px'}}>
+                        <li>Must contain atleast 8 characters</li>
+                        <li>Must contain both UPPERCASE and lowercase alphabets</li>
+                        <li>Must contain numbers</li>
+                        <li>
+                        Must contain special characters ! @ # $ % ^ & * ( ) _ - + = . , ; :
+                        </li>
+                        </ul>
+                    </Grid>)}
                     <Grid item>
-                        <Button className="bigButton" disabled={submitBtn} style={{width: '96%', position: 'absolute', left: 0, }} variant="contained" color="primary" onClick={handleRegister}>Register</Button>
+                        <Button className="bigButton" disabled={userData.email === ""} style={{width: '96%', position: 'absolute', left: 0, }} variant="contained" color="primary" onClick={handleRegister}>Register</Button>
                     </Grid>
                 </Grid>
             </Grid>

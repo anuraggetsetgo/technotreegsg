@@ -33,12 +33,12 @@ export default function Logout(props) {
     }, [])
     return (<>
         <Splash timeout={6000} afterTimeOut={afterTimeOut}></Splash>
-        {open &&
+        {/* {open &&
             <AlertSnackbar
                 open={open}
                 onClose={handleClose}
                 message="You have been logged out successfully"
                 type={ALERT.SUCCESS}>
-            </AlertSnackbar>}
+            </AlertSnackbar>} */}
     </>)
 }
