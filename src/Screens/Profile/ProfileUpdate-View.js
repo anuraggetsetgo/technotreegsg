@@ -748,7 +748,7 @@ export default function ProfileUpdate(props) {
           <Divider style={Styles.divider} />
 
           <DialogActions className={classes.diaglogActions}>
-            <Grid container direction='row' alignItems='center' justify='space-between'>
+            <Grid container style={{flexWrap: 'nowrap'}} direction='row' alignItems='center' justify='space-between'>
               <Typography className="bigButton" variant='body1' style={Styles.textGreyO5} onClick={handleBackOnDialog}>Back</Typography>
               {(section !== 5) && (<Button className="bigButton" variant="contained" color="primary" style={{ width: '80px' }} disabled={!enableNext} onClick={handleNext}> Next</Button>)}
               {(section === 5) && (<Button className="bigButton" variant="contained" color="primary" style={{ width: '80px' }} disabled={disableSubmit} onClick={handleNext}> Finish</Button>)}
