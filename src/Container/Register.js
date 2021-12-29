@@ -39,7 +39,7 @@ export const RegisterView = (props) => {
 
     const registerfn = (payload) => {
          //    apiCall("signin", "in", updateIN, updateIN, props.props, "post", tempObj);
-
+        props.setLoadingHOC(true, "Please wait while we setup your GetSetGo account...")
         setAlertData({
             alertType: '',
             alertMsg: ''
@@ -55,7 +55,7 @@ export const RegisterView = (props) => {
         );
     };
     const handleSuccess = data => {
-        
+        props.setLoadingHOC(false)
         setAlertData({
             alertType: ALERT.SUCCESS,
             alertMsg: 'Registered successfully !!!'
@@ -64,6 +64,7 @@ export const RegisterView = (props) => {
         setHideForm(true);
     };
     const handleErr = err => {
+        props.setLoadingHOC(false)
         const {response: { data: { errormessage }}} = err;
         
         setAlertData({
