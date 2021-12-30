@@ -62,9 +62,9 @@ const ForgotPassword = () => {
     if (errorMail === false) {
       if (userEmail.email !== "") {
         setIsLoading(true);
-        const data = { email: userEmail };
+        const data = { email: userEmail, redirect_url: window.location.origin+'/' };
         callAPI(
-          getURL("generate_pw_reset_token"),
+          getURL("send_pw_reset_token"),
           "post",
           (res) => {
             console.log("response", res);
@@ -119,6 +119,10 @@ const ForgotPassword = () => {
               Please check your email and proceed to the link to change your
               password!
             </Typography>
+            <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to={"/"}
+              >
             <Button
               className='bigButton'
               disabled={false}
@@ -126,13 +130,10 @@ const ForgotPassword = () => {
               variant='contained'
               color='primary'
             >
-              <Link
-                style={{ textDecoration: "none", color: "white" }}
-                to={"/"}
-              >
+             
                 Go back to login
-              </Link>
-            </Button>
+                </Button>
+                </Link>
           </Grid>
         ) : (
           <>
