@@ -48,7 +48,7 @@ export  function ProfileUpdate(props) {
         props.setLoadingHOC(true,"Please wait while we are updating your profile");
         console.log("api_progressUpdate_update_progress_Image")
         images.progress_id = progress_id;
-        callAPI(getURL("update_progress_img"), "post", updateError, updateError, images);
+        callAPI(getURL("update_progress_img"), "post", updateSuccessful, updateError, images);
         function updateSuccessful(data) {
             setProgressUpdateSuccess(true);   
             props.setLoadingHOC(false);
