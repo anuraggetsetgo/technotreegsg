@@ -62,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
   },
   dialogPaper: {
     backgroundColor: "#eeeeee",
+    display: 'grid',
   },
   dialogContent: { marginTop: Style.headerHeight.height, padding: '0' },
   notesAccordionSummary: {
@@ -88,7 +89,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "2vh",
     margin: "0 0 16px 0",
     borderRadius: "5px",
-    width: "95vw",
+    width: "100%",//"95vw",
     background: "white",
   }
 }));
@@ -103,21 +104,22 @@ const UserMealTableHeader = ({ meal, key }) => {
   const classes = useStyles();
   return (
     <>
-      <Grid item container key={key + meal.mealName} direction="column" className={classes.mealTableContainer} alignItems="center" justify="center">
-        <Grid container item direction="row" xs={12} alignItems="center" justify="center" style={{paddingBottom: '10px'}}>
-          <Grid item xs={4} style={{paddingLeft: '16px'}}>
+      {/* <Grid item container key={key + meal.mealName} direction="column" className={classes.mealTableContainer} alignItems="center" justify="center"> */}
+      <Grid item  key={key + meal.mealName}  className={classes.mealTableContainer} >
+        <Grid container item direction="row" xs={12} alignItems="center" justify="center" style={{ paddingBottom: '10px' }}>
+          <Grid item xs={4} style={{ paddingLeft: '16px' }}>
             <Typography variant="subtitle2">{meal.mealName}</Typography>
           </Grid>
           {meal.totalFoodData.map((foodProps, key) => (
-                <Grid item container key={key} xs={2} direction="column" alignItems="center" justify="center">
-                  <Grid item style={{ margin: '0 auto' }}>
-                    <Typography variant="body2">{foodProps.values}</Typography>
-                  </Grid>
-                </Grid>
-              
-            ))}
+            <Grid item container key={key} xs={2} direction="column" alignItems="center" justify="center">
+              <Grid item style={{ margin: '0 auto' }}>
+                <Typography variant="body2">{foodProps.values}</Typography>
+              </Grid>
+            </Grid>
+
+          ))}
         </Grid>
-        <Grid item><Divider style={{ ...Styles.divider, opacity: '0.8', margin: '0px 0px 0px 10vw', width: '84vw' }}></Divider></Grid>
+        <Grid item><Divider style={{ ...Styles.divider, opacity: '0.8', margin: '0px 0px 0px 10vw' }}></Divider></Grid>
         <Grid item container alignItems="center" justify="center">
           <Grid item xs={12}>
             <UserMealTableData key={key + meal.mealName} foodType={meal.foodType} totalFoodData={meal.totalFoodData} notes={meal.notes} />
@@ -134,84 +136,84 @@ const UserMealTableData = ({ totalFoodData, foodType, notes, key }) => {
   const classes = useStyles();
   return (
     <>
-      
-          
-          <Grid container direction='column' alignItems='center' justify='center'>
-            <Grid item container direction="column" justify='flex-start' alignItems='center'>
-              {foodType.map(({ foodName, foodData, foodQuantity }, key) => (
-                <Grid key={key + foodName} item container direction="column" alignItems='center' justify='center'
-                  style={{ padding: "0 0", display: "inline-block" }}>
-                  <Divider style={{ ...Styles.divider, opacity: '0.8' }}></Divider>
-                  <Grid item xs={12} container direction="row" justify="flex-start" alignItems="center" style={{ padding: "0px 4vw 1vh 6vw" }}>
-                    <Grid xs={12} item style={{ marginTop: '4px' }} >
-                      <Typography variant="body1">{foodName}</Typography>
-                      <Typography variant="body2" color="primary">{`${foodQuantity}`}</Typography>
-                    </Grid>
-                  </Grid>
-                  <Grid container item xs={12} direction="row" alignItems="center" justify="flex-end" >
-                    {foodData.map((foodProps, indx) => {
-                      return indx !== 3 ? (
-                        <Grid item
-                          key={indx}
-                          xs={2}
-                          container
-                          direction="column"
-                          alignItems="flex-end"
-                          justify="flex-start"
-                        >
-                          <Grid item style={{ margin: '0 auto 4px auto' }}>
-                            <Typography variant="body2" style={Styles.greyText}>
-                              {foodProps.values}
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      ) : (
-                        <Grid
-                          item
-                          key={indx}
-                          xs={2}
-                          container
-                          direction="column"
-                          alignItems="flex-end"
-                          justify="flex-start"
-                        >
-                          <Grid item style={{ margin: '0 auto 4px auto' }}>
-                          <Typography variant="body2">
-                              {foodProps.values}
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      );
-                    })}
-                  </Grid>
-                </Grid>
-              ))}
-            </Grid>
 
-            {/* Comments Accordion section*/}
-            <Grid item container direction="column" justify="flex-start" alignItems="center" style={{marginTop: '10px', padding: '5px'}}>
-              <Accordion elevation={0} style={{ width: "100%", background: '#f6f4f6', borderRadius: '5px', padding: '5px' }}>
-                <AccordionSummary className={classes.notesAccordionSummary}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                //style={{ backgroundColor: "#9fdbec" }}
-                >
-                  <Grid item xs={12}>
-                    {" "}
-                    <Typography variant="body2" color="primary">
-                    <span class="material-icons" style={{...Styles.colorGrey}}>chat_bubble</span>
-                    </Typography>
-                  </Grid>
-                </AccordionSummary>
-                <AccordionDetails classes={{ root: classes.accordionRoot }}>
-                  <Grid item xs={12} style={{ padding: "2vh 5vw" }}>
-                    {" "}
-                    <Typography variant="body2" >{notes || 'Enjoy your meal'}</Typography>
-                  </Grid>
-                </AccordionDetails>
-              </Accordion>
+
+      <Grid container direction='column' alignItems='center' justify='center'>
+        <Grid item container direction="column" justify='flex-start' alignItems='center'>
+          {foodType.map(({ foodName, foodData, foodQuantity }, key) => (
+            <Grid key={key + foodName} item container direction="column" alignItems='center' justify='center'
+              style={{ padding: "0 0", display: "inline-block" }}>
+              <Divider style={{ ...Styles.divider, opacity: '0.8' }}></Divider>
+              <Grid item xs={12} container direction="row" justify="flex-start" alignItems="center" style={{ padding: "0px 4vw 1vh 6vw" }}>
+                <Grid xs={12} item style={{ marginTop: '4px' }} >
+                  <Typography variant="body1">{foodName}</Typography>
+                  <Typography variant="body2" color="primary">{`${foodQuantity}`}</Typography>
+                </Grid>
+              </Grid>
+              <Grid container item xs={12} direction="row" alignItems="center" justify="flex-end" >
+                {foodData.map((foodProps, indx) => {
+                  return indx !== 3 ? (
+                    <Grid item
+                      key={indx}
+                      xs={2}
+                      container
+                      direction="column"
+                      alignItems="flex-end"
+                      justify="flex-start"
+                    >
+                      <Grid item style={{ margin: '0 auto 4px auto' }}>
+                        <Typography variant="body2" style={Styles.greyText}>
+                          {foodProps.values}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  ) : (
+                    <Grid
+                      item
+                      key={indx}
+                      xs={2}
+                      container
+                      direction="column"
+                      alignItems="flex-end"
+                      justify="flex-start"
+                    >
+                      <Grid item style={{ margin: '0 auto 4px auto' }}>
+                        <Typography variant="body2">
+                          {foodProps.values}
+                        </Typography>
+                      </Grid>
+                    </Grid>
+                  );
+                })}
+              </Grid>
             </Grid>
-          </Grid>
+          ))}
+        </Grid>
+
+        {/* Comments Accordion section*/}
+        <Grid item container direction="column" justify="flex-start" alignItems="center" style={{ marginTop: '10px', padding: '5px' }}>
+          <Accordion elevation={0} style={{ width: "100%", background: '#f6f4f6', borderRadius: '5px', padding: '5px' }}>
+            <AccordionSummary className={classes.notesAccordionSummary}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            //style={{ backgroundColor: "#9fdbec" }}
+            >
+              <Grid item xs={12}>
+                {" "}
+                <Typography variant="body2" color="primary">
+                  <span class="material-icons" style={{ ...Styles.colorGrey }}>chat_bubble</span>
+                </Typography>
+              </Grid>
+            </AccordionSummary>
+            <AccordionDetails classes={{ root: classes.accordionRoot }}>
+              <Grid item xs={12} style={{ padding: "2vh 5vw" }}>
+                {" "}
+                <Typography variant="body2" >{notes || 'Enjoy your meal'}</Typography>
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
+        </Grid>
+      </Grid>
     </>
   );
 };
@@ -243,23 +245,23 @@ export default function UserMealDisplay(props) {
           mealName: label,
           foodType: foods.map(({ name, actualCal, cal, carbs, fat, protein, actualQnty, unit }) => {
 
-            totalMealP = Number(totalMealP) + Number(protein * (unit === 'gms' ||unit === 'ml' ? (actualQnty * 0.01) : actualQnty));
-            totalMealC = Number(totalMealC) + Number(carbs * (unit === 'gms'||unit === 'ml' ? (actualQnty * 0.01) : actualQnty));
-            totalMealF = Number(totalMealF) + Number(fat * (unit === 'gms' ||unit === 'ml'? (actualQnty * 0.01) : actualQnty));
+            totalMealP = Number(totalMealP) + Number(protein * (unit === 'gms' || unit === 'ml' ? (actualQnty * 0.01) : actualQnty));
+            totalMealC = Number(totalMealC) + Number(carbs * (unit === 'gms' || unit === 'ml' ? (actualQnty * 0.01) : actualQnty));
+            totalMealF = Number(totalMealF) + Number(fat * (unit === 'gms' || unit === 'ml' ? (actualQnty * 0.01) : actualQnty));
             return {
               foodName: name,
               foodData: [
                 {
                   name: "protein",
-                  values: (protein * (unit === 'gms' ||unit === 'ml'? (actualQnty * 0.01) : actualQnty)).toFixed(2),
+                  values: (protein * (unit === 'gms' || unit === 'ml' ? (actualQnty * 0.01) : actualQnty)).toFixed(2),
                 },
                 {
                   name: "carbs",
-                  values: (carbs * (unit === 'gms'||unit === 'ml' ? (actualQnty * 0.01) : actualQnty)).toFixed(2),
+                  values: (carbs * (unit === 'gms' || unit === 'ml' ? (actualQnty * 0.01) : actualQnty)).toFixed(2),
                 },
                 {
                   name: "fat",
-                  values: (fat * (unit === 'gms' ||unit === 'ml'? (actualQnty * 0.01) : actualQnty)).toFixed(2),
+                  values: (fat * (unit === 'gms' || unit === 'ml' ? (actualQnty * 0.01) : actualQnty)).toFixed(2),
                 },
                 {
                   name: "calories",
@@ -331,7 +333,8 @@ export default function UserMealDisplay(props) {
     };
     return (
       <>
-        <Grid container direction="column" justify="center" alignItems="center">
+        {/* After adding the UI for right Image <Grid container direction="column" justify="center" alignItems="center"> */}
+        <Grid>
           <Grid item xs={12} container direction='row' justify="center" alignItems="center"  >
             <AppBar position="static" color="primary">
               <Tabs value={mealDay}
@@ -355,15 +358,18 @@ export default function UserMealDisplay(props) {
                   </Grid>
                   <Grid item>
                     <Typography style={{ fontWeight: key === 3 ? "bold" : "", ...Styles.textGreyO5, }} variant="body2">
-                      {name}{!(key===3)?'(g)':''}
+                      {name}{!(key === 3) ? '(g)' : ''}
                     </Typography>
                   </Grid>
                 </Grid>
               ))}
             </Grid>
             <Grid item xs={12} container direction="column" alignItems="center" justify="center">
+              {/* Rendering meals */}
               {mealData[mealDay].mealType.map((meal, key) => (
+                
                 <UserMealTableHeader key={key} meal={meal} />
+                
               ))}
             </Grid>
           </TabPanel>))}
@@ -400,7 +406,9 @@ export default function UserMealDisplay(props) {
           </Toolbar>
         </AppBar>
         <DialogContent className={classes.dialogContent}>
+          
           <UserMealTable />
+          
         </DialogContent>
       </Dialog>
     </>
