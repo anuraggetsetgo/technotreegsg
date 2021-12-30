@@ -100,7 +100,7 @@ export default function Setting(props) {
           <Typography variant='body2' style={Styles.textGreyO5}>{userSubscription}  </Typography>
         </Grid>
         <Divider style={Styles.divider} />
-
+{/* 
         <Grid item style={{ ...Styles.translucentContainer }} container direction='row' alignItems='center' justify='space-between'>
           <Typography className={classes.subheading} style={Styles.textGreyO5} variant='body2'>About</Typography>
         </Grid>
@@ -113,10 +113,11 @@ export default function Setting(props) {
         <Grid item container className={classes.labels} direction='row' onClick={launchReview} justify='space-between' alignItems='center' >
           <Typography variant='body1'>Rate our app</Typography>
         </Grid>
-        <Divider style={Styles.divider} />
+        <Divider style={Styles.divider} /> */}
 
         <Grid item style={{ ...Styles.translucentContainer }} container direction='row' alignItems='center' justify='space-between'>
-          <Typography className={classes.empty}></Typography>
+          {/* <Typography className={classes.empty}></Typography> */}
+           <Typography className={classes.subheading} style={Styles.textGreyO5} variant='body2'>Support</Typography>
         </Grid>
         <Grid item container onClick={support} className={classes.labels} direction='row' justify='space-between' alignItems='center'>
           <Typography variant='body1'>Support/Help</Typography>

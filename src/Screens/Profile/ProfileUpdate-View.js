@@ -49,7 +49,7 @@ export default function ProfileUpdate(props) {
     weightlbsBlock.push(i);
   }
   let weightkgBlock = [];
-  for (var i = 30; i <= 200; i = i + 25) {
+  for (var i = 30; i <= 200; i = i + 30) {
     weightkgBlock.push(i);
   }
   const weight = {
@@ -301,15 +301,15 @@ export default function ProfileUpdate(props) {
                       {{
                         to: function (value) {
                           var totalInches = value;
-                          //var feet = Math.floor(totalInches / 12);
+                          //var feet = Math.floor(totalInches / 12); View
                           //var inches = totalInches % 12;
                           //var feetString = (feet == 0 ? "" : feet + "ft ");
                           //var inchString = (inches == 0 ? "" : inches + "in ");
                           //var combinedString = (feetString + inchString).trim();
-                          return totalInches + ' kgs';
+                          return totalInches + ' kg';
                         },
                         from: function (value) {
-                          return value.replace(' kgs', '');
+                          return value.replace(' kg', '');
                         }
                       }}
                       tooltips={true}
@@ -333,7 +333,7 @@ export default function ProfileUpdate(props) {
                       }}
 
                       onChange={(value) => handleInputSlider({
-                        name: 'weight', type: "weight", unit: weight.kg.unit, value: parseInt(value[0].replace(' kg', '').trim())
+                        name: 'weight', type: "weight", unit: weight.kg.unit, value: (parseFloat(value[0].replace(' kg', '').trim())).toFixed(1)
                       })}
                     />
                   </Grid>)}
@@ -407,7 +407,7 @@ export default function ProfileUpdate(props) {
                       }}
 
                       onChange={(value) => handleInputSlider({
-                        name: 'neck', type: "length", unit: neck.in.unit, value: parseInt(value[0].replace(' in', '').trim())
+                        name: 'neck', type: "length", unit: neck.in.unit, value: (parseFloat(value[0].replace(' in', '').trim())).toFixed(1)
                       })}
                     />
                   </Grid>)}
@@ -455,7 +455,7 @@ export default function ProfileUpdate(props) {
                       }}
 
                       onChange={(value) => handleInputSlider({
-                        name: 'neck', type: "length", unit: neck.cm.unit, value: parseInt(value[0].replace(' cm', '').trim())
+                        name: 'neck', type: "length", unit: neck.cm.unit, value: parseFloat(value[0].replace(' cm', '').trim()).toFixed(1)
                       })} />
                   </Grid>)}
 
@@ -528,7 +528,7 @@ export default function ProfileUpdate(props) {
                       }}
 
                       onChange={(value) => handleInputSlider({
-                        name: 'waist', type: "length", unit: waist.in.unit, value: parseInt(value[0].replace(' in', '').trim())
+                        name: 'waist', type: "length", unit: waist.in.unit, value: (parseFloat(value[0].replace(' in', '').trim())).toFixed(1)
                       })}
                     />
                   </Grid>)}
@@ -576,7 +576,7 @@ export default function ProfileUpdate(props) {
                       }}
 
                       onChange={(value) => handleInputSlider({
-                        name: 'waist', type: "length", unit: waist.cm.unit, value: parseInt(value[0].replace(' cm', '').trim())
+                        name: 'waist', type: "length", unit: waist.cm.unit, value: (parseFloat(value[0].replace(' cm', '').trim())).toFixed(1)
                       })}
                     />
                   </Grid>)}
@@ -642,7 +642,7 @@ export default function ProfileUpdate(props) {
                         // stepped: true,
                         format: {
                           to: function (value) {
-                            var totalInches = Math.round(+value);
+                            var totalInches = Math.round(+value);//value;//Math.round(+value);
                             //var feet = Math.floor(totalInches % 20);
                             //var inches = totalInches % 12;
                             return totalInches;
@@ -651,7 +651,7 @@ export default function ProfileUpdate(props) {
                       }}
 
                       onChange={(value) => handleInputSlider({
-                        name: 'hips', type: "length", unit: hips.in.unit, value: parseInt(value[0].replace(' in', '').trim())
+                        name: 'hips', type: "length", unit: hips.in.unit, value: (parseFloat(value[0].replace(' in', '').trim())).toFixed(1)
                       })}
                     />
 
@@ -692,7 +692,7 @@ export default function ProfileUpdate(props) {
                         // stepped: true,
                         format: {
                           to: function (value) {
-                            var totalInches = Math.round(+value);
+                            var totalInches =Math.round(+value);// value;//Math.round(+value);
                             //var feet = Math.floor(totalInches % 20);
                             //var inches = totalInches % 12;
                             return totalInches;
@@ -701,7 +701,7 @@ export default function ProfileUpdate(props) {
                       }}
 
                       onChange={(value) => handleInputSlider({
-                        name: 'hips', type: "length", unit: hips.cm.unit, value: parseInt(value[0].replace(' cm', '').trim())
+                        name: 'hips', type: "length", unit: hips.cm.unit, value: (parseFloat(value[0].replace(' cm', '').trim())).toFixed(1)
                       })}
                     />
                   </Grid>)}
