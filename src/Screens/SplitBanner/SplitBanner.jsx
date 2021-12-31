@@ -3,7 +3,7 @@ import { Grid, makeStyles, Typography, useMediaQuery } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 import Splash from "../Splash/Splash";
 import axios from "axios";
-
+import PreloadImage from "../../Utils/Preloadimg";
 const useStyles = makeStyles(() => ({
   imageContainer: {
     position: "absolute",
@@ -47,7 +47,8 @@ const useStyles = makeStyles(() => ({
 
 const SplitBanner = () => {
   const classes = useStyles();
-  const [filterData, setFilterData] = useState([]);
+  const localData = JSON.parse(window.localStorage.getItem("bannerData"));
+  const [filterData, setFilterData] = useState(localData);
   const [isLoading, setIsLoading] = useState(false);
   const path = useLocation().pathname;
   // console.log(path);
@@ -67,26 +68,25 @@ const SplitBanner = () => {
       })
   };
 
-  const localData = JSON.parse(window.localStorage.getItem("bannerData"));
+  const filterImage = () => {
+    const tempData = localData && localData.filter((img) => {
+      return img.route === path;
+    });
+    setFilterData(tempData && (tempData.length ? tempData : [localData[0]]));
+    // console.log([localData[0]])
+  };
 
   useEffect(() => {
     getBannerImg();
   }, []);
 
   useEffect(() => {
-    const filterImage = () => {
-      const tempData = localData && localData.filter((img) => {
-        return img.route === path;
-      });
-      setFilterData(tempData && (tempData.length ? tempData : [localData[0]]));
-      // console.log([localData[0]])
-    };
     filterImage();
     if (path === "/logout") {
       localStorage.removeItem("bannerData");
       getBannerImg();
     }
-  }, [path]);
+  }, [path, isLoading]);
 
   return isLoading ? (
     <>
@@ -96,15 +96,11 @@ const SplitBanner = () => {
     <Grid className={classes.imageContainer}>
       {filterData && filterData.map((bannerimg) => (
         <Grid key={bannerimg.route} style={{ position: "relative" }}>
-          <img
-            src={bannerimg.image}
-            className={classes.image}
-            alt={bannerimg.title}
-          />
+          <PreloadImage src={bannerimg.image} className={classes.image}></PreloadImage>
+          {/* <img src={bannerimg.image} className={classes.image} alt={bannerimg.title} > </img> */}
           <Grid
-            className={`${
-              matches ? classes.noText : classes.bannerTextContainer
-            }`}
+            className={`${matches ? classes.noText : classes.bannerTextContainer
+              }`}
           >
             <Typography className={classes.title}>{bannerimg.title}</Typography>
             <Typography className={classes.subtitle}>
