@@ -47,7 +47,7 @@ export default function ProjectedProgress(props) {
     }
     return (<>
         <HeaderBar headerName={"Your projected progress"} isVisible leftElement='Back' leftEnable={true} leftCB={props.restart} rightElement=' ' />
-        <Grid container direction='column' style={Styles.displayView} alignItems='center' justify='center'>
+        <Grid container direction='column' style={{...Styles.displayView,marginTop:'9vh'}} alignItems='center' justify='center'>
             <Grid item container direction='row' alignItems='center' justify='center'>
                 <Grid item container direction="column" xs={6} alignItems="center">
                     <Grid item container direction="column" alignItems='center' justify='center' style={{...styles.bodyType, ...getBodyType(body_fat)}}>
