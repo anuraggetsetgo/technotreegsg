@@ -10,7 +10,7 @@ export default function Start(props) {
 
   const { getStarted, Login } = props;
   return (
-    <Grid container alignItems="center" justify="center" direction="column">
+    <Grid container alignItems="center" justify="center" direction="column" >
       {/* <Grid style={Style.backImg}></Grid> */}
       <PreloadImage alt='Welcome' style={Style.backImg} src={WelcomeScreen} />
       <Grid item style={Style.logoContainer} container direction={"column"}>

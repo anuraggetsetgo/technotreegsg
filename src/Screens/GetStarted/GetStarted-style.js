@@ -17,7 +17,7 @@ export default {
   backImg: { 
     position: 'absolute',
     width: '100%',
-    height: '100%',
+    //height: '100%',
     // backgroundImage: 'url(https://www.pixelstalk.net/wp-content/uploads/2016/06/Dancing-Jump-Girls.jpg)',
     // backgroundImage: `url(${WelcomeScreen})`,
     backgroundSize: 'cover',
