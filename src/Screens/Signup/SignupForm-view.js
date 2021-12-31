@@ -246,7 +246,7 @@ export default function SignupForm(props) {
         const { value, name } = e.target
         let err = validate(
             value,
-            /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+            /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,8}$/i,
             "email"
         );
         err = (err === null) ? false : err;
@@ -679,20 +679,20 @@ export default function SignupForm(props) {
                                                 start={lbtokg(userData.weight)}
                                                 orientation='vertical' style={{ height: '65vh' }}
                                                 direction='rtl'
-                                                step={1}
+                                                step={0.1}
                                                 format=
                                                 {{
                                                     to: function (value) {
-                                                        var totalInches = Math.round(+value);
+                                                        var totalInches = value;
                                                         //var feet = Math.floor(totalInches / 12);
                                                         //var inches = totalInches % 12;
                                                         //var feetString = (feet == 0 ? "" : feet + "ft ");
                                                         //var inchString = (inches == 0 ? "" : inches + "in ");
                                                         //var combinedString = (feetString + inchString).trim();
-                                                        return totalInches + ' kgs';
+                                                        return totalInches + ' kg';
                                                     },
                                                     from: function (value) {
-                                                        return value.replace(' kgs', '');
+                                                        return value.replace(' kg', '');
                                                     }
                                                 }}
                                                 tooltips={true}
@@ -716,7 +716,7 @@ export default function SignupForm(props) {
                                                 }}
 
                                                 onChange={(value) => handleInputSlider({
-                                                    name: 'weight', type: "weight", unit: weight.kg.unit, value: parseInt(value[0].replace(' kg', '').trim())
+                                                    name: 'weight', type: "weight", unit: weight.kg.unit, value: (parseFloat(value[0].replace(' kg', '').trim())).toFixed(1)
                                                 })}
                                             />
 

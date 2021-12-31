@@ -38,6 +38,15 @@ function set(key, value) {
 function removeItem(key) {
   localStorage.removeItem(key);
 }
+// function getURLfix(url) {
+//   let userRegion = get("region");
+//   userRegion = userRegion || "in";
+//   let urlWithRegion= config.api.base + config.api[userRegion]
+//   return `${urlWithRegion}/API/v1/${url}`;
+//   //return `https://api.getsetgo.fitness/base_ind/API/v1/${url}`;
+//   //return `https://api.getsetgo.fitness/base_ind/API/v1/${url}`;
+// }
+
 function getURL(url) {
   return `https://api.getsetgo.fitness/base_ind/API/v1/${url}`;
 }

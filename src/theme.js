@@ -4,6 +4,8 @@ import Exobold from './fonts/exo-2-v7-latin-600.woff2';
 import Exoheavy from './fonts/exo-2-v7-latin-500.woff2';
 import Exothin from './fonts/Exo2-Thin.ttf';
 import { colors } from "./Utils/Services";
+import { useMediaQuery } from "@material-ui/core";
+import createBreakpoints from "@material-ui/core/styles/createBreakpoints";
 
 const exo = {
   fontFamily: "Exo",
@@ -170,7 +172,11 @@ const theme = createMuiTheme({
     },
   },
   MuiDialog:{
-    paperWidthSm:{minHeight:'100vh',maxHeight:'100vh',minWidth:'90vw',maxWidth:'90vw'}
+    root: {
+      maxWidth: '550px',
+    },
+    paperWidthSm:{minHeight:'90vh',maxHeight:'90vh',minWidth:'', maxWidth: '540px', position: 'absolute', left: '0', right: '0'
+    }
   },
   MuiChip:{colorPrimary:{fontSize:'1rem'}},
   
@@ -178,6 +184,12 @@ const theme = createMuiTheme({
     root:{
       border:'1px solid',
       color:colors.grey,
+    }
+  },
+
+  MuiAppBar: {
+    root: {
+      maxWidth: '550px',
     }
   }
   

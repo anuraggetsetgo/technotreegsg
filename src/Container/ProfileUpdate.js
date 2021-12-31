@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import ProfileUpdateView from '../Screens/Profile/ProfileUpdate-View'
 import { get, callAPI, getURL, cmtoinch } from '../Utils/Services'
 import { getUserProfile } from './Profile'
+import isLoadingHOC from '../hoc/isLoadingHOC'
 
-export default function ProfileUpdate(props) {
+export  function ProfileUpdate(props) {
     const [userData, setUserData] = useState(JSON.parse(get("GSG_Client_data")))
     const [progressUpdateSuccess, setProgressUpdateSuccess] = useState(false)
     const [progressUpdateInProgress, setprogressUpdateInProgress] = useState(false);
@@ -44,16 +45,20 @@ export default function ProfileUpdate(props) {
 
     }
     const updateUserProfileImage = (images, progress_id) => {
+        props.setLoadingHOC(true,"Please wait while we are updating your profile");
         console.log("api_progressUpdate_update_progress_Image")
         images.progress_id = progress_id;
         callAPI(getURL("update_progress_img"), "post", updateSuccessful, updateError, images);
         function updateSuccessful(data) {
-            setProgressUpdateSuccess(true);
-            //props.handleClose();
+            setProgressUpdateSuccess(true);   
+            props.setLoadingHOC(false);
+            
         }
         function updateError(err) {
-            console.log('err_progressUpdate_update_progress_Image', err)
             setProgressUpdateError(true);
+            props.setLoadingHOC(false);
+            console.log('err_progressUpdate_update_progress_Image', err)
+            
 
         }
         setprogressUpdateInProgress(false); //all calls completed
@@ -71,3 +76,4 @@ export default function ProfileUpdate(props) {
         />
     )
 }
+export default isLoadingHOC(ProfileUpdate, 'Please wait')

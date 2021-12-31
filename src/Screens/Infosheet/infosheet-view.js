@@ -2,7 +2,7 @@ import { Button, Grid } from "@material-ui/core"
 import HeaderBar from "../../Container/Common/HeaderBar"
 import { JsonForms } from '@jsonforms/react';
 import { materialCells, materialRenderers } from '@jsonforms/material-renderers';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { get, set, callAPI,getURL, removeItem, } from "../../Utils/Services";
 import AlertSnackbar, {ALERT} from "../../Container/Common/AlertSnackbar";
 export const InfosheetView = ()=>{
@@ -231,11 +231,21 @@ export const InfosheetView = ()=>{
         ]
       };
       set('tempSaveData', get('tempSaveData')?JSON.parse(get('tempSaveData')):JSON.parse(get('GSG_Client_data')));
+      const userData = JSON.parse(get('tempSaveData'));
+      let initialData = {...userData}
+      const [data, setData] = useState(initialData);
       const [alert, setAlert] = useState(false);
         const [alertData, setAlertData] = useState({
             alertMsg: '',
             alertType:''
         });
+        const [disableButton, setDisableButton] = useState(false);
+
+        useEffect(() => {
+          initialData === data &&
+          setDisableButton(true)
+        },[])
+
       const updateInfo = () => {
         // updatestartingLogin(true);
         callAPI(
@@ -249,41 +259,41 @@ export const InfosheetView = ()=>{
       const updateSuccessful=()=>{
           removeItem('tempSaveData');
           set('GSG_Client_data', data);
+          setAlertData({
+            alertType: ALERT.SUCCESS,
+            alertMsg: 'Phew! Updated the information'
+          });
           setAlert(true);
-            setAlertData({
-                alertType: ALERT.SUCCESS,
-                alertMsg: 'Phew! Updated the information'
-            });
           console.log("Info updated!")
+        setDisableButton(true)
       }
       const errorUpdate = ()=>{
         console.log("Error updating info");
-        setAlert(true);
         setAlertData({
-            alertType: ALERT.ERROR,
-            alertMsg: "Uh oh! We ran into some error. Don't worry though, your inputs are preserved. Try again later."
+          alertType: ALERT.ERROR,
+          alertMsg: "Uh oh! We ran into some error. Don't worry though, your inputs are preserved. Try again later."
         })
+        setAlert(true);
       }
-      const userData = JSON.parse(get('tempSaveData'));
-      let initialData = {...userData}
-      const [data, setData] = useState(initialData);
+      
     return (<>
     <HeaderBar isVisible leftEnable leftElement='back' headerName={"Info Sheet"} settings={true} />
         <Grid container direction="column">
             <Grid item container style={{height: '85vh', overflow: 'scroll'}}>
-                <Grid item style={{padding: '80px 20px'}}>
+                <Grid item style={{width: '100%',padding: '80px 20px'}}>
                     <JsonForms
                         schema={schema}
                         uischema={uischema}
                         data={data}
                         renderers={materialRenderers}
                         cells={materialCells}
-                        onChange={({ data, _errors }) => {set('tempSaveData', data); setData(data)}}
+                        onChange={({ data, _errors }) => {set('tempSaveData', data); setData(data); setDisableButton(false)}}
                         />
                 </Grid>
             </Grid>
             <Grid item>
-            <Button className="bigButton" style={{width: '100px'}} disabled={false} variant="contained" color="primary" onClick={updateInfo}>Save</Button>
+            <Button className="bigButton" style={{width: '100px'}} 
+            disabled={disableButton} variant="contained" color="primary" onClick={updateInfo}>Save</Button>
             </Grid>
             {alert && <AlertSnackbar open={alert} message={alertData.alertMsg} type={alertData.alertType}>
             </AlertSnackbar>}

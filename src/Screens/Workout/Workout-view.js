@@ -5,6 +5,7 @@ import HeaderBar from '../../Container/Common/HeaderBar'
 import PreloadImage from '../../Utils/Preloadimg'
 import Workout1 from '../../img/Workout1.png'
 import Workout2 from '../../img/Workout12.png'
+import WelcomeScreen from '../../img/WelcomeScreen.png'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import WorkoutCard from './Workout-Card'
@@ -25,9 +26,10 @@ const currentProgram = ["Your current program", "To keep gaining muscle, there a
 
 export default function Workout() {
   const classes = useStyles();
-  const workoutObj = { programName: 'MI 40', level: 'interm', sessions: '30 Sessions', Image: Workout1 }
-  const workoutObj2 = { programName: 'MI 30', level: 'Beginner', sessions: '20 Sessions', Image: Workout2 }
-  const workoutObj3 = { programName: 'MI 20', level: 'Beginner', sessions: '10 Sessions', Image: Workout2 }
+  const workoutObj = { programName: 'MI 40', level: 'Intermediate', sessions: '30 Sessions', Image: WelcomeScreen }
+  const workoutObj2 = { programName: 'MI 30', level: 'Beginner', sessions: '20 Sessions', Image: WelcomeScreen }
+  const workoutObj3 = { programName: 'MI 20', level: 'Beginner', sessions: '10 Sessions', Image: WelcomeScreen }
+  //const workoutObj3 = { programName: 'MI 20', level: 'Beginner', sessions: '10 Sessions', Image: Workout2 }
   const [showWorkout, setshowWorkout] = useState(null)
   // let [transformation, setTransformation] = useState(1);
   // let [transformation1, setTransformation1] = useState(1);
@@ -44,7 +46,7 @@ export default function Workout() {
           background: "white",
           height: '100%',
           width: "100%",
-          opacity: '.75'
+          opacity: '.80'
         }}
 
         >

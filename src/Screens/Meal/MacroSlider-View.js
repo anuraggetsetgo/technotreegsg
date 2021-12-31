@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
     macrosContainer: { listStyle: 'none', margin: 0, padding: 0 },
     macros: { padding: `${theme.spacing(1)} 0` },
     value: { textAlign: 'center' },
-    dietContainer: { margin: '44px 0 12px 0' },
+    dietContainer: { margin: '44px 0 12px 0', maxWidth:'100%' },
     //dietPlan:{height: `${mobile?document.documentElement.offsetHeight-800:document.documentElement.offsetHeight-340}px`, marginBottom: `${mobile?'40px':'10px'}`},
     dialogPaper: {
         backgroundColor: "#eeeeee",
@@ -51,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
         position: 'absolute',
         zIndex: 2,
         bottom: 0,
+        left: '0',
         width: '100%',
         display: 'inline-flex',
         padding: '5px 8px',
@@ -223,13 +224,13 @@ export default function MacroSlider(props) {
         const [optionNo, setOptionNo] = useState(0);
         return (
             <>
-                <Grid item container direction="column" style={{
+                <Grid item container direction="" style={{
                     boxShadow:
                         "0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%)",
                     paddingTop: "2vh",
                     margin: "16px 0",
                     borderRadius: "5px",
-                    width: "95vw",
+                    maxWidth: "100%",
                     background: "white",
                 }}
                 >

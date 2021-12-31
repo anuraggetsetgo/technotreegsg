@@ -91,15 +91,18 @@ marginBottom20:{marginBottom:'20px'},
 
 header:{
   zIndex: 5,
+  left: '0',
 },
 
 headerHeight:{
   height:'44px',
 },
 displayViewContainer:{
-  overflow:'scroll',
+  overflowX:'hidden',
+  overflowY: 'scroll',
+  scrollbarWidth: 'thin',
   marginTop: '6vh', //close to header as header Height
-  height: `94vh`
+  // height: `100%`
 },
 textGrey:{
   color:colors.grey,
@@ -110,7 +113,7 @@ textGreyO5:{
 },
 
 gutter12:{
-  padding:"0px 12px"
+  padding:"0px 12px",
   },
 gutter16:{
 padding:"0px 16px",

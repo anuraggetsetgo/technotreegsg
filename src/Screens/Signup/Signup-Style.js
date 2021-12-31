@@ -24,7 +24,7 @@ export default {
   marginBottom16: {marginBottom: "16px"},
   width: { ...Styles.width100 },
   err: { ...Styles.err },
-  displayView: { ...Styles.displayViewContainer,marginTop: '44px',overflow:'visible' }, 
+  displayView: { ...Styles.displayViewContainer,overflow:'visible' }, 
   genderPaper: { borderRadius: '20px', height: '120px', width: '120px',margin:'12px' },
   dietPaper: { borderRadius: '20px', width: '100%', padding: '20px', height: '100px' },
   projectedProgressPaper: { borderRadius: '20px', height: '120px', width: '85px' },

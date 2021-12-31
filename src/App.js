@@ -1,5 +1,5 @@
 
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Location from './Screens/Location/Location'
 import GetStarted from "./Container/GetStarted";
 import { HashRouter as Router, Route } from "react-router-dom";
@@ -24,6 +24,12 @@ import SpeedDial from './Container/Common/SpeedDial'
 import "nouislider/distribute/nouislider.css";
 import './App.css';
 import { Infosheet } from './Container/Infosheet';
+import { Grid } from '@material-ui/core';
+import SplitBanner from './Screens/SplitBanner/SplitBanner';
+import { useMediaQuery } from '@material-ui/core';
+import ForgotPassword from './Screens/ForgotPassword/ForgotPassword';
+import SetNewPassword from './Screens/SetNewPassword/SetNewPassword';
+import ChangeOldPassword from './Screens/ChangeOldPassword/ChangeOldPassword';
 
 export default function App() {
   storeCompanyName();
@@ -38,12 +44,18 @@ export default function App() {
   //   //   //setData("clData", data.data);
   //   // }
      }
+  const matches = useMediaQuery('(min-width: 550px)');
+
     
   return (
     <Router>
       <ThemeProvider theme={theme}>
       <CssBaseline >
         {/* { <SplashGSG/>} */}
+
+        <Grid style={{overflowY: 'auto', height: 'auto', position: 'absolute', maxWidth: `${matches ? '550px' : '100%'}`, top: '0', left: '0', right: '0', bottom: '0',   scrollbarWidth: 'thin'
+}}>
+          
           <Route path="/" exact render={(routeProps) => (
               <Auth props={routeProps} location={<Location/>} children = {<UserDashboard />} childrenNoAuth = {<GetStarted />} 
                changeLoginStatus={changeLoginStatus}/>
@@ -75,10 +87,15 @@ export default function App() {
           <Route path="/register" exact component={Register} />
           <Route path="/logout" exact render={(routeProps) => (<Logout changeLoginStatus={changeLoginStatus}/>)} />
           <Route path="/"  component={loggedIn?SpeedDial:empty}/>
-          
+          <Route exact path="/forgotpassword"  component={loggedIn ? empty : ForgotPassword}/>
+          <Route exact path="/setpassword/:id"  component={SetNewPassword}/>
+          <Route exact path="/changeoldpassword"  component={loggedIn ? ChangeOldPassword : empty}/>
+        </Grid>
+
+          <SplitBanner/>
 
           </CssBaseline>
         </ThemeProvider>
-      </Router>
+        </Router>
   )
 }

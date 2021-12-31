@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
     },
     toolbar: {
         maxHeight: '44px',
-        minHeight: '44px'
+        minHeight: '44px',
+        left: '0'
     },
 
 }))

@@ -39,6 +39,12 @@ export const RegisterView = (props) => {
 
     const registerfn = (payload) => {
          //    apiCall("signin", "in", updateIN, updateIN, props.props, "post", tempObj);
+        props.setLoadingHOC(true, "Please wait while we setup your GetSetGo account...")
+        setAlertData({
+            alertType: '',
+            alertMsg: ''
+        })
+        setAlert(false);
         payload.company=get('company');
         callAPI(
             getURL("signup"),
@@ -48,31 +54,33 @@ export const RegisterView = (props) => {
             payload
         );
     };
-
     const handleSuccess = data => {
-        setAlert(true);
+        props.setLoadingHOC(false)
         setAlertData({
             alertType: ALERT.SUCCESS,
             alertMsg: 'Registered successfully !!!'
         })
+        setAlert(true);
         setHideForm(true);
     };
     const handleErr = err => {
+        props.setLoadingHOC(false)
         const {response: { data: { errormessage }}} = err;
-        setAlert(true);
+        
         setAlertData({
             alertType: ALERT.ERROR,
             alertMsg: errormessage
         })
+        setAlert(true);
     };
+
 
     return (
         <div>
             {hideForm && <ConformationScreen/>}
             { !hideForm && <Register {...props} registerfn={registerfn}/> }
 
-            {/*<AlertSnackbar open={alert} message={alertData.alertMsg} type={alertData.alertType}>*/}
-            {/*</AlertSnackbar>*/}
+            {alert && <AlertSnackbar open={true} message={alertData.alertMsg} type={alertData.alertType} />}
         </div>
     );
 }
