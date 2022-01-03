@@ -15,18 +15,18 @@ export default {
   errorMessage: { color: colors.err },
 
   backImg: { 
-    position: 'absolute',
+    
     width: '100%',
-    //height: '100%',
+    height:'auto',
+    //max-height: '100vh',
+    //maxWidth:'100%',
+    //maxHeight:'100vh',
     // backgroundImage: 'url(https://www.pixelstalk.net/wp-content/uploads/2016/06/Dancing-Jump-Girls.jpg)',
     // backgroundImage: `url(${WelcomeScreen})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    //backgroundSize: 'cover',
+    //backgroundPosition: 'center',
     opacity: '.75',
-    top: '0',
-    left: '0',
-    zIndex:'-1',
-    // objectFit: 'cover',
+    objectFit: 'cover',
   },
   loginContainer:{
     padding:'0px 32px 0px 32px',

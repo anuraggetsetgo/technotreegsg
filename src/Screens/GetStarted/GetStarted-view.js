@@ -10,9 +10,12 @@ export default function Start(props) {
 
   const { getStarted, Login } = props;
   return (
-    <Grid container alignItems="center" justify="center" direction="column" >
+    <Grid container alignItems="center" justify="center" direction="column"  style={{position:'relative'}}>
       {/* <Grid style={Style.backImg}></Grid> */}
-      <PreloadImage alt='Welcome' style={Style.backImg} src={WelcomeScreen} />
+      <Grid item container style={{ top: '0',
+    left: '0',position:'absolute',zIndex:'-1',maxHeight:'100vh',overflowY:'hidden'}} >
+        <PreloadImage alt='Welcome' style={Style.backImg} src={WelcomeScreen} />
+        </Grid>
       <Grid item style={Style.logoContainer} container direction={"column"}>
         <Grid item><img alt=' ' src={Logo} style={Style.logo} /></Grid>
         <Grid item><Typography style={Style.marginTB16} variant="h5" color='secondary' >Nutrition | Workout | Lifestyle</Typography></Grid>
