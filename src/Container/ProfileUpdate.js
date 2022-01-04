@@ -4,6 +4,7 @@ import ProfileUpdateView from '../Screens/Profile/ProfileUpdate-View'
 import { get, callAPI, getURL, cmtoinch } from '../Utils/Services'
 import { getUserProfile } from './Profile'
 import isLoadingHOC from '../hoc/isLoadingHOC'
+import AlertSnackbar, { ALERT } from './Common/AlertSnackbar'
 
 export  function ProfileUpdate(props) {
     const [userData, setUserData] = useState(JSON.parse(get("GSG_Client_data")))
@@ -63,7 +64,7 @@ export  function ProfileUpdate(props) {
         }
         setprogressUpdateInProgress(false); //all calls completed
     }
-    return (
+    return (<>
         <ProfileUpdateView
             show={props.show}
             userData={userData}
@@ -74,6 +75,15 @@ export  function ProfileUpdate(props) {
             handleClose={props.handleClose}
             {...props}
         />
+        {progressUpdateSuccess && (
+            <AlertSnackbar autoHideDuration={3000} open={progressUpdateSuccess} onClose={props.handleClose} message="Progress updated successfully" type={ALERT.SUCCESS}>
+            </AlertSnackbar>
+          )}
+          {progressUpdateError && (
+            <AlertSnackbar autoHideDuration={3000} open={progressUpdateError} message="There was some glitch updating your progress.Please try again" type={ALERT.ERROR}>
+            </AlertSnackbar>
+          )}
+          </>
     )
 }
 export default isLoadingHOC(ProfileUpdate, 'Please wait')

@@ -13,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ImageUpload from '../../Container/Common/ImageUploadOld'
 import { get, cmtoinch, inchtocm, lbtokg, kgtolb, } from '../../Utils/Services'
 import Nouislider from "nouislider-react";
-import AlertSnackbar, { ALERT } from '../../Container/Common/AlertSnackbar'
+//import AlertSnackbar, { ALERT } from '../../Container/Common/AlertSnackbar'
 const emptyImage = 'https://www.generationsforpeace.org/wp-content/uploads/2018/03/empty.jpg';
 
 
@@ -726,7 +726,7 @@ export default function ProfileUpdate(props) {
               </Grid>
               <Grid container item direction='row' alignContent="center" alignItems='center' justify='center'>
                 {imageInputArray.map((element, index) => (
-                  <Paper elevation={2} square className={classes.paperImageContainer} key={index} style={{ margin: '8px', width: '25vw', height: '15vh', maxWidth: '25vw', maxHeight: '15vh', ...Styles.translucentContainer }}>
+                  <Paper elevation={2} square className={classes.paperImageContainer} key={index} style={{ margin: '8px', width: '120px', height: '120px', maxWidth: '25vw', maxHeight: '15vh', ...Styles.translucentContainer }}>
                     {img[element] && (<img src={img[element] || emptyImage} alt=' ' style={{ width: '100%', height: '100%', objectFit: 'contain'}} />)}
                     <Grid container direction='column' alignItems='center' justify='center'>
                       <Grid item>
@@ -758,13 +758,6 @@ export default function ProfileUpdate(props) {
       )
       }
 
-      {progressUpdateSuccess && (
-        <AlertSnackbar open={progressUpdateSuccess} onClose={props.handleClose} message="Progress updated successfully" type={ALERT.SUCCESS}>
-        </AlertSnackbar>
-      )}
-      {progressUpdateError && (
-        <AlertSnackbar open={progressUpdateError} message="There was some glitch updating your progress.Please try again" type={ALERT.ERROR}>
-        </AlertSnackbar>
-      )}
+      
     </Grid>)
 }
