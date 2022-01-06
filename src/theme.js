@@ -175,7 +175,7 @@ const theme = createMuiTheme({
     root: {
       maxWidth: '550px',
     },
-    paperWidthSm:{minHeight:'90vh',maxHeight:'90vh',minWidth:'', maxWidth: '540px', position: 'absolute', left: '0', right: '0'
+    paperWidthSm:{minHeight:'85vh',maxHeight:'90vh',minWidth:'', maxWidth: '540px', position: 'absolute', left: '0', right: '0'
     }
   },
   MuiChip:{colorPrimary:{fontSize:'1rem'}},

@@ -149,7 +149,7 @@ width100:{
 
 cursorPointer: { cursor: "pointer" },
 userImageContainer:{width:'120px' , height:'120px', margin: 'auto' },
-chipStyles:{ fontWeight: 'bold', width: '100px',height:'40px' },
+chipStyles:{ fontWeight: 'bold', width: '100px',height:'40px',marginTop:'16px' },
 
 divider:{ 
   fill:colors.grey,
