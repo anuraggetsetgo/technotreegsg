@@ -30,6 +30,7 @@ import { useMediaQuery } from '@material-ui/core';
 import ForgotPassword from './Screens/ForgotPassword/ForgotPassword';
 import SetNewPassword from './Screens/SetNewPassword/SetNewPassword';
 import ChangeOldPassword from './Screens/ChangeOldPassword/ChangeOldPassword';
+import Steps from "./Container/Steps";
 
 export default function App() {
   storeCompanyName();
@@ -81,6 +82,7 @@ export default function App() {
           <Route path="/progress" exact component={Progress} />
           <Route path="/support" exact component={loggedIn?Support:SignIn} />
           <Route path="/infosheet" exact component={loggedIn?Infosheet:SignIn} />
+          <Route path="/steps" exact component={loggedIn?Steps:SignIn} />
           
           {/* <Route path="/login" exact component={SignIn} /> */}
 
