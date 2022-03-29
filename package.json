@@ -73,6 +73,7 @@
     "react-swipeable-views": "^0.13.9",
     "react-swipeable-views-core": "*",
     "react-transition-group": "^4.4.1",
+    "recharts": "^2.1.9",
     "rimraf": "^3.0.2",
     "validator": "^13.7.0",
     "web-vitals": "^0.2.4",
