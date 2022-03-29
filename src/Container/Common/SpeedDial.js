@@ -6,6 +6,7 @@ import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
+import DirectionsWalk from '@material-ui/icons/DirectionsWalk';
 import PersonIcon from '@material-ui/icons/Person';
 import HomeIcon from '@material-ui/icons/Home';
 import { useHistory } from 'react-router';
@@ -51,6 +52,7 @@ const actions = [
     { icon: <NotificationsIcon />, name: 'Notifications', path: 'notification' },
     { icon: <PersonIcon />, name: 'Profile', path: 'profile' },
     { icon: <HomeIcon />, name: 'Home', path: '' },
+    { icon: <DirectionsWalk />, name: 'Steps', path: 'steps' },
 
 ];
 
