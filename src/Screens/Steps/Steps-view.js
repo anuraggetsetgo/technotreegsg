@@ -100,6 +100,7 @@ export default function(){
     let [stepsDrillDown, setStepsDrillDown] = useState([]);
     let [stepCountSummary, setStepCountSummary] = useState({});
     let [updatingSteps, setUpdatingSteps] = useState(false);
+    let [error,setError]=useState(false)
     let stepRef = useRef();
     useEffect(() => {
       callAPI(
@@ -153,6 +154,14 @@ export default function(){
     } 
     let addSteps = ()=>{
       setUpdatingSteps(true);
+      setError(false);
+      let val=stepRef.current.value;
+      if(!/^[0-9]+$/.test(val)){
+        setError("Please enter a numeric value");
+        setUpdatingSteps(false);
+      }
+      else {
+
       callAPI(
         getURL("add-steps"),
         "post",
@@ -164,10 +173,13 @@ export default function(){
           setStepCountSummary({company_stepcount:parseInt(stepCountSummary.company_stepcount || stepCountSummary.my_stepcount)+parseInt(stepRef.current.value), my_stepcount: data.data.data.my_stepcount})
           setUpdatingSteps(false);
         },
-        (err)=>console.log(err),
+        (err)=>{console.log(err);
+                setError("Something went wrong please try again!!!");
+                setUpdatingSteps(false)},
         {steps: stepRef.current.value}
       );
       console.log(stepRef.current.value)
+        }
     }
     return (
         <>
@@ -215,8 +227,10 @@ export default function(){
                                         <Typography variant="subtitle1">Add steps</Typography>
                                     </Grid>
                                     <Grid item container style={Styles.padding5}>
-                                      <Grid item xs={9}><TextField type="text" variant="outlined" inputRef={stepRef}/></Grid>
-                                      <Grid item xs={3}><Button variant="contained" color="primary" onClick={()=>addSteps()}>Add</Button></Grid>
+                                      <Grid item xs={9}><TextField type="text" variant="outlined" inputRef={stepRef}/>
+                                      {error&& <Typography variant='h6' style={Styles.err}>{error}</Typography>}
+                                      </Grid>
+                                      <Grid item xs={3}><Button variant="contained" color="primary" disabled={updatingSteps} onClick={()=>addSteps()}>Add</Button></Grid>
                                     </Grid>
                                     <Grid item style={{...{padding: '5%'}}}>
                                         <Typography variant="subtitle1">Miles you've munched:</Typography>
